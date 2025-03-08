@@ -2,8 +2,10 @@
 
 @section('title', 'PengajuanAlokasiPembimbing')
 
-@section('content_header')
-    <h1>Form Pengajuan Dosen Pembimbing</h1>
+@section('content_header')  
+    <div class="m-3">
+        <h1>Formulir Pengajuan Dosen Pembimbing</h1>
+    </div>
 @stop
 
 @section('content')
@@ -17,7 +19,7 @@
         </div>
 
             <!-- Form Pengajuan -->
-        <div class="col-md-9">
+        <div class="col">
             <div class="card p-4 bg-light">
                 <h5 class="mb-3">Data Mahasiswa</h5>
                 <div class="row mb-3">
@@ -61,8 +63,8 @@
 
                 <!-- Tombol Simpan & Selanjutnya -->
                 <div class="d-flex justify-content-end mt-3">
-                    <button class="btn btn-primary ml-3">Simpan</button>
-                    <button class="btn btn-info ml-3">Selanjutnya</button>
+                    <a href={{ route('data-kelompok') }} class="btn btn-primary ml-3">Simpan Draft</a>
+                    <a href={{ route('topik-tugas-akhir') }} class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
         </div>

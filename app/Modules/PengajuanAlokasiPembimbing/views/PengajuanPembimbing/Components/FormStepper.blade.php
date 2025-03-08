@@ -7,7 +7,7 @@
                     style="width: 30px; height: 30px;">
                     <i class="fas fa-check-circle"></i>
                 </a>
-                <span class="ms-2 {{ $i == $currentStep ? 'text-' . $activeColor : '' }}">
+                <span class="ms-2 {{ $i == $currentStep ? 'text-' . $activeColor : '' }} pl-2">
                     @if ($i == 1)
                         Data Kelompok
                     @elseif ($i == 2)
@@ -20,11 +20,12 @@
                 </span>
             </div>
 
-            @if ($i != $step)
+            @if ($i < $step)
                 <div class="d-flex flex-column align-items-center" style="margin-left: 13px;">
-                    <div class="mb-2" style="width: 2px; height: 60px; background-color: {{ $i <= $currentStep ? '#0d6efd' : 'gray' }};"></div>
+                    <div class="mb-2" style="width: 2px; height: 60px; background-color: {{ $i < $currentStep ? 'gray' : ($i == $currentStep ? '#0d6efd' : 'gray') }};"></div>
                 </div>
             @endif
         @endfor
     </div>
 </div>
+

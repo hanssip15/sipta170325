@@ -3,7 +3,9 @@
 @section('title', 'PengajuanAlokasiPembimbing')
 
 @section('content_header')
-    <h1>Form Pengajuan Dosen Pembimbing</h1>
+    <div class="m-3">
+        <h1>Formulir Pengajuan Dosen Pembimbing</h1>
+    </div>
 @stop
 
 @section('content')
@@ -16,13 +18,13 @@
                 activeColor="primary" inactiveColor="secondary" :hrefs="['#', '#', '#', '#']" />
         </div>
             <!-- Form Pengajuan -->
-        <div class="col-md-9">
+        <div class="col">
             <div class="card p-4 bg-light">
                 <h5 class="mb-3">Topik Tugas Akhir</h5>
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <label class="form-label">Topik/Judul Tugas Akhir</label>
-                        <input type="text" class="form-control" placeholder="Masukkan topik/judul">
+                        <textarea class="form-control" rows="3" placeholder="Masukkan topik/judul"></textarea>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -44,7 +46,7 @@
                         <div class="container-fluid bg-secondary rounded-bottom bg-opacity-25 pre-scrollable mb-4">
                     
                             <div class="container text-center ">
-                                <div class="row row-cols-3 p-3">
+                                <div class="row row-cols-2 p-3">
                                     @for ($i = 0; $i < 50; $i++)
                                         <div class="col">
                                             <div class="pretty p-default p-fill">
@@ -65,9 +67,9 @@
 
                 <!-- Tombol Simpan & Selanjutnya -->
                 <div class="d-flex justify-content-between mt-3">
-                    <button class="btn btn-info ml-3">Sebelumnya</button>
-                    <button class="btn btn-primary ml-3">Simpan</button>
-                    <button class="btn btn-info ml-3">Selanjutnya</button>
+                    <a href={{ route('data-kelompok') }} class="btn btn-info ml-3">Sebelumnya</a>
+                    <a href={{ route('topik-tugas-akhir') }} class="btn btn-primary ml-3">Simpan Draft</a>
+                    <a href={{ route('prioritas-dosen-pembimbing') }} class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
         </div>
