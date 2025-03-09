@@ -56,6 +56,7 @@
                                     this.closest('form').submit();
                                 }})"><i
                                         class="fas fa-trash-alt"></i></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
