@@ -59,20 +59,11 @@
 
     <script>
         $(document).ready(function() {
-            // Data JSON Statis
-            let dataSeminarTA = [
-                { id: 1, tanggal: "2025-03-10", kelompok: "Kelompok TA 001", judul: "Analisis AI dalam Fintech", status: "Seminar 1" },
-                { id: 2, tanggal: "2025-03-11", kelompok: "Kelompok TA 002", judul: "Implementasi IoT di Smart Home", status: "Sidang TA" },
-                { id: 3, tanggal: "2025-03-12", kelompok: "Kelompok TA 003", judul: "Machine Learning untuk Prediksi Cuaca", status: "Seminar 2" },
-                { id: 4, tanggal: "2025-03-13", kelompok: "Kelompok TA 004", judul: "Blockchain dalam Supply Chain", status: "Sidang TA" },
-                { id: 5, tanggal: "2025-03-14", kelompok: "Kelompok TA 005", judul: "Penerapan Deep Learning pada Medis", status: "Seminar 3" },
-                { id: 6, tanggal: "2025-03-15", kelompok: "Kelompok TA 006", judul: "Keamanan Siber dalam Era Digital", status: "Sidang TA" }
-            ];
-
+            let data = @json($dataKota);
             let detailUrl = "{{ route('perencanaan.kelola-pengajuan.detail', ':id') }}";
             // Inisialisasi DataTables
             let table = $('#pengajuanTable').DataTable({
-                data: dataSeminarTA,
+                data: data, // Gunakan data langsung dari JSON
                 columns: [
                     { 
                         data: null,
@@ -83,7 +74,7 @@
                     },
                     { data: "tanggal" },
                     { data: "kelompok" },
-                    { data: "judul" },
+                    { data: "judul_ta" },
                     { data: "status" },
                     { 
                         data: null,
@@ -93,8 +84,8 @@
                         orderable: false
                     }
                 ],
-                "language": {
-                    "search": "Cari dalam semua kolom:"
+                language: {
+                    search: "Cari dalam semua kolom:"
                 }
             });
 

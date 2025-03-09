@@ -4,32 +4,142 @@ namespace App\Modules\PerencanaanDanPelaksanaanSeminarDanSidang\Controllers;
 
 use App\Modules\Controller;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+
 class PerencanaanDanPelaksanaanSeminarDanSidangController extends Controller
 {
     public function index(): View
     {
-        $data = [
-            ['id' => 1, 'tanggal' => '2025-03-08', 'kelompok' => 'Kelompok A', 'judul' => 'Judul 1', 'status' => 'Belum Verifikasi'],
+        $dataKota = [
+            (object) [
+                'id' => 1,
+                'kelompok' => 'KoTA 001',
+                'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
+                'status' => 'Menunggu Verifikasi',
+                'tanggal' => '2025-03-05',
+            ],
+            (object) [
+                'id' => 2,
+                'kelompok' => 'KoTA 002',
+                'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
+                'status' => 'Menunggu Verifikasi',
+                'tanggal' => '2025-03-06',
+            ],
+            (object) [
+                'id' => 3,
+                'kelompok' => 'KoTA 003',
+                'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
+                'status' => 'Menunggu Verifikasi',
+                'tanggal' => '2025-03-07',
+            ]
         ];
-        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanMahasiswa', compact('data'));
+        
+        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanMahasiswa', compact('dataKota'));        
     }
+
 
     public function pengajuanDitolak(): View
     {
-        $data = [
-            ['id' => 2, 'tanggal' => '2025-03-07', 'kelompok' => 'Kelompok B', 'judul' => 'Judul 2', 'catatan' => 'Ditolak'],
+        $dataKota = [
+            (object) [
+                'kelompok' => 'KoTA 001',
+                'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
+                'status' => 'Ditolak',
+                'tanggal' => '2025-03-05',
+                'catatan' => 'Tidak sesuai dengan ketentuan',
+            ],
+            (object) [
+                'kelompok' => 'KoTA 002',
+                'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
+                'status' => 'Ditolak',
+                'tanggal' => '2025-03-06',
+                'catatan' => 'Tidak sesuai dengan ketentuan',
+            ],
+            (object) [
+                'kelompok' => 'KoTA 003',
+                'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
+                'status' => 'Ditolak',
+                'tanggal' => '2025-03-07',
+                'catatan' => 'Tidak sesuai dengan ketentuan',
+            ]
         ];
-        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanDitolak', compact('data'));
+
+        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanDitolak', compact('dataKota'));
     }
 
     public function pengajuanDiterima(): View
     {
-        $data = [
-            ['id' => 3, 'tanggal' => '2025-03-06', 'kelompok' => 'Kelompok C', 'judul' => 'Judul 3', 'status' => 'Diterima'],
+        $dataKota = [
+            (object) [
+                'kelompok' => 'KoTA 001',
+                'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
+                'status' => 'Disetujui',
+                'tanggal' => '2025-03-05',
+            ],
+            (object) [
+                'kelompok' => 'KoTA 002',
+                'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
+                'status' => 'Disetujui',
+                'tanggal' => '2025-03-06',
+            ],
+            (object) [
+                'kelompok' => 'KoTA 003',
+                'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
+                'status' => 'Disetujui',
+                'tanggal' => '2025-03-07',
+            ]
         ];
-        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanDiterima', compact('data'));
+        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanDiterima', compact('dataKota'));
     }
+
+    public function show($id){
+        $dataKota = (object) [
+            'kelompok' => 'KoTA 002',
+            'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
+            'berkas' => [
+                (object) ['nama' => 'Proposal TA', 'file' => 'proposal_ta.pdf'],
+                (object) ['nama' => 'Laporan TA', 'file' => 'laporan_ta.pdf'],
+                (object) ['nama' => 'Presentasi TA', 'file' => 'presentasi_ta.pptx']
+            ],
+            'status' => 'Menunggu Verifikasi',
+            'catatan' => 'Tidak ada catatan',
+            'tanggal' => '2025-03-06',
+        ];
+        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DetailPengajuan', compact('dataKota'));
+    }
+
+    public function verifikasi(Request $request, $id)
+    {
+        $keputusan = $request->input('keputusan');
+        $catatan = $request->input('catatan', '');
+
+        if ($keputusan === 'Ditolak') {
+            // Hapus berkas (jika ada)
+            $dataKota = session()->get("pengajuan_$id");
+            if ($dataKota && isset($dataKota->berkas)) {
+                foreach ($dataKota->berkas as $berkas) {
+                    Storage::delete("public/berkas/{$berkas->file}");
+                }
+            }
+            $status = 'Ditolak';
+        } else {
+            $status = 'Disetujui';
+        }
+
+        // Simpan data yang diperbarui ke sesi (bisa diganti dengan database jika diperlukan)
+        session()->put("pengajuan_$id", (object) [
+            'kelompok' => 'KoTA 002',
+            'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
+            'berkas' => $keputusan === 'Ditolak' ? [] : (session()->get("pengajuan_$id")->berkas ?? []),
+            'status' => $status,
+            'catatan' => $catatan,
+            'tanggal' => '2025-03-06',
+        ]);
+
+        return redirect()->route('perencanaan.kelola-pengajuan.list')->with('success', "Pengajuan telah $status.");
+    }
+
+
 }
 
 

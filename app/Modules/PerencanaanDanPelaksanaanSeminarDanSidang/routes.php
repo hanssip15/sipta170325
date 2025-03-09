@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Response;
 use App\Modules\PerencanaanDanPelaksanaanSeminarDanSidang\Controllers\PerencanaanDanPelaksanaanSeminarDanSidangController;
 
 Route::group(['prefix' => 'PerencanaanDanPelaksanaanSeminarDanSidang', 'as' => 'perencanaan.'], function () {
@@ -10,5 +9,8 @@ Route::group(['prefix' => 'PerencanaanDanPelaksanaanSeminarDanSidang', 'as' => '
         Route::get('/ditolak', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'pengajuanDitolak'])->name('ditolak');
         Route::get('/diterima', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'pengajuanDiterima'])->name('diterima');
         Route::get('/detail/{id}', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'show'])->name('detail');
+        
+        // Route untuk proses verifikasi (setuju/tolak)
+        Route::post('/verifikasi/{id}', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'verifikasi'])->name('verifikasi');
     });
 });
