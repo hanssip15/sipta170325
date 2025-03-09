@@ -25,9 +25,10 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
         });
     });
 
-    //route for pengelolaan periode
-    Route::group(['prefix' => 'pengelolaan-periode'], function () {
-        Route::get('/', [PengelolaanPeriodeController::class, 'view_PengelolaanPeriode']);
+    Route::group(['prefix' => 'pengelolaan-periode', 'as' => 'pengelolaan-periode.'], function () {
+        Route::get('/', [PengelolaanPeriodeController::class, 'view_PengelolaanPeriode'])->name('index');
+        Route::post('/{mode}', [PengelolaanPeriodeController::class, 'save_PengelolaanPeriode'])->name('store');
+        Route::delete('/{id}', [PengelolaanPeriodeController::class, 'delete_PengelolaanPeriode'])->name('delete');
     });
 
 });
