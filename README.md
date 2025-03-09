@@ -2,8 +2,8 @@
 ## How to Run the Application (Pull docker image)
 1. Copy ```.env.example``` and rename it to ```.env```.
 2. Configure the database username and password in the ```.env``` file.
-3. Run the command ```php artisan key:generate```
-4. Run the command ```composer install```
+3. Run the command ```composer install```
+4. Run the command ```php artisan key:generate```
 5. Docker login in cli or other terminal
 6. Run the command ```docker pull najibalimudin/sipta-app:dev```
 7. Run the command ```docker compose up -d```
