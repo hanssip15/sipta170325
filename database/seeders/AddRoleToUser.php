@@ -13,17 +13,17 @@ class AddRoleToUser extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
-        // Pastikan role sudah ada
-        $role = Role::firstOrCreate(['name' => 'admin']);
-        //Role::firstOrCreate(['name' => 'mahasiswa']);
+    // public function run(): void
+    // {
+    //     // Pastikan role sudah ada
+    //     $role = Role::firstOrCreate(['name' => 'admin']);
+    //     //Role::firstOrCreate(['name' => 'mahasiswa']);
 
-        $dosenUsers = User::where('username', 'dosen005')->get();
+    //     $dosenUsers = User::where('username', 'dosen005')->get();
 
-        foreach ($dosenUsers as $user) {
-            $user->assignRole($role); // Assign role dari Spatie ke user
-        }
+    //     foreach ($dosenUsers as $user) {
+    //         $user->assignRole($role); // Assign role dari Spatie ke user
+    //     }
 
-    }
+    // }
 }

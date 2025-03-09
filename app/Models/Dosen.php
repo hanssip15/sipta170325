@@ -9,9 +9,10 @@ class Dosen extends Model
 {
     public $timestamps = false; // Nonaktifkan timestamps otomatis
     protected $table = 'dosen';
-    protected $primaryKey = 'nip';
+    // protected $primaryKey = 'nip';
 
     protected $fillable = [
+        'nip',
         'maks_bimbingan_d4',
         'maks_bimbingan_d3',
         'id_kbk',

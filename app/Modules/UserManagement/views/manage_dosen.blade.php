@@ -8,8 +8,15 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">
-        <h3 class="card-title">List Dosen</h3>
+    <div class="card-header d-flex justify-content-between align-items-left">
+        <div>
+            <!-- Button Tambah Dosen -->
+            <button class="btn btn-success" data-toggle="modal" data-target="#addNewDosen">
+                <i class="fa fa-plus"></i> Tambah Dosen
+            </button>
+            <!-- Search Input -->
+            <input type="text" id="searchInput" class="form-control d-inline-block" placeholder="Cari..." style="width: 200px;">
+        </div>
     </div>
     <div class="card-body">
         <table id="dosenTable" class="table table-bordered table-striped">
@@ -31,8 +38,6 @@
                     <td>{{ $d->nama }}</td>
                     <td>{{ $d->email }}</td>
                     <td>{{ $d->no_whatsapp }}</td>
-                    {{-- <td>{{ $d->maks_bimbingan_d4 }}</td>
-                    <td>{{ $d->maks_bimbingan_d3 }}</td> --}}
                     <td>{{ $d->status_dosen }}</td>
                     <td>
                         @if ($d->role_dosen == 'koordinator_ta')
@@ -65,7 +70,7 @@
                     </td>
                 </tr>
                 @endforeach
-                    <x-adminlte-modal id="changeRole" title="Manajemen Role Dosen" theme="purple"
+                 <x-adminlte-modal id="changeRole" title="Manajemen Role Dosen" theme="purple"
                     icon="fas fa-key" size='lg' disable-animations>
                     <form action="{{route('dosen.update_role')}}" method="POST">
                         @csrf
@@ -89,11 +94,53 @@
                         <button class="btn btn-primary" type="submit" >Update</button>
 
                     </form>
-
-                    {{-- <p><strong>NIP:</strong> <span id="modal-nip"></span></p>
-                    <p><strong>Nama:</strong> <span id="modal-nama"></span></p>
-                    <p><strong>Role Saat Ini:</strong> <span id="modal-role"></span></p> --}}
                 </x-adminlte-modal>
+
+                <x-adminlte-modal id="addNewDosen" title="Menambah Dosen Baru" theme="purple"
+                    icon="fa fa-plus" size='lg' disable-animations>
+                    <form action="{{route('dosen.add_new_dosen')}}" method="POST">
+                        @csrf
+                        <div class="row">
+                                <x-adminlte-input name="nip" label="NIP" placeholder="NIP"
+                                    fgroup-class="col-md-6" disable-feedback  required  />
+                            
+
+                            <x-adminlte-input name="email" label="Email" placeholder="Email"
+                                    fgroup-class="col-md-6" disable-feedback  required  />
+                        </div>
+
+                        <div class="row">
+                            <x-adminlte-input name="nama" label="Nama" placeholder="Nama Lengkap"
+                                fgroup-class="col-md-6" disable-feedback required/>
+                        
+
+                            <x-adminlte-input name="id" label="ID" placeholder="ID"
+                                fgroup-class="col-md-6" disable-feedback  required  />
+                         </div>
+                        <div class="row">
+                            <x-adminlte-input name="no_wa" label="Nomor Whatsapp" placeholder="Nomor Whatsapp"
+                                       fgroup-class="col-md-6" disable-feedback  required  />
+                             <x-adminlte-input name="kode" label="Kode" placeholder="Kode"
+                                       fgroup-class="col-md-6" disable-feedback  required  />
+                        </div>
+
+                        <hr>
+                        <h4>Bimbingan</h4>
+                        <div class="row">
+                            <x-adminlte-input name="max_d4" label="Jumlah Bimbingan Maksimal (D4)" placeholder="..."
+                                      fgroup-class="col-md-6" disable-feedback  type="number"  min="0" max="5"/>
+                            <x-adminlte-input name="max_d3" label="Jumlah Bimbingan Maksimal (D3)" placeholder="..."
+                                      fgroup-class="col-md-6" disable-feedback  type="number"  min="0" max="5" required  />
+                       </div>
+                       <x-adminlte-button type="submit" label="Submit" theme="primary" />
+
+                       <x-slot name="footerSlot">
+                        <x-adminlte-button theme="danger" label="Cancel" data-dismiss="modal"/>
+                        {{-- <x-adminlte-button type="submit" label="Submit" theme="primary" /> --}}
+                    </x-slot>
+                    </form>
+                </x-adminlte-modal>
+
             </tbody>
         </table>
     </div>

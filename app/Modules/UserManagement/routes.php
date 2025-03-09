@@ -17,6 +17,8 @@ Route::get('/manage_dosen', [UserManagementController::class, 'manage_dosen'])
 
     
 Route::post('/update_role', [DosenController::class, 'update_role'])->name('dosen.update_role');
+Route::post('/add_new_dosen', [DosenController::class, 'add_new_dosen'])->name('dosen.add_new_dosen');
+
 
 // Route::get('/test-spatie', function () {
 //     $user = User::where('username', 'dosen001')->first(); // Sesuaikan dengan username yang ada

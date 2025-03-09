@@ -4,25 +4,24 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\MahasiswaDosenDokumen;
+use App\Models\Kaprodi;
 
-class MahasiswaDosenDokumenSeeder extends Seeder
+class KaprodiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        MahasiswaDosenDokumen::create([
+
+        Kaprodi::create([
             'nip' => '197312271999031003',
-            'nim' => '221524059',
-            'id_dokumen' => 1
+            'id_prodi' => 1
         ]);
 
-        MahasiswaDosenDokumen::create([
+        Kaprodi::create([
             'nip' => '198502102015042001',
-            'nim' => '221524049',
-            'id_dokumen' => 2
+            'id_prodi' => 2
         ]);
     }
 }

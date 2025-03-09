@@ -16,6 +16,7 @@ class User extends Authenticatable
     
     protected $table = 'user';
     protected $primaryKey = 'username';
+    public $timestamps = false; // Nonaktifkan timestamps otomatis
 
     protected $keyType = 'string';
     public $incrementing = false;
