@@ -39,7 +39,7 @@
         </table>
         <div class="action d-flex justify-content-end">
             <button type="button" class="btn btn-primary">Kunci Semua Penilaian</button>
-            <button type="button" class="btn btn-primary">Rekap Nilai</button>
+            <a href=" {{ url('KelolaPenilaianTA/rekapitulasi-nilai') }}" class="btn btn-primary">Rekap Nilai</a>
         </div>
     </div>
 @stop
