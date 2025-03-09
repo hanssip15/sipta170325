@@ -100,6 +100,8 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         .table-container {
             max-height: 500px;
@@ -153,8 +155,7 @@
             background-color: white;
             border: 1px solid #ccc;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            font-size: 14px;
-            line-height: 1.5;
+            position: absolute;
             left: 0;
             transform: translateX(0);
             top: 130%;
@@ -166,6 +167,7 @@
 @section('js')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
     <script>
         $(document).ready(function () {
             var table = $('#alokasiTable').DataTable({
@@ -183,14 +185,30 @@
 
             $('#dataTableControls').html($('.dataTables_length'));
             $('#searchBox').html($('.dataTables_filter'));
+
+            $('#openConfirmModal').click(function () {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Konfirmasi Submit',
+                    text: 'Finalisasi Alokasi Pembimbing?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Submit',
+                    cancelButtonText: 'Batal',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Sukses',
+                            text: 'Alokasi pembimbing berhasil diajukan!',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    }
+                });
+            });
         });
 
-        function showTooltip(id) {
-            document.getElementById(id).classList.remove('d-none');
-        }
-
-        function hideTooltip(id) {
-            document.getElementById(id).classList.add('d-none');
-        }
+        function showTooltip(id) { $('#' + id).removeClass('d-none'); }
+        function hideTooltip(id) { $('#' + id).addClass('d-none'); }
     </script>
 @stop
