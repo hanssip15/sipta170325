@@ -100,7 +100,7 @@
 
                 table.rows().every(function() {
                     let rowData = this.data();
-                    let allFields = `${rowData.tanggal} ${rowData.kelompok} ${rowData.judul} ${rowData.status}`.toLowerCase();
+                    let allFields = `${rowData.tanggal} ${rowData.kelompok} ${rowData.judul} ${rowData.jenis_pengajuan}`.toLowerCase();
 
                     // Cek apakah inputValue muncul dengan urutan yang benar dalam salah satu kolom
                     if (inputValue.length < 3 || allFields.indexOf(inputValue) !== -1) {

@@ -15,21 +15,21 @@ class PerencanaanDanPelaksanaanSeminarDanSidangController extends Controller
                 'id' => 1,
                 'kelompok' => 'KoTA 001',
                 'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
-                'status' => 'Seminar 3',
+                'jenis_pengajuan' => 'Seminar 3',
                 'tanggal' => '2025-03-05',
             ],
             (object) [
                 'id' => 2,
                 'kelompok' => 'KoTA 002',
                 'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
-                'status' => 'Seminar 3',
+                'jenis_pengajuan' => 'Seminar 3',
                 'tanggal' => '2025-03-06',
             ],
             (object) [
                 'id' => 3,
                 'kelompok' => 'KoTA 003',
                 'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
-                'status' => 'Sidang TA',
+                'jenis_pengajuan' => 'Sidang TA',
                 'tanggal' => '2025-03-07',
             ]
         ];
