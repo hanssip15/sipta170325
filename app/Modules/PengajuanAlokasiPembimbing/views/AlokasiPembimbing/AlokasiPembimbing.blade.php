@@ -52,24 +52,24 @@
                                     <strong>Anggota Kelompok:</strong>
                                     <ul class="pl-3 m-0">
                                         @foreach ($row['anggota'] as $anggota)
-                                            <li>{{ $anggota }}</li>
+                                            <li>{{ $anggota['nama'] }} ({{ $anggota['nim'] }})</li>
                                         @endforeach
                                     </ul>
                                 </div>
                             </td>
                             <td class="align-middle">{{ $row['jumlahMahasiswa'] }}</td>
-                            <td class="align-middle">{{ $row['topik'] }}</td>
+                            <td class="align-middle">{{ $row['bidang'] }}</td>
                             <td class="align-middle">{{ $row['judul'] }}</td>
                             @foreach ($row['usulanDosen'] as $i => $dosen)
                                 <td class="align-middle position-relative">
                                     <span class="text-success cursor-pointer"
                                         onmouseover="showTooltip('tooltip-dosen-{{ $index }}-{{ $i }}')"
                                         onmouseout="hideTooltip('tooltip-dosen-{{ $index }}-{{ $i }}')">
-                                        {{ $dosen }}
+                                        {{ $dosen->id_dosen }} <!-- Hanya tampilkan id_dosen -->
                                     </span>
                                     <div id="tooltip-dosen-{{ $index }}-{{ $i }}"
                                         class="tooltip-box d-none position-absolute bg-white border p-3 shadow rounded text-left">
-                                        <strong>Nama Dosen: {{ $dosen }}</strong>
+                                        <strong>Nama Dosen: {{ $dosen->nama }}</strong> <!-- Nama hanya muncul di tooltip -->
                                         <p class="m-0">Sisa Kuota D4: <strong>2</strong></p>
                                         <p class="m-0">Sisa Kuota D3: <strong>1</strong></p>
                                         <p class="m-0">Kuota Maksimal D4: <strong>5</strong></p>
