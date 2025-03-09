@@ -8,13 +8,11 @@
 
 @section('content')
 <div class="p-4">
-    {{-- DataTables Controls (Jumlah data & Search) --}}
     <div class="d-flex justify-content-between mb-2">
-        <div id="dataTableControls"></div> <!-- Placeholder untuk jumlah data -->
-        <div id="searchBox"></div> <!-- Placeholder untuk pencarian -->
+        <div id="dataTableControls"></div>
+        <div id="searchBox"></div>
     </div>
 
-    {{-- Tabel Scrollable --}}
     <div class="table-container">
         <table id="alokasiTable" class="table text-center">
             <thead class="sticky-header">
@@ -28,13 +26,10 @@
                     <th colspan="2" class="align-middle" style="width: 15%;">Pembimbing</th>
                 </tr>
                 <tr class="bg-secondary text-white">
-                    <th style="width: 4%;">1</th>
-                    <th style="width: 4%;">2</th>
-                    <th style="width: 4%;">3</th>
-                    <th style="width: 4%;">4</th>
-                    <th style="width: 4%;">5</th>
-                    <th style="width: 7%;">1</th>
-                    <th style="width: 7%;">2</th>
+                    @for ($i = 1; $i <= 5; $i++) <th style="width: 4%;">{{ $i }}</th>
+                        @endfor
+                        <th style="width: 7%;">1</th>
+                        <th style="width: 7%;">2</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,19 +38,19 @@
                     <td class="align-middle">{{ $index + 1 }}</td>
                     <td class="align-middle position-relative">
                         <span class="text-primary cursor-pointer" onmouseover="showTooltip('tooltip-kota-{{ $index }}')" onmouseout="hideTooltip('tooltip-kota-{{ $index }}')">
-                            {{ $row['kota'] }}
+                            {{ $row['kode'] }}
                         </span>
                         <div id="tooltip-kota-{{ $index }}" class="tooltip-box d-none position-absolute bg-white border p-3 shadow rounded text-left">
                             <strong>Anggota Kelompok:</strong>
                             <ul class="pl-3 m-0">
                                 @foreach ($row['anggota'] as $anggota)
-                                <li>{{ $anggota }}</li>
+                                <li>{{ $anggota['nama'] }} ({{ $anggota['nim'] }})</li>
                                 @endforeach
                             </ul>
                         </div>
                     </td>
                     <td class="align-middle">{{ $row['jumlahMahasiswa'] }}</td>
-                    <td class="align-middle">{{ $row['topik'] }}</td>
+                    <td class="align-middle">{{ $row['bidang'] }}</td>
                     <td class="align-middle">{{ $row['judul'] }}</td>
                     @foreach ($row['usulanDosen'] as $i => $dosen)
                     <td class="align-middle position-relative">
@@ -66,8 +61,6 @@
                             <strong>Nama Dosen: {{ $dosen }}</strong>
                             <p class="m-0">Sisa Kuota D4: <strong>2</strong></p>
                             <p class="m-0">Sisa Kuota D3: <strong>1</strong></p>
-                            <p class="m-0">Kuota Maksimal D4: <strong>5</strong></p>
-                            <p class="m-0">Kuota Maksimal D3: <strong>4</strong></p>
                         </div>
                     </td>
                     @endforeach
@@ -76,13 +69,6 @@
                     @endforeach
             </tbody>
         </table>
-    </div>
-
-    {{-- Tombol Aksi --}}
-    <div class="d-flex justify-content-end mt-3">
-        <button type="button" class="btn btn-dark mr-2">Cek Rekap</button>
-        <button type="button" class="btn btn-secondary mr-2">Simpan</button>
-        <button type="button" class="btn btn-primary" id="openConfirmModal">Submit</button>
     </div>
 </div>
 @stop
@@ -97,46 +83,15 @@
         position: relative;
     }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th,
-    td {
-        border: 1px solid #ccc !important;
-        /* Tambahkan border untuk outline */
-        padding: 10px;
-        text-align: center;
-    }
-
-    thead {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background: rgba(0, 0, 0, 0.9);
-        color: white;
-    }
-
     thead th {
         position: sticky;
         top: 0;
-        z-index: 1001;
-        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1050;
+        background-color: rgba(0, 0, 0, 0.95);
         color: white;
-        text-align: center;
-        padding: 12px;
-        border-bottom: 2px solid #fff;
+        display: table-cell;
     }
 
-    tbody tr:nth-child(even) {
-        background-color: #f8f9fa;
-        /* Warna striping */
-    }
-
-    tbody tr:hover {
-        background-color: #e2e6ea;
-    }
 
     .tooltip-box {
         width: 280px;
@@ -169,6 +124,8 @@
             , "ordering": true
             , "info": true
             , "autoWidth": false
+            , "scrollY": "400px", // Menetapkan tinggi tetap untuk scroll
+            "scrollCollapse": true
             , "columnDefs": [{
                 "orderable": false
                 , "targets": [5, 6, 7, 8, 9, 10, 11]

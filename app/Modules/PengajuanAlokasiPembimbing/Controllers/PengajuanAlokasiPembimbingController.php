@@ -7,5 +7,4 @@ use Illuminate\View\View;
 
 class PengajuanAlokasiPembimbingController extends Controller
 {
-
 }

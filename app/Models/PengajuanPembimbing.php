@@ -11,9 +11,8 @@ class PengajuanPembimbing extends Model
 
     protected $table = 'pengajuan_pembimbing';
     protected $primaryKey = 'id_pengajuan_pembimbing';
-
     public $timestamps = false;
-
+    
     protected $fillable = [
         'id_kota',
         'status_pengajuan',
