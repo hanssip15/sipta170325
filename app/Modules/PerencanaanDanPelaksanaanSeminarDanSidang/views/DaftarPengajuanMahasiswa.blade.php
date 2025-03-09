@@ -38,7 +38,7 @@
                     <th>Tanggal</th>
                     <th>Kelompok TA</th>
                     <th>Judul TA</th>
-                    <th>Status</th>
+                    <th>Jenis Pengajuan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
