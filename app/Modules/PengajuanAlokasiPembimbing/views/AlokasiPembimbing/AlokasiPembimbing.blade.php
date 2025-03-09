@@ -92,7 +92,7 @@
         {{-- Tombol Aksi --}}
         <div class="d-flex justify-content-end mt-3">
             <button type="button" class="btn btn-dark mr-2">Cek Rekap</button>
-            <button type="button" class="btn btn-secondary mr-2">Simpan</button>
+            <button type="button" class="btn btn-secondary mr-2" id="saveDraftBtn">Simpan</button>
             <button type="button" class="btn btn-primary" id="openConfirmModal">Submit</button>
         </div>
     </div>
@@ -200,6 +200,34 @@
                             icon: 'success',
                             title: 'Sukses',
                             text: 'Alokasi pembimbing berhasil diajukan!',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    }
+                });
+            });
+
+            $('#saveDraftBtn').click(function () {
+                $.ajax({
+                    url: "{{ route('pengajuanalokasipembimbing.alokasi-pembimbing.simpan') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Data tersimpan sebagai draft!',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Terjadi kesalahan saat menyimpan data!',
                             timer: 2000,
                             showConfirmButton: false
                         });

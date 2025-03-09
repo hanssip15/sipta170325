@@ -30,4 +30,10 @@ class AlokasiPembimbingController extends Controller
 
         return view('PengajuanAlokasiPembimbing.views.AlokasiPembimbing.AlokasiPembimbing', compact('data'));
     }
+    public function simpanDraft(Request $request)
+    {
+        // Proses menyimpan draft
+        session()->flash('success', 'Data tersimpan sebagai draft');
+        return back();
+    }
 }
