@@ -74,7 +74,7 @@
                     { data: "tanggal" },
                     { data: "kelompok" },
                     { data: "judul_ta" },
-                    { data: "status" }
+                    { data: "jenis_pengajuan" }
                 ],
                 "language": {
                     "search": "Cari dalam semua kolom:"

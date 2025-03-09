@@ -44,21 +44,21 @@ class PerencanaanDanPelaksanaanSeminarDanSidangController extends Controller
             (object) [
                 'kelompok' => 'KoTA 001',
                 'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
-                'status' => 'Seminar 3',
+                'jenis_pengajuan' => 'Seminar 3',
                 'tanggal' => '2025-03-05',
                 'catatan' => 'Tidak sesuai dengan ketentuan',
             ],
             (object) [
                 'kelompok' => 'KoTA 002',
                 'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
-                'status' => 'Sidang TA',
+                'jenis_pengajuan' => 'Sidang TA',
                 'tanggal' => '2025-03-06',
                 'catatan' => 'Tidak sesuai dengan ketentuan',
             ],
             (object) [
                 'kelompok' => 'KoTA 003',
                 'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
-                'status' => 'Sidang TA',
+                'jenis_pengajuan' => 'Sidang TA',
                 'tanggal' => '2025-03-07',
                 'catatan' => 'Tidak sesuai dengan ketentuan',
             ]
@@ -73,19 +73,19 @@ class PerencanaanDanPelaksanaanSeminarDanSidangController extends Controller
             (object) [
                 'kelompok' => 'KoTA 001',
                 'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
-                'status' => 'Sidang TA',
+                'jenis_pengajuan' => 'Sidang TA',
                 'tanggal' => '2025-03-05',
             ],
             (object) [
                 'kelompok' => 'KoTA 002',
                 'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
-                'status' => 'Sidang TA',
+                'jenis_pengajuan' => 'Sidang TA',
                 'tanggal' => '2025-03-06',
             ],
             (object) [
                 'kelompok' => 'KoTA 003',
                 'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
-                'status' => 'Seminar 3',
+                'jenis_pengajuan' => 'Seminar 3',
                 'tanggal' => '2025-03-07',
             ]
         ];
@@ -101,7 +101,7 @@ class PerencanaanDanPelaksanaanSeminarDanSidangController extends Controller
                 (object) ['nama' => 'Laporan TA', 'file' => 'laporan_ta.pdf'],
                 (object) ['nama' => 'Presentasi TA', 'file' => 'presentasi_ta.pptx']
             ],
-            'status' => 'Sidang TA',
+            'jenis_pengajuan' => 'Sidang TA',
             'catatan' => 'Tidak ada catatan',
             'tanggal' => '2025-03-06',
         ];
@@ -131,7 +131,7 @@ class PerencanaanDanPelaksanaanSeminarDanSidangController extends Controller
             'kelompok' => 'KoTA 002',
             'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
             'berkas' => $keputusan === 'Ditolak' ? [] : (session()->get("pengajuan_$id")->berkas ?? []),
-            'status' => $status,
+            'jenis_pengajuan' => $jenis_pengajuan,
             'catatan' => $catatan,
             'tanggal' => '2025-03-06',
         ]);

@@ -75,7 +75,7 @@
                     { data: "tanggal" },
                     { data: "kelompok" },
                     { data: "judul_ta" },
-                    { data: "status" },
+                    { data: "jenis_pengajuan" },
                     { data: "catatan" }
                 ],
                 "language": {
