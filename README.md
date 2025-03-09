@@ -10,7 +10,9 @@
 8. The application can be accessed at ```127.0.0.1:8000```
 9. You don't need to recreate container if you had a changes. It'll update automatically
 
-Note: If you don't want to run the seeder because it will replace your existing data in MySQL, simply set ```RUN_SEEDER=false``` in the ```.env``` file.
+Note: 
+- If you don't want to run the seeder because it will replace your existing data in MySQL, simply set ```RUN_SEEDER=false``` in the ```.env``` file.
+- If database can't connect to app service, run the command ```docker compose down -v``` first
 
 ## How to Run the Application (Build docker image)
 1. Copy ```.env.example``` and rename it to ```.env```.
@@ -23,7 +25,8 @@ Note: If you don't want to run the seeder because it will replace your existing 
 8. The application can be accessed at ```127.0.0.1:8000```
 9. You don't need to recreate container if you had a changes. It'll update automatically
 
-Note: If you don't want to run the seeder because it will replace your existing data in MySQL, simply set ```RUN_SEEDER=false``` in the ```.env``` file.
+- If you don't want to run the seeder because it will replace your existing data in MySQL, simply set ```RUN_SEEDER=false``` in the ```.env``` file.
+- If database can't connect to app service, run the command ```docker compose down -v``` first
 
 ## How to Create a Module
 1. Run the command php artisan make:modul ModulName.
