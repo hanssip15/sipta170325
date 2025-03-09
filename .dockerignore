@@ -1,8 +1,5 @@
 # Direktori dan file yang tidak perlu masuk ke dalam container
 node_modules
-storage/logs
-storage/framework
-storage/debugbar
 .env
 .env.local
 .env.*.local
@@ -14,3 +11,4 @@ storage/debugbar
 phpunit.xml
 tests
 docker-compose.override.yml
+vendor
