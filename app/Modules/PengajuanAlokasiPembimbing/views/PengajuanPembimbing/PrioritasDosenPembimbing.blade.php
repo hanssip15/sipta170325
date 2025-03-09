@@ -44,28 +44,25 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                            <label class="form-label">Urutan Prioritas Dosen Pembimbing (Maks. 5)</label>
-                            <div class="d-flex justify-content-end align-items-center">
-                                <button id="moveUp" class="btn btn-sm btn-primary"><i class="fas fa-chevron-up"></i></button>
-                                <button id="moveDown" class="btn btn-sm btn-primary ml-1"><i class="fas fa-chevron-down"></i></button>
-                            </div>
-                            <ul id="prioritasList" class="list-group mt-2">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span class="priority-number">{{ $i }}</span>
-                                        <span class="priority-name">-</span>
-                                        <button class="btn btn-sm btn-danger removeDosen" style="display: none;">X</button>
-                                    </li>
-                                @endfor
-                            </ul>
+                        <label class="form-label">Urutan Prioritas Dosen Pembimbing (Maks. 5)</label>
+                        <ul id="prioritasList" class="list-group mt-2">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="priority-number">{{ $i }}</span>
+                                    <span class="priority-name">-</span>
+                                    <button class="btn btn-sm btn-danger removeDosen" style="display: none;">X</button>
+                                </li>
+                            @endfor
+                        </ul>
                     </div>
+                    
                 </div>
 
                 <!-- Tombol Simpan & Selanjutnya -->
                 <div class="d-flex justify-content-between mt-3">
-                    <a href={{ route('topik-tugas-akhir') }} class="btn btn-info ml-3">Sebelumnya</a>
-                    <a href={{ route('prioritas-dosen-pembimbing') }} class="btn btn-primary ml-3">Simpan Draft</a>
-                    <a href={{ route('prioritas-dosen-pembimbing') }} class="btn btn-info ml-3">Selanjutnya</a>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.topik-tugas-akhir') }} class="btn btn-info ml-3">Sebelumnya</a>
+                    <button type="submit" class="btn btn-sm btn-primary">Simpan Draft</button>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.prioritas-dosen-pembimbing') }} class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
     </div>
@@ -100,86 +97,88 @@
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     <link href=" https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet" />
 @stop
 
-@section('js')
+@section ('js')
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let selectedItem = null;
+    $(document).ready(function () {
+        // Menambahkan dosen ke daftar prioritas
+        $(".addDosen").click(function () {
+            let name = $(this).data("name");
 
-        document.querySelectorAll('.addDosen').forEach(button => {
-            button.addEventListener('click', function () {
-                let name = this.getAttribute('data-name');
-                let prioritasList = document.querySelectorAll('#prioritasList .priority-name');
-                for (let item of prioritasList) {
-                    if (item.textContent === '-') {
-                        item.textContent = name;
-                        item.parentElement.querySelector('.removeDosen').style.display = 'inline-block';
-                        break;
-                    }
+            // Cari slot kosong pertama dalam daftar prioritas
+            let emptySlot = $("#prioritasList .priority-name").filter(function () {
+                return $(this).text() === "-";
+            }).first();
+
+            if (emptySlot.length > 0) {
+                emptySlot.text(name);
+                emptySlot.siblings(".removeDosen").show();
+                $(this).prop("disabled", true); // Disable tombol tambah agar tidak bisa dipilih dua kali
+            }
+        });
+
+        // Menghapus dosen dari daftar prioritas
+        $(document).on("click", ".removeDosen", function () {
+            let parent = $(this).closest("li");
+            let removedName = parent.find(".priority-name").text();
+
+            parent.find(".priority-name").text("-");
+            $(this).hide();
+
+            // Aktifkan kembali tombol tambah untuk dosen yang dihapus
+            $(".addDosen").each(function () {
+                if ($(this).data("name") === removedName) {
+                    $(this).prop("disabled", false);
                 }
             });
         });
 
-        document.querySelectorAll('#prioritasList .list-group-item').forEach(item => {
-            item.addEventListener('click', function () {
-                document.querySelectorAll('#prioritasList .list-group-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                selectedItem = this;
-            });
-        });
-
-        document.getElementById('moveUp').addEventListener('click', function () {
-            if (selectedItem && selectedItem.previousElementSibling) {
-                selectedItem.parentNode.insertBefore(selectedItem, selectedItem.previousElementSibling);
+        // Mengaktifkan fitur drag-and-drop untuk mengurutkan dosen tanpa mengubah nomor urut
+        $("#prioritasList").sortable({
+            axis: "y",
+            opacity: 0.8,
+            cursor: "move",
+            items: "> li",
+            update: function () {
+                console.log("Urutan dosen diperbarui");
             }
-        });
+        }).disableSelection();
 
-        document.getElementById('moveDown').addEventListener('click', function () {
-            if (selectedItem && selectedItem.nextElementSibling) {
-                selectedItem.parentNode.insertBefore(selectedItem.nextElementSibling, selectedItem);
-            }
-        });
+        // Fungsi untuk menampilkan riwayat topik dosen pembimbing
+        $(".viewHistory").click(function (event) {
+            event.preventDefault(); // Mencegah event default agar modal muncul dengan benar
 
-        document.addEventListener('click', function (event) {
-            if (!event.target.closest('#prioritasList .list-group-item')) {
-                document.querySelectorAll('#prioritasList .list-group-item').forEach(i => i.classList.remove('active'));
-                selectedItem = null;
-            }
-        });
-        
-        // Riwayat Topik Dosen Pembimbing
-        document.querySelectorAll('.viewHistory').forEach(button => {
-            button.addEventListener('click', function () {
-                let name = this.getAttribute('data-name');
-                document.getElementById('dosenName').textContent = name;
-                let historyContent = document.getElementById('historyContent');
-                historyContent.innerHTML = `
-                    <tr>
-                        <td>2024</td>
-                        <td>
-                            <ul>
-                                <li>Data and Information Management</li>
-                                <li>Machine Learning</li>
-                                <li>Computer Vision</li>
-                                <li>Pengembangan Perangkat Lunak</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2025</td>
-                        <td>
-                            <ul>
-                                <li>Pengembangan Perangkat Lunak</li>
-                                <li>Data and Information Management</li>
-                            </ul>
-                        </td>
-                    </tr>
-                `;
-                new bootstrap.Modal(document.getElementById('historyModal')).show();
-            });
+            let name = $(this).data("name");
+            $("#dosenName").text(name);
+            let historyContent = $("#historyContent");
+            historyContent.html(`
+                <tr>
+                    <td>2024</td>
+                    <td>
+                        <ul>
+                            <li>Data and Information Management</li>
+                            <li>Machine Learning</li>
+                            <li>Computer Vision</li>
+                            <li>Pengembangan Perangkat Lunak</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2025</td>
+                    <td>
+                        <ul>
+                            <li>Pengembangan Perangkat Lunak</li>
+                            <li>Data and Information Management</li>
+                        </ul>
+                    </td>
+                </tr>
+            `);
+
+            // Panggil modal agar muncul
+            $("#historyModal").modal("show");
         });
     });
 </script>

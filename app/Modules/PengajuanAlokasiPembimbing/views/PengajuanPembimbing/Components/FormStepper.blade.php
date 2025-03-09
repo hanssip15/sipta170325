@@ -22,7 +22,7 @@
 
             @if ($i < $step)
                 <div class="d-flex flex-column align-items-center" style="margin-left: 13px;">
-                    <div class="mb-2" style="width: 2px; height: 60px; background-color: {{ $i < $currentStep ? 'gray' : ($i == $currentStep ? '#0d6efd' : 'gray') }};"></div>
+                    <div class="mb-2 {{ $i == $step - 1 ? 'mb-4' : '' }}" style="width: 2px; height: 60px; background-color: {{ $i < $currentStep ? 'gray' : ($i == $currentStep ? '#0d6efd' : 'gray') }};"></div>
                 </div>
             @endif
         @endfor

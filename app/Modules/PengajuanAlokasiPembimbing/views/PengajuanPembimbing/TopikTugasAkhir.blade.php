@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         {{-- ================== --}}
-                        <div class="container-fluid bg-secondary rounded-bottom bg-opacity-25 pre-scrollable mb-4">
+                        <div class="container-fluid bg-white border rounded-bottom bg-opacity-25 pre-scrollable mb-4">
                     
                             <div class="container text-center ">
                                 <div class="row row-cols-2 p-3">
@@ -67,9 +67,9 @@
 
                 <!-- Tombol Simpan & Selanjutnya -->
                 <div class="d-flex justify-content-between mt-3">
-                    <a href={{ route('data-kelompok') }} class="btn btn-info ml-3">Sebelumnya</a>
-                    <a href={{ route('topik-tugas-akhir') }} class="btn btn-primary ml-3">Simpan Draft</a>
-                    <a href={{ route('prioritas-dosen-pembimbing') }} class="btn btn-info ml-3">Selanjutnya</a>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.data-kelompok') }} class="btn btn-info ml-3">Sebelumnya</a>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.topik-tugas-akhir') }} class="btn btn-primary ml-3">Simpan Draft</a>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.prioritas-dosen-pembimbing') }} class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
         </div>

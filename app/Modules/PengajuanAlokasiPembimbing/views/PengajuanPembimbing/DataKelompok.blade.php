@@ -63,8 +63,8 @@
 
                 <!-- Tombol Simpan & Selanjutnya -->
                 <div class="d-flex justify-content-end mt-3">
-                    <a href={{ route('data-kelompok') }} class="btn btn-primary ml-3">Simpan Draft</a>
-                    <a href={{ route('topik-tugas-akhir') }} class="btn btn-info ml-3">Selanjutnya</a>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.data-kelompok') }} class="btn btn-primary ml-3">Simpan Draft</a>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.topik-tugas-akhir') }} class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
         </div>
