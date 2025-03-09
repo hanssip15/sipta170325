@@ -10,8 +10,6 @@
 
 @section('content')
 
-    {{-- <p>Data Kelompok > <a href="www">Topik Tugas Akhir</a> > <a href="www">Prioritas Dosen Pembimbing</a> > <a href="www">Pratinjau</a></p> --}}
-
     <div class="container-fluid row w-100 justify-content-start">
         <div class="card p-4 bg-light">
             <x-pengajuan-alokasi-pembimbing.components.pengajuan-pembimbing.form-stepper step="4" currentStep="3"
@@ -26,17 +24,14 @@
                         <label class="form-label">List Dosen Pembimbing</label>
                         <div class="border p-2" style="max-height: 70vh; overflow-y: auto;">
                             <ul id="dosenList" class="list-group">
-                                @php
-                                    $dosen = ['Dr. Andi', 'Prof. Budi', 'Dr. Citra', 'Dr. Dani', 'Prof. Eka', 'Prof. Budi', 'Dr. Citra', 'Dr. Dani', 'Prof. Eka'];
-                                @endphp
-                                @foreach ($dosen as $d)
+                                @foreach ($listDosen as $d)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>{{ $d }}</span>
+                                        <span>{{ $d->nama }}</span>
                                         <div>
-                                            <button class="btn btn-sm btn-secondary viewHistory" data-name="{{ $d }}">
+                                            <button class="btn btn-sm btn-secondary viewHistory" data-name="{{ $d->nama }}">
                                                 <i class="fas fa-file-alt"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-primary addDosen" data-name="{{ $d }}">+</button>
+                                            <button class="btn btn-sm btn-primary addDosen" data-name="{{ $d->nama }}">+</button>
                                         </div>
                                     </li>
                                 @endforeach
@@ -61,8 +56,8 @@
                 <!-- Tombol Simpan & Selanjutnya -->
                 <div class="d-flex justify-content-between mt-3">
                     <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.topik-tugas-akhir') }} class="btn btn-info ml-3">Sebelumnya</a>
-                    <button type="submit" class="btn btn-sm btn-primary">Simpan Draft</button>
-                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.prioritas-dosen-pembimbing') }} class="btn btn-info ml-3">Selanjutnya</a>
+                    <button type="submit" class="btn btn-sm btn-primary" style="font-size: 15px">Simpan Draft</button>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.pratinjau-formulir') }} class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
     </div>
@@ -136,16 +131,16 @@
             });
         });
 
-        // Mengaktifkan fitur drag-and-drop untuk mengurutkan dosen tanpa mengubah nomor urut
-        $("#prioritasList").sortable({
-            axis: "y",
-            opacity: 0.8,
-            cursor: "move",
-            items: "> li",
-            update: function () {
-                console.log("Urutan dosen diperbarui");
-            }
-        }).disableSelection();
+        // // Mengaktifkan fitur drag-and-drop untuk mengurutkan dosen tanpa mengubah nomor urut
+        // $("#prioritasList").sortable({
+        //     axis: "y",
+        //     opacity: 0.8,
+        //     cursor: "move",
+        //     items: "> li",
+        //     update: function () {
+        //         console.log("Urutan dosen diperbarui");
+        //     }
+        // }).disableSelection();
 
         // Fungsi untuk menampilkan riwayat topik dosen pembimbing
         $(".viewHistory").click(function (event) {
