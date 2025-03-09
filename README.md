@@ -30,7 +30,7 @@ Note: If you don't want to run the seeder because it will replace your existing 
 2. Inside every module, you will find:
     - Routes
     - Controller
-    - Views
+    - Views
 
 ## Database Table and Seeder Configuration
 1. run command ```docker exec -it sipta-app-dev php artisan db:wipe --force``` (Drop Current Database)
