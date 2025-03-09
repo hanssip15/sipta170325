@@ -53,18 +53,21 @@ class FortifyServiceProvider extends ServiceProvider
 
         //login
         Fortify::loginView(function () {
-            return view('auth.login');
+            return view('UserManagement.views.auth.login');
         });
 
         //forgot
         Fortify::requestPasswordResetLinkView(function () {
-            return view('auth.forgot-password');
+            return view('UserManagement.views.auth.forgot-password');
         });
 
         //reset
         Fortify::resetPasswordView(function ($request) {
-            return view('auth.reset-password', ['request' => $request]);
-        });        
+            return view('UserManagement.views.auth.reset-password', ['request' => $request]);
+        });
+
+        // Mengatur redirect setelah login
+        config(['fortify.redirects.login' => '/']);
 
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());

@@ -27,10 +27,6 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth'); // Hanya user login yang bisa akses
 
-// Route::get('/home', function () {
-//     return view('home');
-// })->middleware('auth'); // Hanya user login yang bisa akses
-
 Route::post('/logout', function () {
     auth()->logout();
     return redirect('/login');

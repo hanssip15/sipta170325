@@ -62,22 +62,26 @@
     <div class="container">
         <h1>Reset Password</h1>
         <div class="reset-box">
-            <p>Enter a new password for your account.</p>
+            <p>Enter your new password.</p>
+
+            @if (session('status'))
+                <p style="color: green;">{{ session('status') }}</p>
+            @endif
 
             <form method="POST" action="{{ route('password.update') }}">
                 @csrf
-                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                <input type="hidden" name="token" value="{{ $token }}">
                 <div class="input-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" value="{{ old('email') }}" required>
+                    <input type="email" name="email" placeholder="Enter your email" required>
                 </div>
                 <div class="input-group">
-                    <label for="password">New Password</label>
-                    <input type="password" name="password" required>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" placeholder="Enter your new password" required>
                 </div>
                 <div class="input-group">
                     <label for="password_confirmation">Confirm Password</label>
-                    <input type="password" name="password_confirmation" required>
+                    <input type="password" name="password_confirmation" placeholder="Confirm your new password" required>
                 </div>
                 <button type="submit" class="submit-button">Reset Password</button>
             </form>
