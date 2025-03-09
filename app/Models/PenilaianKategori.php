@@ -18,5 +18,5 @@ class PenilaianKategori extends Model
         'nilai_kategori'
     ];
 
-    
+
 }

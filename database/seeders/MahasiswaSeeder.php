@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Models\Mahasiswa;
 
 class MahasiswaSeeder extends Seeder
@@ -14,32 +13,34 @@ class MahasiswaSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            UserSeeder::class,
-        ]);
-
+        // Menonaktifkan foreign key checks sementara
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('mahasiswa')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
+        // Menghapus data yang ada di tabel mahasiswa
+        DB::table('mahasiswa')->truncate();
+
+        // Menambahkan data mahasiswa
         Mahasiswa::create([
-            'nim' => '2201234567',
+            'nim' => '221524059',
             'tahun_masuk' => 2022,
-            'kelas' => 'TI4A',
-            // 'id_prodi' => 1,
+            'kelas' => 'D4A',
+            'id_prodi' => 1,
             'status_ta' => 'mahasiswa_ta',
             'nilai_akhir_ta' => 85,
-            // 'id_kota' => 10
+            'id_kota' => 1
         ]);
 
         Mahasiswa::create([
-            'nim' => '2201234568',
+            'nim' => '221524049',
             'tahun_masuk' => 2022,
-            'kelas' => 'TI4B',
-            // 'id_prodi' => 1,
+            'kelas' => 'D4B',
+            'id_prodi' => 1,
             'status_ta' => 'mahasiswa_ta',
             'nilai_akhir_ta' => 90,
-            // 'id_kota' => 12
+            'id_kota' => 2
         ]);
+
+        // Mengaktifkan kembali foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
