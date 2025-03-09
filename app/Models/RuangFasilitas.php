@@ -8,15 +8,14 @@ use Awobaz\Compoships\Compoships; // Import Compoships
 
 class RuangFasilitas extends Model
 {
-    use Compoships;
     use HasFactory;
 
-    protected $table = 'ruang_fasilitas';
-    
-    protected $primaryKey = ['id_ruangan', 'id_fasilitas']; 
-    public $incrementing = false; 
     public $timestamps = false;
 
+    protected $table = 'ruang_fasilitas';
+
+    protected $primaryKey = ['id_ruangan', 'id_fasilitas'];
+    public $incrementing = false;
     protected $fillable = [
         'id_ruangan',
         'id_fasilitas',

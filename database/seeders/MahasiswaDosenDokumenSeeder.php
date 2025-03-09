@@ -6,7 +6,6 @@ use App\Models\MahasiswaDosenDokumen;
 use DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Mahasiswa;
 
 class MahasiswaDosenDokumenSeeder extends Seeder
 {
@@ -25,15 +24,15 @@ class MahasiswaDosenDokumenSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         MahasiswaDosenDokumen::create([
-            'nip' => '1987654321',
-            'nim' => '2201234567',
-            // 'id_dokumen' => 1
+            'nip' => '197312271999031003',
+            'nim' => '221524059',
+            'id_dokumen' => 1
         ]);
 
         MahasiswaDosenDokumen::create([
-            'nip' => '1987654322',
-            'nim' => '2201234568',
-            // 'id_dokumen' => 2
+            'nip' => '198502102015042001',
+            'nim' => '221524049',
+            'id_dokumen' => 2
         ]);
     }
 }

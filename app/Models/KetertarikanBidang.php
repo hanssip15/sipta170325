@@ -13,7 +13,6 @@ class KetertarikanBidang extends Model
 
     protected $primaryKey = 'id_ketertarikan_bidang';
     public $timestamps = false;
-
     protected $fillable = [
         'nip',
         'id_bidang'
