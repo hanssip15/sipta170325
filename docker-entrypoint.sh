@@ -20,12 +20,16 @@ else
 fi
 
 # Jalankan seeder
-echo "Menjalankan seeder..."
-if php artisan db:seed --force; then
-    echo "Seeder berhasil."
+if [ "${RUN_SEEDER}" = "true" ]; then
+    echo "Menjalankan seeder..."
+    if php artisan db:seed --force; then
+        echo "Seeder berhasil."
+    else
+        echo "Gagal menjalankan seeder."
+        exit 1
+    fi
 else
-    echo "Gagal menjalankan seeder."
-    exit 1
+    echo "Seeder tidak dijalankan (RUN_SEEDER=false)."
 fi
 
 # Jalankan server Laravel
