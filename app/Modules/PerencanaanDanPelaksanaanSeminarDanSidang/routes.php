@@ -10,11 +10,7 @@ Route::get('/PerencanaanDanPelaksanaanSeminarDanSidang', [PerencanaanDanPelaksan
 Route::post('/presensi/hadir', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'simpanKehadiran'])->name('presensi.hadir');
 
 // Route untuk halaman rekap presensi koordinator TA
-Route::get('/rekap-presensi', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'rekapPresensi'])->name('rekap.presensi');
+Route::get('/rekap-presensi-seminar-3', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'rekapPresensi'])->name('rekap.presensi.seminar3');
 
-
-// // Route untuk menyimpan data presensi (mahasiswa)
-// Route::post('/presensi/hadir', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'simpanKehadiran'])->name('presensi.hadir');
-
-// Route untuk reset data rekap presensi
-Route::get('/rekap-presensi/reset', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'resetRekapPresensi'])->name('rekap.presensi.reset');
+// Route untuk menyimpan dokumentasi
+Route::post('/presensi/dokumentasi', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'simpanDokumentasi'])->name('presensi.dokumentasi');

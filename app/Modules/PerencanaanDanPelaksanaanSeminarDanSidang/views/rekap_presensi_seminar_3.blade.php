@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'PerencanaanDanPelaksanaanSeminarDanSidang')
+@section('title', 'Rekap Presensi Seminar 3')
 
 @section('content_header')
-    <h1>Presensi Pelaksanaan Seminar 3</h1>
+    <h1>Rekap Presensi Seminar 3</h1>
 @stop
 
 @section('content')
@@ -32,9 +32,6 @@
                     <tbody>
                         @foreach($presensi as $index => $item)
                             @php
-                                $waktuSidang = new DateTime($item['waktu_sidang']);
-                                $setengahJamSebelumSidang = (clone $waktuSidang)->modify('-30 minutes');
-                                $empatJamSetelahSidang = (clone $waktuSidang)->modify('+4 hours');
                                 $statusKehadiran = $item['status_hadir'];
                                 $dokumentasi = $item['dokumentasi'];
                             @endphp
@@ -51,16 +48,8 @@
                                         <button class="btn btn-success btn-sm" disabled>Hadir</button>
                                     @elseif($statusKehadiran == 'absen')
                                         <button class="btn btn-danger btn-sm" disabled>Absen</button>
-                                    @elseif($sekarang < $setengahJamSebelumSidang)
-                                        <button class="btn btn-warning btn-sm" disabled>Absensi</button>
-                                    @elseif($sekarang >= $setengahJamSebelumSidang && $sekarang <= $empatJamSetelahSidang)
-                                        <form action="{{ route('presensi.hadir') }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            <input type="hidden" name="nim" value="{{ $item['nim'] }}">
-                                            <button type="submit" class="btn btn-info btn-sm">Absensi</button>
-                                        </form>
                                     @else
-                                        <button class="btn btn-danger btn-sm" disabled>Absen</button>
+                                        <button class="btn btn-warning btn-sm" disabled>Belum Absen</button>
                                     @endif
                                 </td>
                                 <td style="width: 250px;">
@@ -71,21 +60,11 @@
                                                 {{ basename($dokumentasi) }}
                                             </a>
                                         </div>
-                                    @endif
-                                    @if($errors->has('dokumentasi'))
-                                        <div class="alert alert-danger">
-                                        {{ $errors->first('dokumentasi') }}
-                                         </div>
-                                    @endif
-                                    <form action="{{ route('presensi.dokumentasi') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="nim" value="{{ $item['nim'] }}">
-                                        <div class="form-group">
-                                            <input type="file" name="dokumentasi" class="form-control-file form-control-sm" accept=".jpg,.jpeg,.png,.pdf">
-                                            <small class="text-muted">Maksimal 5 MB (JPG, JPEG, PNG, PDF)</small>
+                                    @else
+                                        <div class="alert alert-warning">
+                                            Dokumentasi belum diupload.
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-sm mt-2">Upload</button>
-                                    </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -102,21 +81,11 @@
             vertical-align: middle;
             text-align: center;
         }
-        .form-control-sm {
-            height: calc(1.5em + 0.5rem + 2px);
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-            line-height: 1.5;
-            border-radius: 0.2rem;
-        }
         .btn-sm {
             padding: 0.25rem 0.5rem;
             font-size: 0.875rem;
             line-height: 1.5;
             border-radius: 0.2rem;
-        }
-        .form-group {
-            margin-bottom: 0.5rem;
         }
     </style>
 @stop
