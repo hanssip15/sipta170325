@@ -1,0 +1,16 @@
+# Direktori dan file yang tidak perlu masuk ke dalam container
+node_modules
+storage/logs
+storage/framework
+storage/debugbar
+.env
+.env.local
+.env.*.local
+.DS_Store
+.git
+.gitignore
+.idea
+.vscode
+phpunit.xml
+tests
+docker-compose.override.yml
