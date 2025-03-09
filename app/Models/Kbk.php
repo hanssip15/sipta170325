@@ -13,7 +13,6 @@ class Kbk extends Model
 
     protected $primaryKey = 'id_kbk';
     public $timestamps = false;
-
     protected $fillable = [
         'kbk'
     ];

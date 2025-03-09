@@ -20,8 +20,8 @@ class NotifikasiKirimSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         NotifikasiKirim::create([
-            // 'id_notifikasi' => 1,
-            'username' => 'admin123',
+            'id_notifikasi' => 1,
+            'username' => '221524049',
             'kanal' => 'email',
             'status' => 'terkirim',
             'waktu_kirim' => Carbon::now(),
@@ -29,8 +29,8 @@ class NotifikasiKirimSeeder extends Seeder
         ]);
 
         NotifikasiKirim::create([
-            // 'id_notifikasi' => 2,
-            'username' => 'mahasiswa001',
+            'id_notifikasi' => 2,
+            'username' => '221524059',
             'kanal' => 'sms',
             'status' => 'gagal',
             'waktu_kirim' => Carbon::now(),

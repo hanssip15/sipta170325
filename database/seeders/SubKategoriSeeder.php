@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Subkategori;
-use DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Schema;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use App\Models\Subkategori;
 
 class SubKategoriSeeder extends Seeder
 {
@@ -19,7 +19,9 @@ class SubKategoriSeeder extends Seeder
             return;
         }
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('subkategori')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $data = [
             ['nama_subkategori' => 'Teknologi'],
