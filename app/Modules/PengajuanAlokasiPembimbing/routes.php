@@ -2,7 +2,9 @@
 
 use App\Modules\PengajuanAlokasiPembimbing\Controllers\KesediaanBimbinganController;
 use Illuminate\Support\Facades\Route;
+
 use App\Modules\PengajuanAlokasiPembimbing\Controllers\PengajuanAlokasiPembimbingController;
+use App\Modules\PengajuanAlokasiPembimbing\Controllers\PengelolaanPeriodeController;
 
 Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokasipembimbing.'], function () {
     Route::group(['prefix' => 'kesediaan-membimbing', 'as' => 'kesediaan-membimbing.'], function () {
@@ -22,4 +24,10 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
             Route::post('/store', [KesediaanBimbinganController::class, 'save_jadwal'])->name('store');
         });
     });
+
+    //route for pengelolaan periode
+    Route::group(['prefix' => 'pengelolaan-periode'], function () {
+        Route::get('/', [PengelolaanPeriodeController::class, 'view_PengelolaanPeriode']);
+    });
+
 });
