@@ -18,12 +18,16 @@ class User extends Authenticatable
     protected $keyType = 'string';
     public $incrementing = false;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'username',
         'nama',
         'email',
         'password',
-        'role_user'
+        'role_user',
+        'no_whatsapp',
+        'photo'
     ];
 
     protected $hidden = [

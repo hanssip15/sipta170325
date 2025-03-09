@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Topik extends Model
+class Subkategori extends Model
 {
     use HasFactory;
 
-    protected $table = 'topik';
-    protected $primaryKey = 'id_topik';
+    protected $table = 'subkategori';
+
+    protected $primaryKey = 'id_subkategori';
+    public $timestamps = false;
 
     protected $fillable = [
-        'topik'
+        'nama_subkategori'
     ];
 }
