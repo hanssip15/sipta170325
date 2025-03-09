@@ -18,8 +18,8 @@ Note: If you don't want to run the seeder because it will replace your existing 
     - Views
 
 ## Database Table and Seeder Configuration
-1. run command ```php artisan db:wipe``` (Drop Current Database)
-2. run command ```php artisan artisan:migrate --seed```
+1. run command ```docker exec -it sipta-app-dev php artisan db:wipe --force``` (Drop Current Database)
+2. run command ```docker exec -it sipta-app-dev php artisan artisan:migrate --seed --force```
 
 <br>
 <br>
