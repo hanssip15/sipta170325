@@ -7,7 +7,7 @@ Route::group(['prefix' => 'KelolaPenilaianTA'], function () {
     Route::get('/fomulir-penilaian', [KelolaPenilaianTAController::class, 'index']);
     Route::get('/formulir-penilaian/create', [KelolaPenilaianTAController::class, 'create'])->name('formulir-penilaian.create');
     Route::get('/formulir-penilaian/detail', function () {
-        return view('KelolaPenilaianTA.views.DetailFTA010');
+        return view('KelolaPenilaianTA.views.DetailFTA011');
     })->name('formulir-penilaian.detail');
     Route::get('/formulir-penilaian/edit', function () {
         return view('KelolaPenilaianTA.views.UbahFormulirTA');

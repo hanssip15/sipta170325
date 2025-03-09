@@ -62,7 +62,6 @@ class KelolaPenilaianTAController extends Controller
                     'enamPuluh' => 'Deskripsi tidak jelas dan membingungkan',
                     'kurang60' => 'Deskripsi tidak jelas dan membingungkan',
                 ],
-                // Tambahkan aspek penilaian lainnya sesuai kebutuhan
             ],
         ];
 
@@ -71,9 +70,6 @@ class KelolaPenilaianTAController extends Controller
 
     public function update(Request $request)
     {
-        // Logika untuk memperbarui data formulir penilaian
-        // Misalnya, simpan data ke database atau lakukan operasi lainnya
-
         return redirect()->route('formulir-penilaian.index')->with('success', 'Formulir penilaian berhasil diperbarui.');
     }
 }

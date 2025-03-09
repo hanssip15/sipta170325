@@ -40,7 +40,6 @@
                             <td class="align-middle">
                                 <a href="{{ url('KelolaPenilaianTA/formulir-penilaian/detail') }}" class="btn btn-info btn-sm">Lihat Detail</a>
                                 <a href="{{ url('KelolaPenilaianTA/formulir-penilaian/edit') }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen"></i></a>
-                                <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach
