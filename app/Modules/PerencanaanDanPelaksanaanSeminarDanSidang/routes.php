@@ -14,3 +14,6 @@ Route::get('/rekap-presensi-seminar-3', [PerencanaanDanPelaksanaanSeminarDanSida
 
 // Route untuk menyimpan dokumentasi
 Route::post('/presensi/dokumentasi', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'simpanDokumentasi'])->name('presensi.dokumentasi');
+
+// Route untuk rekap presensi Sidang TA
+Route::get('/rekap-presensi-sidang-ta', [PerencanaanDanPelaksanaanSeminarDanSidangController::class, 'rekapPresensiSidangTA'])->name('rekap.presensi.sidang.ta');

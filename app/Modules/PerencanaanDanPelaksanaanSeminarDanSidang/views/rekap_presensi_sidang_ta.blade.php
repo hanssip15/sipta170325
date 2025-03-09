@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Rekap Presensi Seminar 3')
+@section('title', 'Rekap Presensi Sidang TA')
 
 @section('content_header')
-    <h1>Rekap Presensi Seminar 3</h1>
+    <h1>Rekap Presensi Sidang TA</h1>
 @stop
 
 @section('content')
@@ -30,11 +30,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($presensiSeminar3 as $index => $item)
-                        @php
-                            $statusKehadiran = session("status_hadir_{$item['id_kehadiran']}", $item['status_hadir']);
-                            $dokumentasi = session("dok_{$item['id_kehadiran']}", $item['dokumentasi']);
-                        @endphp
+                        @foreach($presensiSidangTA as $index => $item)
+                            @php
+                                $statusKehadiran = session("status_hadir_{$item['id_kehadiran']}", $item['status_hadir']);
+                                $dokumentasi = session("dok_{$item['id_kehadiran']}", $item['dokumentasi']);
+                            @endphp
 
                             <tr>
                                 <td>{{ $item['nim'] }}</td>
