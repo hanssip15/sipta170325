@@ -1,8 +1,9 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Docker/dockerfile/app.Dockerfile.dev
+    # build:
+    #   context: .
+    #   dockerfile: Docker/dockerfile/app.Dockerfile.dev
+    image: najibalimudin/sipta-app:dev
     container_name: sipta-app-dev
     restart: unless-stopped
     env_file:
