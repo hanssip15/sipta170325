@@ -136,7 +136,7 @@ class PerencanaanDanPelaksanaanSeminarDanSidangController extends Controller
             'tanggal' => '2025-03-06',
         ]);
 
-        return redirect()->route('perencanaan.kelola-pengajuan.list')->with('success', "Pengajuan telah $status.");
+        return redirect()->route('perencanaan.kelola-pengajuan.list')->with('success', "Pengajuan telah $jenis_Pengajuan.");
     }
 
 
