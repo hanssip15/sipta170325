@@ -22,5 +22,6 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
             Route::post('/store', [KesediaanBimbinganController::class, 'save_jadwal'])->name('store');
         });
     });
-        Route::get('/alokasi-pembimbing', [AlokasiPembimbingController::class, 'index']);
+    Route::get('/alokasi-pembimbing', [AlokasiPembimbingController::class, 'index'])->name('alokasi-pembimbing.index');
+    Route::post('/alokasi-pembimbing/submit', [AlokasiPembimbingController::class, 'submit'])->name('alokasi-pembimbing.submit');
 });

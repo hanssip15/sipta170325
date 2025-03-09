@@ -28,6 +28,6 @@ class AlokasiPembimbingController extends Controller
             ];
         }
 
-        return view('PengajuanAlokasiPembimbing.views.AlokasiPembimbing', compact('data'));
+        return view('PengajuanAlokasiPembimbing.views.AlokasiPembimbing.AlokasiPembimbing', compact('data'));
     }
 }
