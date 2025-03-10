@@ -9,6 +9,16 @@ class CekPlagiarismeController extends Controller
 {
     public function index(): View
     {
-        return view('CekPlagiarisme.views.DaftarDokumen');
+        return view('CekPlagiarisme.views.DaftarDokumen'); // Sesuai dengan lokasi dalam modul
     }
+    
+    public function show($id)
+    {
+        // Data dummy untuk tampilan frontend
+        $dokumen = (object) [
+            'id' => $id,
+        ];
+    
+        return view('CekPlagiarisme.views.detail', compact('dokumen')); // Harus sesuai dengan struktur dalam modul
+    }    
 }
