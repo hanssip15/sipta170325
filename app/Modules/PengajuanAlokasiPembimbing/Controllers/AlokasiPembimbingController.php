@@ -12,7 +12,7 @@ use App\Models\PrioritasPembimbing;
 use App\Models\AlokasiPembimbing;
 use App\Models\Dosen;
 use App\Models\Bidang;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class AlokasiPembimbingController extends Controller
 {
