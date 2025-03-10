@@ -10,6 +10,8 @@ use App\Modules\PengajuanAlokasiPembimbing\Controllers\DaftarPengajuanDosbingCon
 
 use App\Modules\PengajuanAlokasiPembimbing\Controllers\PengajuanPembimbing\PengajuanPembimbingController;
 
+use App\Modules\PengajuanAlokasiPembimbing\Controllers\PengelolaanPeriodeController;
+
 Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokasipembimbing.'], function () {
     Route::group(['prefix' => 'kesediaan-membimbing', 'as' => 'kesediaan-membimbing.'], function () {
         Route::post('/next/{previous}/{target}', [KesediaanBimbinganController::class, 'next_page'])->name('next');
@@ -43,9 +45,14 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
         Route::get('/prioritas-dosen-pembimbing', [PengajuanPembimbingController::class, 'view_prioritasDosenPembimbing']) -> name('prioritas-dosen-pembimbing');
         Route::get('/pratinjau-formulir', [PengajuanPembimbingController::class, 'view_pratinjauFormulir']) -> name('pratinjau-formulir');
 });
-Route::group(['prefix' => 'DaftarPengajuanDosbing'], function () {
-    Route::get('/', [DaftarPengajuanDosbingController::class, 'view_daftarPengajuanDosbing']);
-});
-});
+    Route::group(['prefix' => 'DaftarPengajuanDosbing'], function () {
+        Route::get('/', [DaftarPengajuanDosbingController::class, 'view_daftarPengajuanDosbing']);
+    });
 
+    Route::group(['prefix' => 'pengelolaan-periode', 'as' => 'pengelolaan-periode.'], function () {
+        Route::get('/', [PengelolaanPeriodeController::class, 'view_PengelolaanPeriode'])->name('index');
+        Route::post('/{mode}', [PengelolaanPeriodeController::class, 'save_PengelolaanPeriode'])->name('store');
+        Route::delete('/{id}', [PengelolaanPeriodeController::class, 'delete_PengelolaanPeriode'])->name('delete');
+    });
+});
 
