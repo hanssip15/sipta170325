@@ -72,11 +72,6 @@ class KesediaanBimbinganController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        if (count($data['bidang']) > 5) {
-            session()->flash('error', 'Maksimal 5 bidang yang dapat dipilih');
-            return redirect()->back();
-        }
-
         KetertarikanBidang::where('nip', $data['nip'])->delete();
         foreach ($data['bidang'] as $bidang) {
             KetertarikanBidang::create([
@@ -100,6 +95,7 @@ class KesediaanBimbinganController extends Controller
         }
 
         $data = request()->all();
+        $data['bidang'] = ucwords(strtolower($data['bidang']));
         $data['nip'] = $this->USER_ID;
         $validator = Validator::make($data, [
             'bidang' => 'required|string|max:255|unique:bidang,bidang'
@@ -115,12 +111,10 @@ class KesediaanBimbinganController extends Controller
             $bidang = Bidang::create([
                 'bidang' => $data['bidang']
             ]);
-            if ($this->get_info()['BidangInterestTotal'] < 5) {
-                KetertarikanBidang::create([
-                    'nip' => $data['nip'],
-                    'id_bidang' => $bidang->id_bidang
-                ]);
-            }
+            KetertarikanBidang::create([
+                'nip' => $data['nip'],
+                'id_bidang' => $bidang->id_bidang
+            ]);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

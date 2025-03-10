@@ -135,6 +135,17 @@
             var timeAHour = parseInt(timeA.split(':')[0]);
             var timeBHour = parseInt(timeB.split(':')[0]);
 
+            var dateA = new Date();
+            var dateB = new Date();
+            dateA.setHours(timeAHour);
+            dateB.setHours(timeBHour);
+            dateA.setMinutes(parseInt(timeA.split(':')[1]));
+            dateB.setMinutes(parseInt(timeB.split(':')[1]));
+
+            if (dateB <= dateA) {
+                return false;
+            }
+
             var valid = true;
             dataJadwal.forEach((jadwal) => {
                 if (excludeId.includes(jadwal.id)) {
@@ -174,7 +185,8 @@
                 $('#TimeModal').modal('hide');
             } else {
                 SweetAlert('error', 'Gagal Menambah Jadwal',
-                    'Jadwal yang anda masukkan bentrok dengan jadwal yang sudah ada', 'OK', '', '#d33', '', false, true);
+                    'Jadwal yang anda masukkan invalid atau bentrok dengan jadwal yang sudah ada', 'OK', '', '#d33', '',
+                    false, true);
             }
         }
 
@@ -221,7 +233,7 @@
                     cell.addClass('bg-secondary');
 
                     if (i == timeA) {
-                        cell.addClass('rounded-top').removeClass('rounded-bottom');
+                        cell.addClass('rounded-top').addClass('border-top').removeClass('rounded-bottom').removeClass('border-bottom');
                         let container = $('<div>').addClass('container-fluid d-flex justify-content-end p-0');
 
                         let editButton = $('<button>')
@@ -255,7 +267,7 @@
                     }
 
                     if (i == timeB && !cell.hasClass('rounded-top')) {
-                        cell.addClass('rounded-bottom');
+                        cell.addClass('rounded-bottom').addClass('border-bottom').removeClass('rounded-top').removeClass('border-top');
                     }
                 }
             });

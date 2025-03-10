@@ -51,7 +51,7 @@
         <form action="{{ route('pengajuanalokasipembimbing.kesediaan-membimbing.minat-bidang.store') }}" method="POST"
             id="MinatForm">
             @csrf
-            <div class="container-fluid bg-secondary rounded-bottom bg-opacity-25 pre-scrollable mb-4">
+            <div class="container-fluid bg-light rounded-bottom bg-opacity-25 pre-scrollable mb-4 border">
 
                 <div class="container text-left">
                     <div class="row row-cols-lg-2 row-cols-1 p-0 pt-2 pb-2 p-md-3 pt-md-3 pb-md-3">
@@ -61,7 +61,7 @@
                                     <input class="form-check-input" type="checkbox" id="bidang{{ $bidangitem->id_bidang }}"
                                         name="bidang[]" value="{{ $bidangitem->id_bidang }}"
                                         {{ $savedInformation['Periode'] ? '' : 'disabled' }}>
-                                    <label class="form-check-label text-light" for="bidang{{ $bidangitem->id_bidang }}">
+                                    <label class="form-check-label text-dark" for="bidang{{ $bidangitem->id_bidang }}">
                                         {{ $bidangitem->bidang }}
                                     </label>
                                 </div>
@@ -70,6 +70,16 @@
                     </div>
                 </div>
             </div>
+            {{-- checkbox to check all --}}
+            {{-- <input type="checkbox" id="checkAll" class="form-check-input">
+            <label class="form-check
+                form-check-label text-dark" for="checkAll">Pilih Semua</label> --}}
+            <div class="container-fluid form-check">
+                <input type="checkbox" id="checkAll" class="form-check-input">
+                <label class="form-check-label text-dark" for="checkAll">Pilih Semua</label>
+            </div>
+
+
             {{-- ================== --}}
             <div class="container-fluid d-flex justify-content-end mt-2 pl-0 pt-3 pb-3 pr-0">
                 <button type="submit" class="btn btn-primary ml-3"
@@ -130,7 +140,7 @@
         @endforeach
 
         $('#bidang').on('input', function() {
-            if (bidang_list.includes($(this).val())) {
+            if (bidang_list.map(b => b.toLowerCase()).includes($(this).val().toLowerCase())) {
                 $('#modalSaveBtn').prop('disabled', true);
                 $('#modalSaveBtn').addClass('btn-danger');
                 $('#modalSaveBtn').removeClass('btn-primary');
@@ -160,25 +170,48 @@
 
     <script>
         $('.form-check-input').on('click', function() {
-
-            if ($('.form-check-input:checked').length > 5) {
-                $(this).prop('checked', false);
-                toast('warning', 'Peringatan', 'Maksimal 5 bidang yang dapat dipilih', 5000);
+            if ($(this).attr('id') == 'checkAll') {
                 return;
             }
 
             if ($(this).prop('checked')) {
-                $(this).next().removeClass('text-light');
+                $(this).next().removeClass('text-dark');
                 $(this).next().addClass('text-success');
                 $(this).next().addClass('text-bold');
             } else {
-                $(this).next().addClass('text-light');
+                $(this).next().addClass('text-dark');
                 $(this).next().removeClass('text-success');
                 $(this).next().removeClass('text-bold');
             }
 
             $('#jmlMinatBidangText').text($('.form-check-input:checked').length);
+
+            if ($('.form-check-input:checked').length != $('.form-check-input').length - 2) {
+                $('#checkAll').prop('checked', false);
+            }
         });
+
+        $('#checkAll').on('click', function() {
+            for (let i = 0; i < $('.form-check-input').length; i++) {
+                const element = $('.form-check-input')[i];
+                if ($(element).attr('id') == 'checkAll') {
+                    continue;
+                }
+
+                if ($(this).prop('checked')) {
+                    $(element).prop('checked', true);
+                    $(element).next().removeClass('text-dark');
+                    $(element).next().addClass('text-success');
+                    $(element).next().addClass('text-bold');
+                } else {
+                    $(element).prop('checked', false);
+                    $(element).next().addClass('text-dark');
+                    $(element).next().removeClass('text-success');
+                    $(element).next().removeClass('text-bold');
+                }
+            }
+        });
+
         @foreach ($savedBidang as $bidang)
             var disabled = $('#bidang{{ $bidang->id_bidang }}').prop('disabled');
             if (disabled) {

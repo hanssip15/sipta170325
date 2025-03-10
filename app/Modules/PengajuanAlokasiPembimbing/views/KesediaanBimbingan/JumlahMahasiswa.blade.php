@@ -82,16 +82,19 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid mt-3 d-none w-100 w-lg-50" id="warning">
+            <div class="container-fluid mt-3 d-none w-100 w-lg-50 text-center" id="warning">
                 <center>
-                    <div class="alert alert-danger alert-dismissible d-none">
+                    <div class="alert alert-warning alert-dismissible d-none p-3">
                         <small>
-                            Dengan mengisi kuota 0, anda menyatakan bahwa tidak bersedia membimbing!
+                            <strong>Peringatan:</strong> Dengan mengisi kuota 0, anda menyatakan bahwa tidak bersedia
+                            membimbing!
                         </small>
                     </div>
-                    <div class="alert alert-danger alert-dismissible d-none">
+                    <div class="alert alert-warning alert-dismissible d-none p-3">
                         <small>
-                            Maksimal jumlah mahasiswa adalah 10 D3 dan 8 D4,<br>lebih dari itu honor hanya dihitung untuk 18
+                            <strong>Peringatan:</strong> Maksimal jumlah mahasiswa adalah 10 D3 dan 8 D4,<br>lebih dari itu
+                            honor hanya
+                            dihitung untuk 18
                             mahasiswa
                         </small>
                     </div>
