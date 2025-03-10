@@ -23,22 +23,31 @@ class DaftarKesediaanMembimbingController extends Controller
                 dosen.id_dosen,
                 dosen.nip, 
                 kbk.kbk, 
-                (dosen.maks_bimbingan_d3 + dosen.maks_bimbingan_d4) AS Jumlah_Mhs, 
-                dosen.maks_bimbingan_d3 AS Mhs_D3, 
-                dosen.maks_bimbingan_d4 AS Mhs_D4,
                 CASE 
-                    WHEN COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), '') = '' THEN '-' 
-                    ELSE 'Sudah mengumpulkan' 
+                    WHEN COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), '') = '' THEN 0 
+                    ELSE (dosen.maks_bimbingan_d3 + dosen.maks_bimbingan_d4) 
+                END AS Jumlah_Mhs, 
+                CASE 
+                    WHEN COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), '') = '' THEN 0 
+                    ELSE dosen.maks_bimbingan_d3 
+                END AS Mhs_D3, 
+                CASE 
+                    WHEN COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), '') = '' THEN 0 
+                    ELSE dosen.maks_bimbingan_d4 
+                END AS Mhs_D4,
+                CASE 
+                    WHEN COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), '') = '' THEN 'Belum' 
+                    ELSE 'Sudah' 
                 END AS status_pengumpulan,
                 CASE 
-                    WHEN dosen.maks_bimbingan_d3 = 0 THEN 'Tidak bersedia' 
+                    WHEN COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), '') = '' THEN 'Tidak bersedia' 
                     ELSE 'Bersedia' 
                 END AS kesediaan_d3,
                 CASE 
-                    WHEN dosen.maks_bimbingan_d4 = 0 THEN 'Tidak bersedia' 
+                    WHEN COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), '') = '' THEN 'Tidak bersedia' 
                     ELSE 'Bersedia' 
                 END AS kesediaan_d4,
-                COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), 'Tidak ada bidang') AS bidang_tertarik
+                COALESCE(GROUP_CONCAT(bidang.bidang SEPARATOR ', '), 'Tidak memilih bidang') AS bidang_tertarik
             FROM user
             JOIN dosen ON user.username = dosen.nip
             JOIN kbk ON dosen.id_kbk = kbk.id_kbk

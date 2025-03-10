@@ -38,20 +38,20 @@
     <div class="table-responsive">
     <table id="kesediaanTable" class="table table-bordered">
     <thead>
-        <tr>
+        <tr class="bg-dark text-white" >
             <th colspan="7" class="text-center">Dosen Eligible Sebagai Pembimbing 1</th>
             <th colspan="3" class="text-center">Jumlah TA</th>
             <th colspan="2" class="text-center">Kesediaan Membimbing</th>
-            <th rowspan="2" class="text-center align-middle">Topik</th>
+            <th rowspan="2" class="text-center align-middle" style="min-width: 100vh;">Topik</th>
         </tr>
-        <tr>
+        <tr class="bg-dark text-white">
             <th class="text-center">No</th>
             <th class="text-center">KD DOSEN</th>
-            <th class="text-center" style="min-width: 25vh;">NAMA</th>
+            <th class="text-center" style="min-width: 45vh;" >NAMA</th>
             <th class="text-center">ID DOSEN</th>
-            <th class="text-center" style="min-width: 25vh;">NIP</th>
-            <th class="text-center" style="min-width: 10vh;" >KBK</th>
-            <th class="text-center" style="min-width: 5vh;">Status Pengumpulan</th>
+            <th class="text-center" style="min-width: 35vh;" >NIP</th>
+            <th class="text-center" style="min-width: 20vh" >KBK</th>
+            <th class="text-center" style="min-width: 10vh" >Status Pengumpulan</th>
             <th class="text-center">Jumlah Mhs</th>
             <th class="text-center">Mhs D3</th>
             <th class="text-center">Mhs D4</th>
@@ -62,18 +62,18 @@
     <tbody>
         @foreach($data as $item)
         <tr>
-            <td class="text-center">{{ $loop->iteration }}</td>
-            <td class="text-center">{{ $item->kode_dosen }}</td>
-            <td class="text-center">{{ $item->nama }}</td>
-            <td class="text-center">{{ $item->id_dosen }}</td>
-            <td class="text-center">{{ $item->nip }}</td>
-            <td class="text-center">{{ $item->kbk }}</td>
-            <td class="text-center">{{ $item->status_pengumpulan }}</td>
-            <td class="text-center">{{ $item->Jumlah_Mhs }}</td>
-            <td class="text-center">{{ $item->Mhs_D3 }}</td>
-            <td class="text-center">{{ $item->Mhs_D4 }}</td>
-            <td class="text-center">{{ $item->kesediaan_d3 }}</td>
-            <td class="text-center">{{ $item->kesediaan_d4 }}</td>
+            <td class="text-center align-middle">{{ $loop->iteration }}</td>
+            <td class="text-center align-middle">{{ $item->kode_dosen }}</td>
+            <td class="text-center align-middle">{{ $item->nama }}</td>
+            <td class="text-center align-middle">{{ $item->id_dosen }}</td>
+            <td class="text-center align-middle">{{ $item->nip }}</td>
+            <td class="text-center align-middle">{{ $item->kbk }}</td>
+            <td class="text-center align-middle">{{ $item->status_pengumpulan }}</td>
+            <td class="text-center align-middle">{{ $item->Jumlah_Mhs }}</td>
+            <td class="text-center align-middle">{{ $item->Mhs_D3 }}</td>
+            <td class="text-center align-middle">{{ $item->Mhs_D4 }}</td>
+            <td class="text-center align-middle">{{ $item->kesediaan_d3 }}</td>
+            <td class="text-center align-middle">{{ $item->kesediaan_d4 }}</td>
             <td class="text-left truncate">{{ $item->bidang_tertarik }}</td>
         </tr>
         @endforeach
