@@ -18,9 +18,7 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
     
     Route::group(['prefix' => 'kesediaan-membimbing', 'as' => 'kesediaan-membimbing.'], function () {
         Route::post('/next/{previous}/{target}', [KesediaanBimbinganController::class, 'next_page'])->name('next');
-        Route::group(['prefix' => 'PengajuanAlokasiPembimbing'], function () {
-            Route::get('/alokasi-pembimbing', [AlokasiPembimbingController::class, 'index']);
-        });
+
         Route::group(['prefix' => 'minat-bidang', 'as' => 'minat-bidang.'], function () {
             Route::get('/', [KesediaanBimbinganController::class, 'view_minatTopik'])->name('index');
             Route::post('/store', [KesediaanBimbinganController::class, 'save_minatTopik'])->name('store');
@@ -59,10 +57,6 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
         Route::get('/', [PengelolaanPeriodeController::class, 'view_PengelolaanPeriode'])->name('index');
         Route::post('/{mode}', [PengelolaanPeriodeController::class, 'save_PengelolaanPeriode'])->name('store');
         Route::delete('/{id}', [PengelolaanPeriodeController::class, 'delete_PengelolaanPeriode'])->name('delete');
-    });
-
-    Route::group(['prefix' => 'DaftarPengajuanDosbing'], function () {
-        Route::get('/', [DaftarPengajuanDosbingController::class, 'view_daftarPengajuanDosbing']);
     });
     
     Route::group(['prefix' => 'RekapFTA02'], function () {

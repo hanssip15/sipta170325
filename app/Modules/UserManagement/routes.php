@@ -2,12 +2,9 @@
 
 use App\Models\User;
 use App\Modules\UserManagement\Controllers\UserManagementController;
-<<<<<<< HEAD
 use App\Modules\UserManagement\Controllers\DosenController;
 use FontLib\Table\Type\name;
-=======
 use App\Modules\UserManagement\Controllers\ForgotPasswordController;
->>>>>>> d2fb12f5a3e97020aaa4de7d1934135340e89047
 use Illuminate\Support\Facades\Route;
 
 // Route untuk login
