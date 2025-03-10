@@ -31,6 +31,9 @@ RUN pecl install -o -f redis &&  rm -rf /tmp/pear && docker-php-ext-enable redis
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Create necessary directories
+RUN mkdir -p /var/www/app/Modules
+
 # Copy project files into the container
 COPY . /var/www/
 
