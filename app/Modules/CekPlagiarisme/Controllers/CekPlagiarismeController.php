@@ -9,6 +9,6 @@ class CekPlagiarismeController extends Controller
 {
     public function index(): View
     {
-        return view('CekPlagiarisme.views.CekPlagiarisme');
+        return view('CekPlagiarisme.views.DaftarDokumen');
     }
 }
