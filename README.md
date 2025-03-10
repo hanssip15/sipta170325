@@ -10,15 +10,18 @@
 - If database can't connect to app service, run the command ```docker compose down -v``` first.
 
 ## How to Create a Module
-1. Run the command php artisan make:modul ModulName.
+1. Run the command ```docker exec -it sipta-app-dev php artisan make:modul ModulName```.
 2. Inside every module, you will find:
     - Routes
     - Controller
     - Views
 
 ## Database Table and Seeder Configuration
-1. run command ```docker exec -it sipta-app-dev php artisan db:wipe --force``` (Drop Current Database)
-2. run command ```docker exec -it sipta-app-dev php artisan artisan:migrate --seed --force```
+Database migration and seeding are automatically performed when you run the application with Docker. However, if you want to do it manually, follow these steps:
+1. Run the command ```docker exec -it sipta-app-dev php artisan migrate``` (This will run the migration)
+2. Run the command ```docker exec -it sipta-app-dev php artisan db:seed``` (This will seed the database)
+1. Run the command ```docker exec -it sipta-app-dev php artisan db:wipe --force``` (This will drop the current database.)
+2. Run the command ```docker exec -it sipta-app-dev php artisan artisan:migrate --seed --force``` (This will run the migrations and seed the database.)
 
 <br>
 <br>
