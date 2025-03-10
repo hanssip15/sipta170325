@@ -390,7 +390,7 @@ return [
         ],
         [
             'text' => 'Cek Plagiarisme',
-            'url' => 'cek-plagiarisme',
+            'url' => 'cekplagiarisme',
             'icon' => 'fas fa-book',
         ],
         ['header' => 'Pengaturan Pengguna'],
