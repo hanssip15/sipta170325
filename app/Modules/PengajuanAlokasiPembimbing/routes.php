@@ -11,10 +11,16 @@ use App\Modules\PengajuanAlokasiPembimbing\Controllers\DaftarPengajuanDosbingCon
 use App\Modules\PengajuanAlokasiPembimbing\Controllers\PengajuanPembimbing\PengajuanPembimbingController;
 
 use App\Modules\PengajuanAlokasiPembimbing\Controllers\PengelolaanPeriodeController;
+use App\Modules\PengajuanAlokasiPembimbing\Controllers\RekapFTA02Controller;
+
 
 Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokasipembimbing.'], function () {
     Route::group(['prefix' => 'kesediaan-membimbing', 'as' => 'kesediaan-membimbing.'], function () {
         Route::post('/next/{previous}/{target}', [KesediaanBimbinganController::class, 'next_page'])->name('next');
+
+Route::group(['prefix' => 'PengajuanAlokasiPembimbing'], function () {
+    Route::get('/alokasi-pembimbing', [AlokasiPembimbingController::class, 'index']);
+});
 
         Route::group(['prefix' => 'minat-bidang', 'as' => 'minat-bidang.'], function () {
             Route::get('/', [KesediaanBimbinganController::class, 'view_minatTopik'])->name('index');
@@ -54,5 +60,13 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
         Route::post('/{mode}', [PengelolaanPeriodeController::class, 'save_PengelolaanPeriode'])->name('store');
         Route::delete('/{id}', [PengelolaanPeriodeController::class, 'delete_PengelolaanPeriode'])->name('delete');
     });
-});
 
+    Route::group(['prefix' => 'DaftarPengajuanDosbing'], function () {
+        Route::get('/', [DaftarPengajuanDosbingController::class, 'view_daftarPengajuanDosbing']);
+    });
+    
+    Route::group(['prefix' => 'RekapFTA02'], function () {
+        Route::get('/', [RekapFTA02Controller::class, 'view_rekapFTA02']);
+    });
+    
+});
