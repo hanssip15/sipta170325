@@ -5,6 +5,9 @@ use App\Modules\PengajuanAlokasiPembimbing\Controllers\DaftarKesediaanMembimbing
 use App\Modules\PengajuanAlokasiPembimbing\Controllers\KesediaanBimbinganController;
 use Illuminate\Support\Facades\Route;
 use App\Modules\PengajuanAlokasiPembimbing\Controllers\AlokasiPembimbingController;
+use App\Modules\PengajuanAlokasiPembimbing\Controllers\PengajuanAlokasiPembimbingController;
+use App\Modules\PengajuanAlokasiPembimbing\Controllers\DaftarPengajuanDosbingController;
+
 
 Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokasipembimbing.'], function () {
     Route::group(['prefix' => 'kesediaan-membimbing', 'as' => 'kesediaan-membimbing.'], function () {
@@ -33,4 +36,8 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
     Route::post('/alokasi-pembimbing/submit', [AlokasiPembimbingController::class, 'submit'])->name('alokasi-pembimbing.submit');
     Route::post('/alokasi-pembimbing/simpan', [AlokasiPembimbingController::class, 'simpanDraft'])->name('alokasi-pembimbing.simpan');
 
+});
+
+Route::group(['prefix' => 'DaftarPengajuanDosbing'], function () {
+    Route::get('/', [DaftarPengajuanDosbingController::class, 'view_daftarPengajuanDosbing']);
 });
