@@ -14,5 +14,12 @@ Route::group(['prefix' => 'KelolaPenilaianTA'], function () {
     })->name('formulir-penilaian.edit');
     Route::put('/formulir-penilaian/update', [KelolaPenilaianTAController::class, 'update'])->name('formulir-penilaian.update');
     // Route::get('KelolaPenilaianTA/formulir-penilaian/edit', [FormulirPenilaianController::class, 'edit'])->name('formulir-penilaian.edit');
-// Route::put('formulir-penilaian/{id}', [FormulirPenilaianController::class, 'update'])->name('formulir-penilaian.update');
+    // Route::put('formulir-penilaian/{id}', [FormulirPenilaianController::class, 'update'])->name('formulir-penilaian.update');
+    Route::get('/monitoring-mahasiswa', [KelolaPenilaianTAController::class, 'indexMonitoringMahasiswa']);
+    Route::get('/monitoring-feedback', [KelolaPenilaianTAController::class, 'indexMonitoringFeedback']);
+    Route::get('/monitoring-rubrik', [KelolaPenilaianTAController::class, 'indexMonitoringRubrik']);
 });
+
+Route::get('/KelolaPenilaianTA', [KelolaPenilaianTAController::class, 'index']);
+
+

@@ -7,7 +7,7 @@ use Illuminate\View\View;
 
 class KelolaPenilaianTAController extends Controller
 {
-    public function index(): View
+    public function indexForm(): View
     {
         for ($i = 1; $i <= 100; $i++) {
             $data = [
@@ -35,6 +35,11 @@ class KelolaPenilaianTAController extends Controller
         }
 
         return view('KelolaPenilaianTA.views.FormulirPenilaianTA', compact('data'));
+    }
+
+    public function index(): View
+    {
+        return view('KelolaPenilaianTA.views.view');
     }
 
     public function create(): View
@@ -71,5 +76,20 @@ class KelolaPenilaianTAController extends Controller
     public function update(Request $request)
     {
         return redirect()->route('formulir-penilaian.index')->with('success', 'Formulir penilaian berhasil diperbarui.');
+    }
+
+    public function indexMonitoringMahasiswa(): View
+    {
+        return view('KelolaPenilaianTA.views.monitoring_mahasiswa');
+    }
+
+    public function indexMonitoringFeedback(): View
+    {
+        return view('KelolaPenilaianTA.views.monitoring_feedback');
+    }
+
+    public function indexMonitoringRubrik(): View
+    {
+        return view('KelolaPenilaianTA.views.monitoring_rubrik');
     }
 }
