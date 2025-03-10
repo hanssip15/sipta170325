@@ -42,42 +42,41 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($cekPlagiarisme as $index => $data)
                     <tr>
-                        <td>1</td>
-                        <td>Implementasi Algoritma Naive</td>
-                        <td>28-02-2025 21:00:11</td>
-                        <td>Maman Sumaman</td>
-                        <td><i class="fas fa-spinner fa-spin"></i></td>
-                        <td><span class="badge badge-warning">Processing</span></td>
-                        <td class="text-muted">Belum ada komentar</td>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $data->judul }}</td>
+                        <td>{{ $data->waktu }}</td>
+                        <td>{{ $data->penulis }}</td>
+                        <td>
+                            @if(is_null($data->presentase))
+                            <i class="fas fa-spinner fa-spin"></i>
+                            @else
+                            <a href="{{ route('plagiarism.detail', ['id' => $data->id]) }}" class="text-primary">
+                                {{ $data->presentase }}%
+                            </a>
+                            @endif
+                        </td>
+                        <td>
+                            @if(is_null($data->presentase))
+                            <span class="badge badge-warning">Processing</span>
+                            @elseif($data->presentase < 20)
+                                <span class="badge badge-success">Tidak Plagiat</span>
+                                @elseif($data->presentase >= 20 && $data->presentase < 50)
+                                    <span class="badge badge-warning">Perlu Ditinjau</span>
+                                    @else
+                                    <span class="badge badge-danger">Plagiat</span>
+                                    @endif
+                        </td>
+                        <td>
+                            @if($data->komentar)
+                            <a href="{{ route('plagiarism.detail', ['id' => $data->id]) }}" class="text-primary">Komentar diberikan</a>
+                            @else
+                            <span class="text-muted">Belum ada komentar</span>
+                            @endif
+                        </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Implementasi Algoritma Naive</td>
-                        <td>28-02-2025 19:28:24</td>
-                        <td>Maman Samaman</td>
-                        <td><a href="#" class="text-primary">15%</a></td>
-                        <td><span class="badge badge-success">Tidak Plagiat</span></td>
-                        <td class="text-muted">Belum ada komentar</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Implementasi Algoritma Naive</td>
-                        <td>28-02-2025 14:20:14</td>
-                        <td>Mumun Sumumun</td>
-                        <td><a href="#" class="text-primary">50%</a></td>
-                        <td><span class="badge badge-danger">Plagiat</span></td>
-                        <td><a href="#" class="text-primary">Komentar diberikan</a></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Implementasi Algoritma Naive</td>
-                        <td>28-02-2025 09:30:45</td>
-                        <td>Mimin Simimin</td>
-                        <td><a href="#" class="text-primary">80%</a></td>
-                        <td><span class="badge badge-danger">Plagiat</span></td>
-                        <td><a href="#" class="text-primary">Komentar diberikan</a></td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

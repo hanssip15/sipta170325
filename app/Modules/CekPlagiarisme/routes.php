@@ -6,4 +6,4 @@ use App\Modules\CekPlagiarisme\Controllers\CekPlagiarismeController;
 
 Route::get('/cek-plagiarisme', [CekPlagiarismeController::class, 'index']);
 Route::get('/cek-plagiarisme/{id}', [CekPlagiarismeController::class, 'show'])->name('plagiarism.detail');
-Route::get('/penentuan-ambang-batas', [PenentuanAmbangBatas::class, 'index']);
+Route::get('/penentuan-ambang-batas', [CekPlagiarismeController::class, 'PenentuanAmbangBatas']);
