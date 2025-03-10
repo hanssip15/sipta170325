@@ -15,13 +15,12 @@ use App\Modules\PengajuanAlokasiPembimbing\Controllers\RekapFTA02Controller;
 
 
 Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokasipembimbing.'], function () {
+    
     Route::group(['prefix' => 'kesediaan-membimbing', 'as' => 'kesediaan-membimbing.'], function () {
         Route::post('/next/{previous}/{target}', [KesediaanBimbinganController::class, 'next_page'])->name('next');
-
-Route::group(['prefix' => 'PengajuanAlokasiPembimbing'], function () {
-    Route::get('/alokasi-pembimbing', [AlokasiPembimbingController::class, 'index']);
-});
-
+        Route::group(['prefix' => 'PengajuanAlokasiPembimbing'], function () {
+            Route::get('/alokasi-pembimbing', [AlokasiPembimbingController::class, 'index']);
+        });
         Route::group(['prefix' => 'minat-bidang', 'as' => 'minat-bidang.'], function () {
             Route::get('/', [KesediaanBimbinganController::class, 'view_minatTopik'])->name('index');
             Route::post('/store', [KesediaanBimbinganController::class, 'save_minatTopik'])->name('store');
@@ -50,7 +49,8 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing'], function () {
         Route::get('/topik-tugas-akhir', [PengajuanPembimbingController::class, 'view_topikTugasAkhir']) -> name('topik-tugas-akhir');
         Route::get('/prioritas-dosen-pembimbing', [PengajuanPembimbingController::class, 'view_prioritasDosenPembimbing']) -> name('prioritas-dosen-pembimbing');
         Route::get('/pratinjau-formulir', [PengajuanPembimbingController::class, 'view_pratinjauFormulir']) -> name('pratinjau-formulir');
-});
+    });
+
     Route::group(['prefix' => 'DaftarPengajuanDosbing'], function () {
         Route::get('/', [DaftarPengajuanDosbingController::class, 'view_daftarPengajuanDosbing']);
     });
@@ -68,5 +68,5 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing'], function () {
     Route::group(['prefix' => 'RekapFTA02'], function () {
         Route::get('/', [RekapFTA02Controller::class, 'view_rekapFTA02']);
     });
-    
+
 });
