@@ -8,6 +8,14 @@
 
 @section('content')
     <p>Welcome to PembatalanJadwalSeminarSidang Page.</p>
+@section('title', 'PerencanaanDanPelaksanaanSeminar3DanSidang')
+
+@section('content_header')
+    <h1>PerencanaanDanPelaksanaanSeminar3DanSidang</h1>
+@stop
+
+@section('content')
+    <p>Welcome to PerencanaanDanPelaksanaanSeminar3DanSidang Page.</p>
 @stop
 
 @section('css')
