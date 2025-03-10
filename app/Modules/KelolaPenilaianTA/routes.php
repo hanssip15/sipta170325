@@ -18,8 +18,12 @@ Route::group(['prefix' => 'KelolaPenilaianTA'], function () {
     Route::get('/monitoring-mahasiswa', [KelolaPenilaianTAController::class, 'indexMonitoringMahasiswa']);
     Route::get('/monitoring-feedback', [KelolaPenilaianTAController::class, 'indexMonitoringFeedback']);
     Route::get('/monitoring-rubrik', [KelolaPenilaianTAController::class, 'indexMonitoringRubrik']);
+    Route::get('/pengelolaan-nilai', [KelolaPenilaianTAController::class, 'kelola_nilai']);
+    Route::get('/detail/{kategori}', [KelolaPenilaianTAController::class, 'detail_nilai_mahasiswa']);
+    Route::get('/rekapitulasi-nilai', [KelolaPenilaianTAController::class, 'index']);
+    Route::post('/rekapitulasi-nilai/export', [KelolaPenilaianTAController::class, 'exportExcel'])->name('rekapitulasi-nilai.export');
+    Route::get('/rekapitulasi/export', [KelolaPenilaianTAController::class, 'exportExcel'])->name('rekapitulasi.export');
 });
 
 Route::get('/KelolaPenilaianTA', [KelolaPenilaianTAController::class, 'index']);
-
 
