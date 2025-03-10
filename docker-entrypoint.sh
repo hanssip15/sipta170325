@@ -3,6 +3,12 @@
 # Load environment variables dari .env
 export $(grep -v '^#' .env | xargs)
 
+# Install composer dependencies
+composer install --no-scripts --no-autoloader --ignore-platform-reqs
+composer install --ignore-platform-reqs
+
+php artisan key:generate
+
 # Fungsi untuk menunggu database siap
 echo "Menunggu database siap..."
 until php -r "try { new PDO('mysql:host=${DB_HOST};dbname=${DB_DATABASE}', '${DB_USERNAME}', '${DB_PASSWORD}'); echo 'Database siap.'; } catch (PDOException \$e) { exit(1); }"; do

@@ -31,27 +31,27 @@ RUN pecl install -o -f redis &&  rm -rf /tmp/pear && docker-php-ext-enable redis
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy project ke dalam container
+# Copy project files into the container
 COPY . /var/www/
 
-# Tambahkan Git safe.directory sebelum composer install
+# Add Git safe.directory before composer install
 RUN git config --global --add safe.directory /var/www
 RUN git config --global --add safe.directory /var/www/vendor/symfony/var-exporter
 
-# Set permission
+# Set permissions
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/public
 RUN chown -R www-data:www-data /var/www/public
 
-# Install dependency dengan mengabaikan masalah platform jika diperlukan
+# Install dependencies with composer
 RUN composer install --ignore-platform-reqs
 
 # Expose port 8000
 EXPOSE 8000
 
-# Copy entrypoint script dan beri izin eksekusi
+# Copy entrypoint script and give execution permission
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Jalankan entrypoint script
+# Run entrypoint script
 ENTRYPOINT ["docker-entrypoint.sh"]
