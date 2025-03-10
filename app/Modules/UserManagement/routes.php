@@ -1,7 +1,13 @@
 <?php
 
+use App\Models\User;
 use App\Modules\UserManagement\Controllers\UserManagementController;
+<<<<<<< HEAD
+use App\Modules\UserManagement\Controllers\DosenController;
+use FontLib\Table\Type\name;
+=======
 use App\Modules\UserManagement\Controllers\ForgotPasswordController;
+>>>>>>> d2fb12f5a3e97020aaa4de7d1934135340e89047
 use Illuminate\Support\Facades\Route;
 
 // Route untuk login
@@ -33,3 +39,25 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 Route::group(['prefix' => 'user_management'], function () {
     Route::get('/', [UserManagementController::class, 'render']);
 });
+
+Route::get('/manage_dosen', [UserManagementController::class, 'manage_dosen'])
+    ->middleware('role_no_auth:admin')
+    ->name('manage.dosen');
+
+
+    
+Route::post('/update_role', [DosenController::class, 'update_role'])->name('dosen.update_role');
+Route::post('/add_new_dosen', [DosenController::class, 'add_new_dosen'])->name('dosen.add_new_dosen');
+
+
+// Route::get('/test-spatie', function () {
+//     $user = User::where('username', 'dosen001')->first(); // Sesuaikan dengan username yang ada
+
+//     // Tambahkan role dan permission
+//     return [
+//         'has_dosen_role' => $user->hasRole('dosen'),
+//         'can_edit_post' => $user->can('edit-profil')
+//     ];
+// }
+
+// );
