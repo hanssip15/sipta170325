@@ -393,6 +393,11 @@ return [
             'url' => 'cek-plagiarisme',
             'icon' => 'fas fa-book',
         ],
+        [
+            'text' => 'Penentuan Ambang Batas',
+            'url' => '/penentuan-ambang-batas',
+            'icon' => 'fas fa-book',
+        ],
         ['header' => 'Pengaturan Pengguna'],
         // [
         //     'text' => 'profile',

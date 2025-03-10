@@ -5,10 +5,10 @@ namespace App\Modules\CekPlagiarisme\Controllers;
 use App\Modules\Controller;
 use Illuminate\View\View;
 
-class CekPlagiarismeController extends Controller
+class PenentuanAmbangBatas extends Controller
 {
     public function index(): View
     {
-        return view('CekPlagiarisme.views.CekPlagiarisme');
+        return view('CekPlagiarisme.views.PenentuanAmbangBatas');
     }
 }

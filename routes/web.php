@@ -34,3 +34,6 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register');
 });
+Route::get('/penentuan-ambang-batas', function () {
+    return view('CekPlagiarisme.views.PenentuanAmbangBatas');
+});
