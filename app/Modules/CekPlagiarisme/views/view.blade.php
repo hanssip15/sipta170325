@@ -1,19 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'CekPlagiarisme')
+@section('title', 'Cek Plagiarisme')
 
 @section('content_header')
-    <h1>CekPlagiarisme</h1>
+    <h1>Daftar Dokumen</h1>
 @stop
 
 @section('content')
-    <p>Welcome to CekPlagiarisme Page.</p>
+    <p>Belum ada dokumen yang tersedia.</p>
+    <a href="{{ url('/cek-plagiarisme/1') }}" class="btn btn-primary">Lihat Contoh Detail</a>
 @stop
 
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop
 
 @section('js')
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
