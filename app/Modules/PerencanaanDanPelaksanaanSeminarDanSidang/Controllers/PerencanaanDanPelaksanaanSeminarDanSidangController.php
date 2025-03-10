@@ -3,143 +3,186 @@
 namespace App\Modules\PerencanaanDanPelaksanaanSeminarDanSidang\Controllers;
 
 use App\Modules\Controller;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class PerencanaanDanPelaksanaanSeminarDanSidangController extends Controller
 {
     public function index(): View
     {
-        $dataKota = [
-            (object) [
-                'id' => 1,
-                'kelompok' => 'KoTA 001',
-                'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
-                'jenis_pengajuan' => 'Seminar 3',
-                'tanggal' => '2025-03-05',
+        // Simulasikan waktu sekarang
+        $sekarang = Carbon::parse('2025-06-22 12:30:00'); // Untuk simulasi
+
+        // Data presensi sementara
+        $presensiSeminar3 = [
+            [
+                'id_kehadiran' => 'sm3_221524033', // ID unik untuk Seminar 3
+                'nim' => '221524033',
+                'mahasiswa' => 'Bang Jay',
+                'id_kota' => '2',
+                'tanggal' => '22-06-2025',
+                'ruangan' => '22jtk44',
+                'sesi' => '2',
+                'waktu_sidang' => '2025-06-22 12:00:00', // Waktu sidang
+                'status_hadir' => session('status_hadir_sm3_221524033', 'belum_absensi'),//default status hadir
+                'dokumentasi' => session('dok_sm3_221524033', '') // Ambil data dokumentasi dari session
             ],
-            (object) [
-                'id' => 2,
-                'kelompok' => 'KoTA 002',
-                'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
-                'jenis_pengajuan' => 'Seminar 3',
-                'tanggal' => '2025-03-06',
+        ];
+
+        $presensiSidangTA = [
+            [
+                'id_kehadiran' => 'sa_221524033', // ID unik untuk Sidang TA
+                'nim' => '221524033',
+                'mahasiswa' => 'Bang Jay',
+                'id_kota' => '2',
+                'tanggal' => '22-08-2025',
+                'ruangan' => '22jtk44',
+                'sesi' => '2',
+                'waktu_sidang' => '2025-08-22 12:00:00', // Waktu sidang
+                'status_hadir' => session('status_hadir_sa_221524033', 'belum_absensi'),//default status hadir
+                'dokumentasi' => session('dok_sa_221524033', '') // Ambil data dokumentasi dari session
             ],
-            (object) [
-                'id' => 3,
-                'kelompok' => 'KoTA 003',
-                'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
-                'jenis_pengajuan' => 'Sidang TA',
-                'tanggal' => '2025-03-07',
+        ];
+
+        // Teruskan $sekarang dan $presensi ke view
+        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.view', compact('presensiSeminar3','presensiSidangTA', 'sekarang'));
+    }
+
+    public function rekapPresensi(): View
+    {
+        // Data presensi sementara
+        $presensiSeminar3 = [
+            [
+                'id_kehadiran' => 'sm3_221524033', // ID unik untuk Seminar 3
+                'nim' => '221524033',
+                'mahasiswa' => 'Bang Jay',
+                'id_kota' => '2',
+                'tanggal' => '22-06-2025',
+                'ruangan' => '22jtk44',
+                'sesi' => '2',
+                'waktu_sidang' => '2025-06-22 12:00:00', // Waktu sidang
+                'status_hadir' => session('status_hadir_sm3_221524033', 'belum_absensi'),
+                'dokumentasi' => session('dok_sm3_221524033', '') // Ambil data dokumentasi dari session
+            ],
+            [
+                'id_kehadiran' => 'sm3_221524034',
+                'nim' => '221524034',
+                'mahasiswa' => 'Bang Jono',
+                'id_kota' => '2',
+                'tanggal' => '22-06-2025',
+                'ruangan' => '22jtk44',
+                'sesi' => '2',
+                'waktu_sidang' => '2025-06-22 12:00:00', // Waktu sidang
+                'status_hadir' => session('status_hadir_sm3_221524034', 'belum_absensi'),
+                'dokumentasi' => session('dok_sm3_221524034', '') // Ambil data dokumentasi dari session
+            ],
+            [
+                'id_kehadiran' => 'sm3_221524035', 
+                'nim' => '221524035',
+                'mahasiswa' => 'Bang Jarwo',
+                'id_kota' => '2',
+                'tanggal' => '22-06-2025',
+                'ruangan' => '22jtk44',
+                'sesi' => '2',
+                'waktu_sidang' => '2025-06-22 12:00:00', // Waktu sidang
+                'status_hadir' => session('status_hadir_sm3_221524035', 'belum_absensi'),
+                'dokumentasi' => session('dok_sm3_221524035', '') // Ambil data dokumentasi dari session
             ]
         ];
-        
-        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanMahasiswa', compact('dataKota'));        
+
+        // Teruskan $presensi ke view rekap
+        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.rekap_presensi_seminar_3', compact('presensiSeminar3'));
     }
+    
+    public function rekapPresensiSidangTA(): View
+{
+    // Data presensi Sidang TA
+    $presensiSidangTA = [
+        [
+            'id_kehadiran' => 'sa_221524033', // ID unik untuk Sidang TA
+            'nim' => '221524033',
+            'mahasiswa' => 'Bang Jay',
+            'id_kota' => '2',
+            'tanggal' => '22-08-2025',
+            'ruangan' => '22jtk44',
+            'sesi' => '2',
+            'waktu_sidang' => '2025-08-22 12:00:00', // Waktu sidang
+            'status_hadir' => session('status_hadir_sa_221524033', 'belum_absensi'),
+            'dokumentasi' => session('dok_sa_221524033', '') // Ambil data dokumentasi dari session
+        ],
+        [
+            'id_kehadiran' => 'sa_221524034',
+            'nim' => '221524034',
+            'mahasiswa' => 'Bang Jono',
+            'id_kota' => '2',
+            'tanggal' => '22-08-2025',
+            'ruangan' => '22jtk44',
+            'sesi' => '2',
+            'waktu_sidang' => '2025-08-22 12:00:00', // Waktu sidang
+            'status_hadir' => session('status_hadir_sa_221524034', 'belum_absensi'),
+            'dokumentasi' => session('dok_sa_221524034', '') // Ambil data dokumentasi dari session
+        ],
+        [
+            'id_kehadiran' => 'sa_221524035', // ID unik untuk Sidang TA
+            'nim' => '221524035',
+            'mahasiswa' => 'Bang Jarwo',
+            'id_kota' => '2',
+            'tanggal' => '22-08-2025',
+            'ruangan' => '22jtk44',
+            'sesi' => '2',
+            'waktu_sidang' => '2025-08-22 12:00:00', // Waktu sidang
+            'status_hadir' => session('status_hadir_sa_221524035', 'belum_absensi'),
+            'dokumentasi' => session('dok_sa_221524035', '') // Ambil data dokumentasi dari session
+        ]
+    ];
 
-
-    public function pengajuanDitolak(): View
-    {
-        $dataKota = [
-            (object) [
-                'kelompok' => 'KoTA 001',
-                'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
-                'jenis_pengajuan' => 'Seminar 3',
-                'tanggal' => '2025-03-05',
-                'catatan' => 'Tidak sesuai dengan ketentuan',
-            ],
-            (object) [
-                'kelompok' => 'KoTA 002',
-                'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
-                'jenis_pengajuan' => 'Sidang TA',
-                'tanggal' => '2025-03-06',
-                'catatan' => 'Tidak sesuai dengan ketentuan',
-            ],
-            (object) [
-                'kelompok' => 'KoTA 003',
-                'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
-                'jenis_pengajuan' => 'Sidang TA',
-                'tanggal' => '2025-03-07',
-                'catatan' => 'Tidak sesuai dengan ketentuan',
-            ]
-        ];
-
-        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanDitolak', compact('dataKota'));
-    }
-
-    public function pengajuanDiterima(): View
-    {
-        $dataKota = [
-            (object) [
-                'kelompok' => 'KoTA 001',
-                'judul_ta' => 'Sistem Informasi Akademik Berbasis Web',
-                'jenis_pengajuan' => 'Sidang TA',
-                'tanggal' => '2025-03-05',
-            ],
-            (object) [
-                'kelompok' => 'KoTA 002',
-                'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
-                'jenis_pengajuan' => 'Sidang TA',
-                'tanggal' => '2025-03-06',
-            ],
-            (object) [
-                'kelompok' => 'KoTA 003',
-                'judul_ta' => 'Implementasi Machine Learning untuk Prediksi Kelulusan Mahasiswa',
-                'jenis_pengajuan' => 'Seminar 3',
-                'tanggal' => '2025-03-07',
-            ]
-        ];
-        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DaftarPengajuanDiterima', compact('dataKota'));
-    }
-
-    public function show($id){
-        $dataKota = (object) [
-            'kelompok' => 'KoTA 002',
-            'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
-            'berkas' => [
-                (object) ['nama' => 'Proposal TA', 'file' => 'proposal_ta.pdf'],
-                (object) ['nama' => 'Laporan TA', 'file' => 'laporan_ta.pdf'],
-                (object) ['nama' => 'Presentasi TA', 'file' => 'presentasi_ta.pptx']
-            ],
-            'jenis_pengajuan' => 'Sidang TA',
-            'catatan' => 'Tidak ada catatan',
-            'tanggal' => '2025-03-06',
-        ];
-        return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.DetailPengajuan', compact('dataKota'));
-    }
-
-    public function verifikasi(Request $request, $id)
-    {
-        $keputusan = $request->input('keputusan');
-        $catatan = $request->input('catatan', '');
-
-        if ($keputusan === 'Ditolak') {
-            // Hapus berkas (jika ada)
-            $dataKota = session()->get("pengajuan_$id");
-            if ($dataKota && isset($dataKota->berkas)) {
-                foreach ($dataKota->berkas as $berkas) {
-                    Storage::delete("public/berkas/{$berkas->file}");
-                }
-            }
-            $status = 'Ditolak';
-        } else {
-            $status = 'Disetujui';
-        }
-
-        // Simpan data yang diperbarui ke sesi (bisa diganti dengan database jika diperlukan)
-        session()->put("pengajuan_$id", (object) [
-            'kelompok' => 'KoTA 002',
-            'judul_ta' => 'Pengembangan Aplikasi Monitoring Tugas Akhir di Jurusan Teknik Komputer dan Informatika',
-            'berkas' => $keputusan === 'Ditolak' ? [] : (session()->get("pengajuan_$id")->berkas ?? []),
-            'jenis_pengajuan' => $jenis_pengajuan,
-            'catatan' => $catatan,
-            'tanggal' => '2025-03-06',
-        ]);
-
-        return redirect()->route('perencanaan.kelola-pengajuan.list')->with('success', "Pengajuan telah $jenis_Pengajuan.");
-    }
-
-
+    // Teruskan $presensiSidangTA ke view rekap
+    return view('PerencanaanDanPelaksanaanSeminarDanSidang.views.rekap_presensi_sidang_ta', compact('presensiSidangTA'));
 }
 
 
+    public function simpanKehadiran(Request $request)
+    {
+        // Validasi request
+        $request->validate([
+            'id_kehadiran' => 'required|string', // Gunakan id_kehadiran sebagai identifier
+        ]);
+
+        // Simpan status kehadiran di session
+        session(["status_hadir_{$request->input('id_kehadiran')}" => 'hadir']);
+
+        return redirect()->back()->with('success', 'Status kehadiran berhasil disimpan.');
+    }
+
+    public function simpanDokumentasi(Request $request)
+    {
+        // Validasi request
+        $request->validate([
+            'id_kehadiran' => 'required|string',
+            'dokumentasi' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120', // Max 5 MB
+        ], [
+            'dokumentasi.max' => 'Ukuran file tidak boleh lebih dari 5 MB.', // Pesan custom
+        ]);
+
+        // Ambil id_kehadiran dari request
+        $idKehadiran = $request->input('id_kehadiran');
+
+        // Cek apakah ada file lama di session
+        $fileLama = session("dok_{$idKehadiran}");
+
+        // Jika ada file lama, hapus dari storage
+        if ($fileLama && Storage::disk('public')->exists($fileLama)) {
+            Storage::disk('public')->delete($fileLama);
+        }
+
+        // Simpan file baru ke storage
+        $dokumentasiPath = $request->file('dokumentasi')->store('dokumentasi', 'public');
+
+        // Simpan path file baru ke session
+        session(["dok_{$idKehadiran}" => $dokumentasiPath]);
+
+        return redirect()->back()->with('success', 'Dokumentasi berhasil diupload.');
+    }
+}
