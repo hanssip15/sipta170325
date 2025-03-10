@@ -10,6 +10,7 @@ class PenilaianKategori extends Model
     use HasFactory;
 
     protected $table = 'penilaian_kategori';
+    public $timestamps = false;
 
     protected $fillable = [
         'nim',
@@ -17,5 +18,5 @@ class PenilaianKategori extends Model
         'nilai_kategori'
     ];
 
-    
+
 }
