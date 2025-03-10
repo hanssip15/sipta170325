@@ -6,6 +6,10 @@ use App\Modules\Controller;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Exports\RekapitulasiNilaiExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\FromCollection;
+
 
 class KelolaPenilaianTAController extends Controller
 {
@@ -134,7 +138,7 @@ class KelolaPenilaianTAController extends Controller
         return view('KelolaPenilaianTA.views.DetailNilaiMahasiswa', compact('data', 'kategori'));
     }
 
-    public function get_rekap_nilai(): View
+    public function getRekapNilai(): View
     {
         $data = [];
 
@@ -218,6 +222,7 @@ class KelolaPenilaianTAController extends Controller
 
         return Excel::download(new RekapitulasiNilaiExport($data), 'rekapitulasi_nilai.xlsx');
     }
+
 
     public function pengisianMasukanSeminar1(): View
     {
@@ -314,7 +319,7 @@ class KelolaPenilaianTAController extends Controller
                     '< 60 (CD)' => ['Jawaban tidak sesuai, tidak ada pengetahuan']
                 ]
             ]
-        ];        
+        ];
 
         return view('KelolaPenilaianTA.views.pengisian_nilai_seminar_II', compact('mahasiswa', 'penilaian'));
     }
@@ -413,25 +418,25 @@ class KelolaPenilaianTAController extends Controller
                     '60 - 64.99 (C)' => ['Mahasiswa dapat menjawab dengan kurang baik beserta tidak ada reasoning dan rasionalitas'],
                     '< 60 (CD)' => ['Mahasiswa tidak dapat menjawab']
                 ]
+            ],
+            [
+                'no' => 4,
+                'kriteria' => 'Prototipe yang dihasilkan',
+                'detail_kriteria' => [
+                    'Detail Kriteria 4.1'
                 ],
-                [
-                    'no' => 4,
-                    'kriteria' => 'Prototipe yang dihasilkan',
-                    'detail_kriteria' => [
-                        'Detail Kriteria 4.1'
-                    ],
-                    'bobot' => '15 %',
-                    'rentang_nilai' => '0 - 100',
-                    'nilai' => [
-                        '≥ 80 (A)' => ['Produk yang dihasilkan sesuai dengan target Seminar III, memenuhi spesifikasi, dan rancangan yang sesuai spesifikasi (sufficient)'],
-                        '75 - 79.99 (AB)' => ['Produk yang dihasilkan sesuai dengan target Seminar III, memenuhi spesifikasi, dan rancangan yang kurang sesuai spesifikasi (less sufficient)'],
-                        '70 - 74.99 (B)' => ['Produk yang dihasilkan kurang dari target Seminar III, tidak memenuhi spesifikasi, dan rancangan yang tidak sesuai spesifikasi (not sufficient).'],
-                        '65 - 69.99 (BC)' => ['Produk yang dihasilkan kurang dari target Seminar III, tidak memenuhi spesifikasi, dan rancangan yang tidak sesuai spesifikasi (not sufficient)'],
-                        '60 - 64.99 (C)' => ['Produk yang dihasilkan kurang dari target Seminar III, tidak memenuhi spesifikasi, dan tidak ada rancangan'],
-                        '< 60 (CD)' => ['Produk yang dihasilkan tidak memenuhi target Seminar III dan tidak memenuhi spesifikasi']
-                    ]
+                'bobot' => '15 %',
+                'rentang_nilai' => '0 - 100',
+                'nilai' => [
+                    '≥ 80 (A)' => ['Produk yang dihasilkan sesuai dengan target Seminar III, memenuhi spesifikasi, dan rancangan yang sesuai spesifikasi (sufficient)'],
+                    '75 - 79.99 (AB)' => ['Produk yang dihasilkan sesuai dengan target Seminar III, memenuhi spesifikasi, dan rancangan yang kurang sesuai spesifikasi (less sufficient)'],
+                    '70 - 74.99 (B)' => ['Produk yang dihasilkan kurang dari target Seminar III, tidak memenuhi spesifikasi, dan rancangan yang tidak sesuai spesifikasi (not sufficient).'],
+                    '65 - 69.99 (BC)' => ['Produk yang dihasilkan kurang dari target Seminar III, tidak memenuhi spesifikasi, dan rancangan yang tidak sesuai spesifikasi (not sufficient)'],
+                    '60 - 64.99 (C)' => ['Produk yang dihasilkan kurang dari target Seminar III, tidak memenuhi spesifikasi, dan tidak ada rancangan'],
+                    '< 60 (CD)' => ['Produk yang dihasilkan tidak memenuhi target Seminar III dan tidak memenuhi spesifikasi']
                 ]
-        ];        
+            ]
+        ];
 
         return view('KelolaPenilaianTA.views.pengisian_nilai_seminar_III', compact('mahasiswa', 'penilaian'));
     }
@@ -530,25 +535,25 @@ class KelolaPenilaianTAController extends Controller
                     '60 - 64.99 (C)' => ['Mahasiswa dapat menjawab dengan kurang baik beserta tidak ada reasoning dan rasionalitas'],
                     '< 60 (CD)' => ['Mahasiswa tidak dapat menjawab']
                 ]
+            ],
+            [
+                'no' => 4,
+                'kriteria' => 'Produk perangkat lunak',
+                'detail_kriteria' => [
+                    'Detail Kriteria 4.1'
                 ],
-                [
-                    'no' => 4,
-                    'kriteria' => 'Produk perangkat lunak',
-                    'detail_kriteria' => [
-                        'Detail Kriteria 4.1'
-                    ],
-                    'bobot' => '25 %',
-                    'rentang_nilai' => '0 - 100',
-                    'nilai' => [
-                        '≥ 80 (A)' => ['Produk yang dihasilkan sesuai dengan target Sidang Akhir, memenuhi spesifikasi, dan rancangan yang sesuai spesifikasi (sufficient)'],
-                        '75 - 79.99 (AB)' => ['Produk yang dihasilkan sesuai dengan target Sidang Akhir, memenuhi spesifikasi, dan rancangan yang kurang sesuai spesifikasi (less sufficient)'],
-                        '70 - 74.99 (B)' => ['Produk yang dihasilkan kurang dari target Sidang Akhir, tidak memenuhi spesifikasi, dan rancangan yang tidak sesuai spesifikasi (not sufficient).'],
-                        '65 - 69.99 (BC)' => ['Produk yang dihasilkan kurang dari target Sidang Akhir, tidak memenuhi spesifikasi, dan rancangan yang tidak sesuai spesifikasi (not sufficient)'],
-                        '60 - 64.99 (C)' => ['Produk yang dihasilkan kurang dari target Sidang Akhir, tidak memenuhi spesifikasi, dan tidak ada rancangan'],
-                        '< 60 (CD)' => ['Produk yang dihasilkan tidak memenuhi target Sidang Akhir dan tidak memenuhi spesifikasi']
-                    ]
+                'bobot' => '25 %',
+                'rentang_nilai' => '0 - 100',
+                'nilai' => [
+                    '≥ 80 (A)' => ['Produk yang dihasilkan sesuai dengan target Sidang Akhir, memenuhi spesifikasi, dan rancangan yang sesuai spesifikasi (sufficient)'],
+                    '75 - 79.99 (AB)' => ['Produk yang dihasilkan sesuai dengan target Sidang Akhir, memenuhi spesifikasi, dan rancangan yang kurang sesuai spesifikasi (less sufficient)'],
+                    '70 - 74.99 (B)' => ['Produk yang dihasilkan kurang dari target Sidang Akhir, tidak memenuhi spesifikasi, dan rancangan yang tidak sesuai spesifikasi (not sufficient).'],
+                    '65 - 69.99 (BC)' => ['Produk yang dihasilkan kurang dari target Sidang Akhir, tidak memenuhi spesifikasi, dan rancangan yang tidak sesuai spesifikasi (not sufficient)'],
+                    '60 - 64.99 (C)' => ['Produk yang dihasilkan kurang dari target Sidang Akhir, tidak memenuhi spesifikasi, dan tidak ada rancangan'],
+                    '< 60 (CD)' => ['Produk yang dihasilkan tidak memenuhi target Sidang Akhir dan tidak memenuhi spesifikasi']
                 ]
-        ];        
+            ]
+        ];
 
         return view('KelolaPenilaianTA.views.pengisian_nilai_sidang_akhir', compact('mahasiswa', 'penilaian'));
     }
@@ -571,7 +576,7 @@ class KelolaPenilaianTAController extends Controller
 
         return view('KelolaPenilaianTA.views.pengisian_masukan_sidang_akhir', compact('mahasiswa'));
     }
-    
+
     public function pengisianNilaiTA(): View
     {
         // Data Mahasiswa
@@ -626,7 +631,7 @@ class KelolaPenilaianTAController extends Controller
                     ]
                 ]
             ]
-        ];      
+        ];
 
         return view('KelolaPenilaianTA.views.pengisian_nilai_tugas_akhir', compact('mahasiswa', 'penilaian'));
     }
