@@ -20,6 +20,8 @@
 Database migration and seeding are automatically performed when you run the application with Docker. However, if you want to do it manually, follow these steps:
 1. Run the command ```docker exec -it sipta-app-dev php artisan migrate``` (This will run the migration)
 2. Run the command ```docker exec -it sipta-app-dev php artisan db:seed``` (This will seed the database)
+
+If you encounter an error, do this:
 1. Run the command ```docker exec -it sipta-app-dev php artisan db:wipe --force``` (This will drop the current database.)
 2. Run the command ```docker exec -it sipta-app-dev php artisan artisan:migrate --seed --force``` (This will run the migrations and seed the database.)
 
