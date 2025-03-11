@@ -37,10 +37,6 @@ RUN mkdir -p /var/www/app/Modules
 # Copy project files into the container
 COPY . /var/www/
 
-# Add Git safe.directory before composer install
-RUN git config --global --add safe.directory /var/www
-RUN git config --global --add safe.directory /var/www/vendor/symfony/var-exporter
-
 # Set permissions
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/public
