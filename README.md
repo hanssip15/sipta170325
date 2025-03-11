@@ -8,6 +8,7 @@
 
 - If you don't want to run the seeder because it will replace your existing data in MySQL, simply set ```RUN_SEEDER=false``` in the ```.env``` file.
 - If database can't connect to app service, run the command ```docker compose down -v``` first.
+- If you encounter an error with message 'ERROR [app internal] load build context, delete vendor folder and run the command ```Get-ChildItem -Recurse | ForEach-Object { icacls $_.FullName /reset }```.
 
 ## How to Create a Module
 1. Run the command ```docker exec -it sipta-app-dev php artisan make:modul ModulName```.
