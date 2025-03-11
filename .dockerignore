@@ -12,3 +12,5 @@ phpunit.xml
 tests
 docker-compose.override.yml
 vendor
+!docker-entrypoint.sh
+!app.Dockerfile.dev
