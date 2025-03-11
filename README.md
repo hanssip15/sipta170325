@@ -2,17 +2,10 @@
 1. run command ```composer i```
 2. copy .env.example and rename to .env
 3. set up the database configuration (make sure its same with the port on docker)
-<<<<<<< HEAD
-4. run command "php artisan key:generate"
-5. run command "docker compose up -d"
-6. and finally, run the app with "php artisan serve"
-7. make module with "php artisan make:modul ModulName"
-=======
 4. run command ```php artisan key:generate```
 5. run command ```docker compose up -d```
 6. and finally, run the app with ```php artisan ser```
 7. make module with ```php artisan make:modul ModulName```
->>>>>>> c61c815acd19eece882fa2c5272b38c99868482c
     in modul included : -routes, controllers and views
 
 ## Database Table and Seeder Configuration
