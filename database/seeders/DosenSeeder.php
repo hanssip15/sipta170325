@@ -15,8 +15,7 @@ class DosenSeeder extends Seeder
      */
     public function run(): void
     {
-        if (!Schema::hasTable('dosen')) 
-        {
+        if (!Schema::hasTable('dosen')) {
             return;
         }
 
@@ -72,8 +71,7 @@ class DosenSeeder extends Seeder
             ]
         ];
 
-        foreach ($data as $item) 
-        {
+        foreach ($data as $item) {
             Dosen::create($item);
         }
     }

@@ -25,8 +25,8 @@ class FormPenilaianSeeder extends Seeder
         $data = [
             [
                 'nama_fta' => 'Form Penilaian 1',
-                'id_prodi' => 1, // Sesuaikan dengan ID yang valid di tabel prodi
-                'jenis_form' => 'penilaian', // ENUM: penilaian atau feedback
+                'id_prodi' => 1, 
+                'jenis_form' => 'penilaian',
                 'tanggal_tenggat_pengisian' => '2024-06-30',
                 'created_at' => now(),
                 'updated_at' => now()

@@ -14,8 +14,7 @@ class AlokasiPembimbingSeeder extends Seeder
      */
     public function run(): void
     {
-        if (!Schema::hasTable('alokasi_pembimbing')) 
-        {
+        if (!Schema::hasTable('alokasi_pembimbing')) {
             return;
         }
 
@@ -32,37 +31,36 @@ class AlokasiPembimbingSeeder extends Seeder
                 'catatan' => 'Pembimbing utama',
             ],
             [
-                'id_pengajuan_pembimbing' => 1,
-                'nip' => '19850210 201504 2 001',
+                'id_pengajuan_pembimbing' => 2,
+                'nip' => '198502102015042001',
                 'urutan_prioritas_terpilih' => 2,
                 'status_alokasi' => 'belum_fix',
                 'catatan' => 'Menunggu konfirmasi',
             ],
             [
-                'id_pengajuan_pembimbing' => 1,
-                'nip' => '19720106 199903 1 002',
+                'id_pengajuan_pembimbing' => 2,
+                'nip' => '197201061999031002',
                 'urutan_prioritas_terpilih' => 3,
                 'status_alokasi' => 'fix',
                 'catatan' => 'Pembimbing alternatif',
             ],
             [
-                'id_pengajuan_pembimbing' => 2,
-                'nip' => '19760418 200112 1 004',
+                'id_pengajuan_pembimbing' => 1,
+                'nip' => '197604182001121004',
                 'urutan_prioritas_terpilih' => 1,
                 'status_alokasi' => 'fix',
                 'catatan' => 'Dosen pembimbing utama',
             ],
             [
-                'id_pengajuan_pembimbing' => 2,
-                'nip' => '19720106 199903 1 002',
+                'id_pengajuan_pembimbing' => 1,
+                'nip' => '197201061999031002',
                 'urutan_prioritas_terpilih' => 2,
                 'status_alokasi' => 'belum_fix',
                 'catatan' => 'Pembimbing kedua',
             ],
         ];
 
-        foreach ($data as $item) 
-        {
+        foreach ($data as $item) {
             AlokasiPembimbing::create($item);
         }
     }
