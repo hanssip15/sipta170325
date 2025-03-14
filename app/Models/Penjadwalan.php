@@ -17,6 +17,8 @@ class Penjadwalan extends Model
         'id_ruangan',
         'tanggal',
         'id_kota',
-        'nip'
+        'nip',
+        'start',
+        'end'
     ];
 }
