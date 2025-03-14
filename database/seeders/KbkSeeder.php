@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Kbk;
 
 class KbkSeeder extends Seeder
@@ -16,9 +14,13 @@ class KbkSeeder extends Seeder
      */
     public function run(): void
     {
-        // Schema::disableForeignKeyConstraints();
+        if (!Schema::hasTable('kbk')) {
+            return;
+        }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('kbk')->truncate();
-        // Schema::enableForeignKeyConstraints();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $data = [
             ['kbk' => 'Rekayasa Perangkat Lunak'],
@@ -28,7 +30,7 @@ class KbkSeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            DB::table('kbk')->insert($item);
+            Kbk::create($item);
         }
     }
 }

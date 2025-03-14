@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
@@ -27,28 +26,38 @@ class AlokasiPembimbingSeeder extends Seeder
         $data = [
             [
                 'id_pengajuan_pembimbing' => 1,
-                'nip' => '19731227 199903 1 003',
+                'nip' => '197312271999031003',
                 'urutan_prioritas_terpilih' => 1,
+                'status_alokasi' => 'fix', 
+                'catatan' => 'Pembimbing utama',
             ],
             [
                 'id_pengajuan_pembimbing' => 1,
                 'nip' => '19850210 201504 2 001',
                 'urutan_prioritas_terpilih' => 2,
+                'status_alokasi' => 'belum_fix',
+                'catatan' => 'Menunggu konfirmasi',
             ],
             [
                 'id_pengajuan_pembimbing' => 1,
                 'nip' => '19720106 199903 1 002',
                 'urutan_prioritas_terpilih' => 3,
+                'status_alokasi' => 'fix',
+                'catatan' => 'Pembimbing alternatif',
             ],
             [
                 'id_pengajuan_pembimbing' => 2,
                 'nip' => '19760418 200112 1 004',
                 'urutan_prioritas_terpilih' => 1,
+                'status_alokasi' => 'fix',
+                'catatan' => 'Dosen pembimbing utama',
             ],
             [
                 'id_pengajuan_pembimbing' => 2,
                 'nip' => '19720106 199903 1 002',
                 'urutan_prioritas_terpilih' => 2,
+                'status_alokasi' => 'belum_fix',
+                'catatan' => 'Pembimbing kedua',
             ],
         ];
 

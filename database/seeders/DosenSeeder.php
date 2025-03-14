@@ -26,54 +26,49 @@ class DosenSeeder extends Seeder
 
         $data = [
             [
-                'nip' => '19731227 199903 1 003',
-                'maks_bimbingan_d4' => 3, 
-                'maks_bimbingan_d3' => 2,
+                'nip' => '197312271999031003',
                 'id_kbk' => 1,
                 'id_dosen' => 'AD',
                 'kode_dosen' => 'KO001N',
                 'status_dosen' => 'aktif',
-                'role_dosen' => 'dosen_pembimbing'
+                'role_dosen' => 'dosen',
+                'bersedia_membimbing' => 'bersedia'
             ],
             [
-                'nip' => '19850210 201504 2 001',
-                'maks_bimbingan_d4' => 2, 
-                'maks_bimbingan_d3' => 1,
+                'nip' => '198502102015042001',
                 'id_kbk' => 2,
                 'id_dosen' => 'HA',
                 'kode_dosen' => 'KO060N',
                 'status_dosen' => 'aktif',
-                'role_dosen' => 'koordinator_ta'
+                'role_dosen' => 'koordinator_ta',
+                'bersedia_membimbing' => 'bersedia'
             ],
             [
-                'nip' => '19720106 199903 1 002',
-                'maks_bimbingan_d4' => 1, 
-                'maks_bimbingan_d3' => 1,
+                'nip' => '197201061999031002',
                 'id_kbk' => 1,
                 'id_dosen' => 'BW',
                 'kode_dosen' => 'KO003N',
                 'status_dosen' => 'aktif',
-                'role_dosen' => 'kajur'
+                'role_dosen' => 'kajur',
+                'bersedia_membimbing' => 'tidak_bersedia'
             ],
             [
-                'nip' => '19681014 199303 2 002',
-                'maks_bimbingan_d4' => 0, 
-                'maks_bimbingan_d3' => 0,
+                'nip' => '196810141993032002',
                 'id_kbk' => 3,
                 'id_dosen' => 'AN',
                 'kode_dosen' => 'KO002N',
                 'status_dosen' => 'nonaktif',
-                'role_dosen' => 'dosen'
+                'role_dosen' => 'dosen',
+                'bersedia_membimbing' => 'tidak_bersedia'
             ],
             [
-                'nip' => '19760418 200112 1 004',
-                'maks_bimbingan_d4' => 3, 
-                'maks_bimbingan_d3' => 1,
+                'nip' => '197604182001121004',
                 'id_kbk' => 4,
                 'id_dosen' => 'IA',
                 'kode_dosen' => 'KO023N',
                 'status_dosen' => 'aktif',
-                'role_dosen' => 'dosen'
+                'role_dosen' => 'dosen',
+                'bersedia_membimbing' => 'bersedia'
             ]
         ];
 
