@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\NotifikasiKirim;
@@ -14,9 +15,13 @@ class NotifikasiKirimSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('notifikasi_kirim')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         NotifikasiKirim::create([
             'id_notifikasi' => 1,
-            'username' => 'user123',
+            'username' => '221524049',
             'kanal' => 'email',
             'status' => 'terkirim',
             'waktu_kirim' => Carbon::now(),
@@ -25,7 +30,7 @@ class NotifikasiKirimSeeder extends Seeder
 
         NotifikasiKirim::create([
             'id_notifikasi' => 2,
-            'username' => 'user456',
+            'username' => '221524059',
             'kanal' => 'sms',
             'status' => 'gagal',
             'waktu_kirim' => Carbon::now(),

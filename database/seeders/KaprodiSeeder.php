@@ -36,5 +36,15 @@ class KaprodiSeeder extends Seeder
         foreach ($data as $item) {
             Kaprodi::create($item);
         }
+
+        Kaprodi::create([
+            'nip' => '197312271999031003',
+            'id_prodi' => 1
+        ]);
+
+        Kaprodi::create([
+            'nip' => '198502102015042001',
+            'id_prodi' => 2
+        ]);
     }
 }

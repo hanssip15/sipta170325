@@ -19,8 +19,10 @@ class KbkSeeder extends Seeder
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::disableForeignKeyConstraints();
         DB::table('kbk')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        Schema::enableForeignKeyConstraints();
 
         $data = [
             ['kbk' => 'Rekayasa Perangkat Lunak'],

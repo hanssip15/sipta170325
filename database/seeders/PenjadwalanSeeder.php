@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use App\Models\Penjadwalan;
+use Carbon\Carbon;
 
 class PenjadwalanSeeder extends Seeder
 {
@@ -27,19 +28,24 @@ class PenjadwalanSeeder extends Seeder
             'sesi' => '1', // Ubah Manual
             'agenda' => 'seminar_1', // Ubah Manual
             'id_ruangan' => '1', // Ubah Manual
-            'tanggal' => 'now()', // Ubah Manual
-            'id_kota' => '10', // Ubah Manual
-            'nip' => '1987654322' // Ubah Manual
+            'tanggal' => Carbon::now(), // Ubah Manual
+            'id_kota' => '1', // Ubah Manual
+            'nip' => '197312271999031003', // Ubah Manual
+            'start' => Carbon::now(),
+            'end' => Carbon::create(2025, 6, 1, 14, 30, 0)
+
         ]);
 
         Penjadwalan::create([
             'sesi' => '2', // Ubah Manual
             'agenda' => 'seminar_2', // Ubah Manual
             'id_ruangan' => '2', // Ubah Manual
-            'tanggal' => 'now()', // Ubah Manual
-            'id_kota' => '12', // Ubah Manual
-            'nip' => '1987654322' // Ubah Manual
-        ]);
+            'tanggal' => Carbon::now(), // Ubah Manual
+            'id_kota' => '2', // Ubah Manual
+            'nip' => '198502102015042001', // Ubah Manual
+            'start' => Carbon::now(),
+            'end' => Carbon::create(2025, 5, 1, 13, 0, 0)
 
+        ]);
     }
 }

@@ -27,7 +27,7 @@ class AlokasiPembimbingSeeder extends Seeder
                 'id_pengajuan_pembimbing' => 1,
                 'nip' => '197312271999031003',
                 'urutan_prioritas_terpilih' => 1,
-                'status_alokasi' => 'fix', 
+                'status_alokasi' => 'fix', // Sesuai ENUM dalam SQL
                 'catatan' => 'Pembimbing utama',
             ],
             [

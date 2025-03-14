@@ -15,6 +15,7 @@ class AmbangBatasSeeder extends Seeder
     public function run(): void
     {
         if (!Schema::hasTable('ambang_batas'))
+        if (!Schema::hasTable('ambang_batas'))
         {
             return;
         }
@@ -40,6 +41,7 @@ class AmbangBatasSeeder extends Seeder
             ],
         ];
 
+        foreach ($data as $item)
         foreach ($data as $item)
         {
             AmbangBatas::create($item);
