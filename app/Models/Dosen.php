@@ -14,7 +14,6 @@ class Dosen extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_prodi',
         'id_kbk',
         'id_dosen',
         'kode_dosen',
