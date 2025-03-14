@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Mahasiswa extends Model
 {
-    use HasFactory;
+    protected $table = 'mahasiswa'; 
+    protected $primaryKey = 'nim';
 
-    protected $table = 'mahasiswa'; // Nama tabel
- 
-    protected $primaryKey = 'nim'; // Primary key
-
-    public $timestamps = false; // Tidak menggunakan created_at & update_at
+    protected $keyType = 'string';
+    public $incrementing = false;
+    public $timestamps = false; 
 
     protected $fillable = [
         'nim',
@@ -21,7 +19,6 @@ class Mahasiswa extends Model
         'kelas',
         'id_prodi',
         'status_ta',
-        'nilai_akhir_ta',
         'id_kota'
     ];
 }

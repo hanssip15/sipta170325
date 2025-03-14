@@ -14,6 +14,8 @@ class AlokasiPembimbing extends Model
     protected $fillable = [
         'id_pengajuan_pembimbing',
         'nip',
-        'urutan_prioritas_terpilih'
+        'urutan_prioritas_terpilih',
+        'status_alokasi',
+        'catatan'
     ];
 }

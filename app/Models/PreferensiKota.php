@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MahasiswaDosenDokumen extends Model
+class PreferensiKota extends Model
 {
-    protected $table = 'mahasiswa_dosen_dokumen';
+    protected $table = 'preferensi_kota';
 
     public $timestamps = false;
 
     protected $fillable = [
         'nip',
-        'nim',
-        'id_dokumen'
+        'id_kota'
     ];
 }

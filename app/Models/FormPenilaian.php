@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class FormPenilaian extends Model
 {
     protected $table = 'form_penilaian';
-    public $timestamps = false;
-    protected $primaryKey = 'id_form_penilaian';
-    protected $fillable = ['nama_formulir_penilaian', 'nip', 'tahun_ajaran', 'status_form', 'created_at', 'updated_at'];
+    protected $primaryKey = 'kode_fta';
+
+    protected $fillable = [
+        'nama_fta', 
+        'id_prodi', 
+        'jenis_form', 
+        'tanggal_tenggat_pengisian', 
+        'created_at', 
+        'updated_at'
+    ];
 }

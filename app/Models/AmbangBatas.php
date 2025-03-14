@@ -8,10 +8,12 @@ class AmbangBatas extends Model
 {    
     protected $table = 'ambang_batas';
     protected $primaryKey = 'id_ambang_batas';
-    
-    public $timestamps = false;
-    
+        
     protected $fillable = [
-        'ambang_batas'
+        'ambang_batas',
+        'status_ambang_batas',
+        'nip',
+        'created_at',
+        'updated_at'
     ];
 }

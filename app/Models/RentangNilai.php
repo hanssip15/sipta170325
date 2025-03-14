@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Gedung extends Model
+class RentangNilai extends Model
 {
-    protected $table = 'gedung';
-    protected $primaryKey = 'kode_gedung';
+    protected $table = 'rentang_nilai';
+    protected $primaryKey = 'id_nilai';
 
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
-        'nama_gedung'
+        'batas_bawah',
+        'batas_atas'
     ];
 }

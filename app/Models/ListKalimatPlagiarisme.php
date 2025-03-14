@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ListKalimatPlagiarisme extends Model
 {
-    protected $table = 'list_kalimat_plagiarisme'; // Nama tabel
+    protected $table = 'list_kalimat_plagiarisme'; 
+    protected $primaryKey = 'id_kalimat'; 
 
-    protected $primaryKey = 'id_kalimat'; // Primary key
-
-    public $timestamps = false; // Tidak menggunakan created_at & update_at
+    public $timestamps = false; 
 
     protected $fillable = [
         'id_dokumen',

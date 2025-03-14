@@ -8,13 +8,13 @@ class Dokumen extends Model
 {
     protected $table = 'dokumen';
     protected $primaryKey = 'id_dokumen';
-    public $timestamps = false;
 
     protected $fillable = [
         'judul',
         'persentase_plagiarisme',
         'highlight_dokumen',
         'status_plagiarisme',
+        'id_ambang_batas',
         'review',
         'kategori',
         'deskripsi',
@@ -22,11 +22,10 @@ class Dokumen extends Model
         'ukuran_file',
         'notes',
         'id_kota',
-        'id_label',
         'id_subkategori',
         'username',
         'status_berkas',
-        'uploaded_at',
+        'created_at',
         'updated_at'
     ];
 }
