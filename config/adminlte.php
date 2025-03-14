@@ -440,11 +440,11 @@ return [
         //     // 'label' => 4,
         //     // 'label_color' => 'success',
         // ],
-        // [
-        //     'text' => 'Pengelolaan Penilaian',
-        //     'url' => '#',
-        //     'icon' => 'fas fa-scroll',
-        // ],
+        [
+            'text' => 'Penentuan Ambang Batas Plagiarisme',
+            'url' => '/penentuan-ambang-batas',
+            'icon' => 'fas fa-scroll',
+        ],
         // [
         //     'text' => 'Repository Tugas Akhir',
         //     'url' => '#',
