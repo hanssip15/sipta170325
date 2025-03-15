@@ -80,3 +80,4 @@ class KetertarikanBidangSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
     }
 }
+}

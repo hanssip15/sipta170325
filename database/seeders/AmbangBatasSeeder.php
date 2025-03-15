@@ -15,7 +15,6 @@ class AmbangBatasSeeder extends Seeder
     public function run(): void
     {
         if (!Schema::hasTable('ambang_batas'))
-        if (!Schema::hasTable('ambang_batas'))
         {
             return;
         }

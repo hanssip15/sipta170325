@@ -36,12 +36,6 @@ class NilaiKategoriSeeder extends Seeder
                 'id_kategori' => 2,
                 'nilai' => 78.0,
             ],
-            [
-                'nim' => '221524039',
-                'nip' => '197201061999031002',
-                'id_kategori' => 3,
-                'nilai' => 90.0,
-            ],
         ];
 
         foreach ($data as $item) {

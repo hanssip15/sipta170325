@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use App\Models\PengajuanJadwalKota;
 
-class PengajuanJadwalSeeder extends Seeder
+class PengajuanJadwalKotaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -46,17 +46,6 @@ class PengajuanJadwalSeeder extends Seeder
                 'id_kota' => 2,
                 'nip' => '198502102015042001',
             ],
-            [
-                'status_mahasiswa' => 0,
-                'status_dosen_pembimbing_1' => 1,
-                'status_dosen_pembimbing_2' => 1,
-                'status_dosen_penguji_1' => 0,
-                'status_dosen_penguji_2' => 1,
-                'status_koordinator_ta' => 1,
-                'id_penjadwalan' => 3,
-                'id_kota' => 1,
-                'nip' => '197201061999031002',
-            ]
         ];
 
         foreach ($data as $item) {
