@@ -2,7 +2,6 @@
 
 namespace App\Modules\PengajuanAlokasiPembimbing\Controllers;
 
-use App\Models\User;
 use App\Modules\Controller;
 use Illuminate\View\View;
 
