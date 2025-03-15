@@ -175,6 +175,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        /* Kontainer tabel agar tetap responsif */
         .table-container {
             max-height: 500px;
             overflow: auto;
@@ -183,12 +184,14 @@
             width: 100%;
         }
 
+        /* Penyesuaian tabel agar tidak berantakan saat scrolling */
         table {
             width: 100%;
             min-width: 1400px;
             border-collapse: collapse;
         }
 
+        /* Styling untuk header dan sel */
         th, td {
             border: 1px solid #ccc !important;
             padding: 10px;
@@ -196,6 +199,7 @@
             white-space: nowrap;
         }
 
+        /* Sticky header untuk tabel */
         thead {
             position: sticky;
             top: 0;
@@ -215,6 +219,7 @@
             border-bottom: 2px solid #fff;
         }
 
+        /* Sticky untuk kolom tertentu */
         th.sticky-column {
             background: rgba(0, 0, 0, 0.9) !important;
             color: white !important;
@@ -237,6 +242,7 @@
             text-align: center;
         }
 
+        /* Alternating row colors */
         tbody tr:nth-child(even) {
             background-color: #f8f9fa;
         }
@@ -245,7 +251,7 @@
             background-color: #e2e6ea;
         }
 
-        /* Menghilangkan icon sorting untuk kolom yang tidak boleh diurutkan */
+        /* Hilangkan ikon sorting pada kolom tertentu */
         table.dataTable thead th.no-sort.sorting::before,
         table.dataTable thead th.no-sort.sorting::after,
         table.dataTable thead th.no-sort.sorting_asc::before,
@@ -260,13 +266,12 @@
             background-image: none !important;
         }
 
-        /* Perbaikan Warna Status */
-        .status-cell.fix {
+        .status-cell[data-status="fix"] {
             background-color: green !important;
             color: white !important;
         }
 
-        .status-cell.belum_fix {
+        .status-cell[data-status="belum_fix"] {
             background-color: yellow !important;
             color: black !important;
         }
@@ -274,14 +279,51 @@
         .status-cell {
             min-width: 120px;
             padding: 5px;
+            transition: background-color 0.3s ease-in-out; /* Efek transisi perubahan warna */
         }
 
+        /* Dropdown Status */
         .status-dropdown {
             width: 100% !important;
             text-align: center;
             padding: 5px;
             font-weight: bold;
             min-width: 120px;
+            border-radius: 5px;
+        }
+
+        /* Auto-expand textarea */
+        .auto-expand {
+            width: 100%;
+            min-height: 35px;
+            resize: none; /* Nonaktifkan resize manual */
+            overflow: hidden; /* Hilangkan scroll bar */
+            border: 1px solid #ccc;
+            padding: 5px;
+            font-size: 14px;
+            transition: height 0.2s ease-in-out;
+        }
+
+        /* Efek Hover untuk Tombol */
+        button:hover {
+            opacity: 0.8;
+            transition: 0.2s;
+        }
+
+        /* Gaya Tombol Submit dan Simpan */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-dark {
+            background-color: #343a40;
+            border-color: #343a40;
         }
     </style>
 @stop
