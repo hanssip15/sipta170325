@@ -165,8 +165,8 @@
 @stop
 
 @section('js')
-    @include('pengajuanalokasipembimbing.Helper.JS.AutoFlashReader')
-    @include('pengajuanalokasipembimbing.Helper.JS.AutoErrorShower')
+    @include('PengajuanAlokasiPembimbing.Helper.JS.AutoFlashReader')
+    @include('PengajuanAlokasiPembimbing.Helper.JS.AutoErrorShower')
 
     <script>
         $('.form-check-input').on('click', function() {

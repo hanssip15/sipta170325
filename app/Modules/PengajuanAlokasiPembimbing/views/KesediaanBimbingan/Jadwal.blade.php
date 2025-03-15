@@ -184,7 +184,7 @@
 
                 $('#TimeModal').modal('hide');
             } else {
-                SweetAlert('error', 'Gagal Menambah Jadwal',
+                FireSweetAlert('error', 'Gagal Menambah Jadwal',
                     'Jadwal yang anda masukkan invalid atau bentrok dengan jadwal yang sudah ada', 'OK', '', '#d33', '',
                     false, true);
             }
@@ -233,7 +233,8 @@
                     cell.addClass('bg-secondary');
 
                     if (i == timeA) {
-                        cell.addClass('rounded-top').addClass('border-top').removeClass('rounded-bottom').removeClass('border-bottom');
+                        cell.addClass('rounded-top').addClass('border-top').removeClass('rounded-bottom')
+                            .removeClass('border-bottom');
                         let container = $('<div>').addClass('container-fluid d-flex justify-content-end p-0');
 
                         let editButton = $('<button>')
@@ -246,7 +247,7 @@
                             .addClass('btn btn-sm btn-danger rounded text-white pt-0 pb-0')
                             .html('<small><i class="fas fa-times"></i></small>')
                             .on('click', () => {
-                                SweetAlert('warning', 'Hapus Jadwal',
+                                FireSweetAlert('warning', 'Hapus Jadwal',
                                     'Apakah anda yakin ingin menghapus jadwal ini?', 'Ya', 'Tidak', '#d33',
                                     '#3085d6', true, true, (confirmed) => {
                                         if (confirmed) {
@@ -267,7 +268,8 @@
                     }
 
                     if (i == timeB && !cell.hasClass('rounded-top')) {
-                        cell.addClass('rounded-bottom').addClass('border-bottom').removeClass('rounded-top').removeClass('border-top');
+                        cell.addClass('rounded-bottom').addClass('border-bottom').removeClass('rounded-top')
+                            .removeClass('border-top');
                     }
                 }
             });
@@ -285,9 +287,9 @@
 @stop
 
 @section('js')
-    @include('pengajuanalokasipembimbing.Helper.JS.SweetAlert')
-    @include('pengajuanalokasipembimbing.Helper.JS.AutoFlashReader')
-    @include('pengajuanalokasipembimbing.Helper.JS.AutoErrorShower')
+    @include('PengajuanAlokasiPembimbing.Helper.JS.SweetAlert')
+    @include('PengajuanAlokasiPembimbing.Helper.JS.AutoFlashReader')
+    @include('PengajuanAlokasiPembimbing.Helper.JS.AutoErrorShower')
 
     <script>
         function CallTimeModal(type, day, defaultstartvalue = new Date(new Date().setMinutes(0)).toTimeString().slice(0, 5),
