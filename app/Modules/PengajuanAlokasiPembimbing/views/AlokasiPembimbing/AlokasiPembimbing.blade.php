@@ -279,7 +279,7 @@
         .status-cell {
             min-width: 120px;
             padding: 5px;
-            transition: background-color 0.3s ease-in-out; /* Efek transisi perubahan warna */
+            transition: background-color 0.3s ease-in-out;
         }
 
         /* Dropdown Status */
@@ -335,11 +335,8 @@
 
     <script>
         $(document).ready(function () {
-            // Inisialisasi DataTable dengan menghancurkan instance lama untuk mencegah duplikasi
-            if ($.fn.DataTable.isDataTable('#alokasiTable')) {
-                $('#alokasiTable').DataTable().destroy();
-            }
-            $('#alokasiTable').DataTable({
+            // Inisialisasi DataTable dengan drawCallback agar tetap aktif di semua halaman
+            let table = $('#alokasiTable').DataTable({
                 responsive: true,
                 paging: true,
                 lengthMenu: [10, 25, 50, 100],
@@ -347,13 +344,13 @@
                 searching: true,
                 ordering: true,
                 info: true,
-                autoWidth: false
+                autoWidth: false,
+                drawCallback: function () {
+                    initializeScripts();  // Memanggil ulang fungsi untuk memperbarui event handler setelah pagination
+                }
             });
 
-            if ($.fn.DataTable.isDataTable('#dosenTable')) {
-                $('#dosenTable').DataTable().destroy();
-            }
-            $('#dosenTable').DataTable({
+            let dosenTable = $('#dosenTable').DataTable({
                 responsive: true,
                 paging: true,
                 lengthMenu: [10, 25, 50, 100],
@@ -372,21 +369,29 @@
                     return jumlahKoTA === 0;
                 }
             );
-            $('#dosenTable').DataTable().draw(); // Terapkan filter
+            dosenTable.draw(); // Terapkan filter
 
-            // Update status dengan mengganti atribut data-status dan menyesuaikan warna
-            $('.status-dropdown').on('change', function () {
-                let cell = $(this).closest('.status-cell');
-                let status = $(this).val();
-                cell.attr('data-status', status);
-                cell.removeClass("belum_fix fix").addClass(status);
-            });
+            // Fungsi untuk memastikan event tetap aktif setelah pagination
+            function initializeScripts() {
+                // Update status dropdown
+                $(document).on('change', '.status-dropdown', function () {
+                    let cell = $(this).closest('.status-cell');
+                    let status = $(this).val();
+                    cell.attr('data-status', status);
+                    cell.removeClass("belum_fix fix").addClass(status);
+                });
 
-            $('.auto-expand').on('input', function () {
-                this.style.height = "auto";
-                this.style.height = (this.scrollHeight) + "px";
-            });
+                // Auto-expand textarea agar tetap berfungsi setelah pagination
+                $(document).on('input', '.auto-expand', function () {
+                    this.style.height = "auto";
+                    this.style.height = (this.scrollHeight) + "px";
+                });
+            }
 
+            // Pastikan fungsi dijalankan pertama kali
+            initializeScripts();
+
+            // Event listener tombol simpan draft
             $('#saveDraftBtn').click(function () {
                 Swal.fire({
                     icon: 'success',
