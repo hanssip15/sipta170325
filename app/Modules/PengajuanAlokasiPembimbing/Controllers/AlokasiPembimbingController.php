@@ -4,99 +4,68 @@ namespace App\Modules\PengajuanAlokasiPembimbing\Controllers;
 
 use App\Modules\Controller;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
-use App\Models\Kota;
-use App\Models\User;
-use App\Models\PengajuanPembimbing;
-use App\Models\PrioritasPembimbing;
-use App\Models\AlokasiPembimbing;
-use App\Models\Dosen;
-use App\Models\Bidang;
-use DB;
+use Illuminate\Http\JsonResponse;
 
 class AlokasiPembimbingController extends Controller
 {
     public function index(): View
     {
-        // Ambil daftar kota
-        $kotaList = Kota::pluck('nama_kota', 'id_kota')->toArray();
-
-        // Ambil daftar mahasiswa berdasarkan kota (dikelompokkan berdasarkan id_kota)
-        $mahasiswaList = User::join('mahasiswa', 'user.username', '=', 'mahasiswa.nim')
-            ->select('mahasiswa.id_kota', 'user.nama', 'user.username as nim')
-            ->get()
-            ->groupBy('id_kota')
-            ->toArray();
-
         $data = [];
 
-        foreach ($kotaList as $idKota => $namaKota) {
-            // Ambil daftar mahasiswa per kota
-            $anggota = array_map(function ($mahasiswa) {
-                return [
-                    'nama' => $mahasiswa['nama'],
-                    'nim' => $mahasiswa['nim']
-                ];
-            }, $mahasiswaList[$idKota] ?? []);
+        for ($i = 1; $i <= 100; $i++) {
+            $usulanDosen = ["RA", "HJ", "SN", "FI", "RA"];
+            $pembimbing1 = $usulanDosen[array_rand($usulanDosen)];
+            $pembimbing2 = $usulanDosen[array_rand($usulanDosen)];
 
-            $jumlahMahasiswa = count($anggota);
-
-            // Ambil pengajuan pembimbing berdasarkan id_kota
-            $pengajuanPembimbing = PengajuanPembimbing::where('id_kota', $idKota)->first();
-
-            // Ambil bidang berdasarkan id_bidang dari kota
-            $idBidang = Kota::where('id_kota', $idKota)->value('id_bidang');
-            $bidang = Bidang::where('id_bidang', $idBidang)->value('bidang') ?? 'Bidang Tidak Ditemukan';
-
-            // Ambil judul dari pengajuan atau kota
-            $judul = $pengajuanPembimbing?->judul ?? Kota::where('id_kota', $idKota)->value('judul_ta') ?? 'Belum Ada Judul';
-
-            // Ambil prioritas pembimbing dengan join ke tabel `user` untuk mengambil nama dosen
-            $usulanDosen = [];
-
-            if ($pengajuanPembimbing) {
-                $usulanDosen = DB::table('prioritas_pembimbing')
-                    ->join('dosen', 'prioritas_pembimbing.nip', '=', 'dosen.nip')
-                    ->join('user', 'dosen.nip', '=', 'user.username')
-                    ->where('prioritas_pembimbing.id_pengajuan', $pengajuanPembimbing->id_pengajuan_pembimbing)
-                    ->orderBy('prioritas_pembimbing.urutan_prioritas', 'asc')
-                    ->get(['dosen.id_dosen', 'user.nama'])
-                    ->toArray();
-            }
-
-            // Pastikan ada 5 elemen dalam array
-            $usulanDosen = array_pad($usulanDosen, 5, (object) ['id_dosen' => '-', 'nama' => '-']);
-
-            // Ambil alokasi pembimbing berdasarkan pengajuan (jika ada)
-            $alokasiPembimbing = AlokasiPembimbing::where('id_pengajuan_pembimbing', $pengajuanPembimbing->id_pengajuan_pembimbing ?? null)
-                ->pluck('nip')
-                ->toArray();
-
-            // Konversi NIP ke nama dosen dengan join ke tabel user
-            $pembimbing = DB::table('user')
-                ->whereIn('username', $alokasiPembimbing) // username menyimpan NIP
-                ->pluck('nama')
-                ->toArray();
+            $detailPembimbing = $this->generateDummyDosenDetail($pembimbing1);
 
             $data[] = [
-                'kota' => $namaKota,
-                'anggota' => $anggota,
-                'jumlahMahasiswa' => $jumlahMahasiswa,
-                'bidang' => $bidang, // Bidang dari Kota
-                'judul' => $judul, // Judul dari Pengajuan atau Kota
+                'kota' => "KoTA " . str_pad($i, 3, '0', STR_PAD_LEFT),
+                'anggota' => [
+                    "Mahasiswa " . ($i * 3 - 2),
+                    "Mahasiswa " . ($i * 3 - 1),
+                    "Mahasiswa " . ($i * 3),
+                ],
+                'bidang' => "Bidang " . rand(1, 5),
+                'judul' => "Judul Penelitian " . rand(1, 50),
                 'usulanDosen' => $usulanDosen,
-                'pembimbing1' => $pembimbing[0] ?? '-',
-                'pembimbing2' => $pembimbing[1] ?? '-',
+                'pembimbing1' => $pembimbing1,
+                'pembimbing2' => $pembimbing2,
+                'detailPembimbing' => $detailPembimbing
             ];
         }
 
         return view('PengajuanAlokasiPembimbing.views.AlokasiPembimbing.AlokasiPembimbing', compact('data'));
     }
 
-    public function simpanDraft(Request $request)
+    public function getDetailDosen($nama): JsonResponse
     {
-        // Simpan draft sementara dengan session flash
-        session()->flash('success', 'Data tersimpan sebagai draft');
-        return back();
+        return response()->json($this->generateDummyDosenDetail($nama));
+    }
+
+    private function generateDummyDosenDetail($nama): array
+    {
+        $pembimbing1_KoTA = rand(5, 15);
+        $pembimbing2_KoTA = rand(3, 10);
+        $jumlah_KoTA = $pembimbing1_KoTA + $pembimbing2_KoTA;
+
+        $pembimbing1_Mhs = rand(10, 30);
+        $pembimbing2_Mhs = rand(5, 20);
+        $jumlahMahasiswa = $pembimbing1_Mhs + $pembimbing2_Mhs;
+
+        $kuota = rand(20, 40);
+        $kelebihan = max(0, $jumlahMahasiswa - $kuota);
+
+        return [
+            "nama" => "Dosen " . $nama,
+            "pembimbing1_KoTA" => $pembimbing1_KoTA,
+            "pembimbing2_KoTA" => $pembimbing2_KoTA,
+            "jumlah_KoTA" => $jumlah_KoTA,
+            "pembimbing1_Mhs" => $pembimbing1_Mhs,
+            "pembimbing2_Mhs" => $pembimbing2_Mhs,
+            "jumlahMahasiswa" => $jumlahMahasiswa,
+            "kuota" => $kuota,
+            "kelebihan" => $kelebihan
+        ];
     }
 }
