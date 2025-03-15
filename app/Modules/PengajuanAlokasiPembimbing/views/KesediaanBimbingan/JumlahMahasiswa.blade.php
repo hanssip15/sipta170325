@@ -73,7 +73,7 @@
                                                     value="{{ old('val' . $value['id_prodi']) ? old('val' . $value['id_prodi']) : $value['jumlah'] }}">
                                             </div>
                                             <hr class="text-light m-0 border-light">
-                                            <small>Mahasiswa {{ $key }}</small>
+                                            <small>Mahasiswa {{ $value['nama_prodi'] }}</small>
                                         </div>
                                     </div>
                                     <div class="col-auto text-break">
@@ -99,10 +99,6 @@
                     </div>
                     <div class="alert alert-warning alert-dismissible d-none p-3">
                         <small>
-                            {{-- <strong>Peringatan:</strong> Maksimal jumlah mahasiswa adalah 10 D3 dan 8 D4,<br>lebih dari itu
-                            honor hanya
-                            dihitung untuk 18
-                            mahasiswa --}}
                             <strong>Peringatan:</strong> Maksimal jumlah mahasiswa adalah
                             @php
                                 $maxTotal = 0;
