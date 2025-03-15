@@ -133,8 +133,8 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_enabled' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
@@ -155,7 +155,7 @@ return [
     'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => true,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
@@ -324,7 +324,7 @@ return [
         [
             'text' => 'Pengajuan dan Alokasi Pembimbing',
             // 'url' => 'admin/pages',
-            'icon' => 'fas fa-fw fa-file',
+            'icon' => 'fas fa-home',
             'submenu' => [
                 [
                     'text' => 'Daftar Kesediaan dan Pengajuan',
@@ -420,6 +420,31 @@ return [
             ]
             // 'label' => 4,
             // 'label_color' => 'success',
+        ],
+        [
+            'text' => 'Timeline',
+            'url' => '/timeline',
+            'icon' => 'fas fa-fw fa-calendar',
+            // 'label' => 4,
+            // 'label_color' => 'success',
+        ],
+        [
+            'text' => 'Artefak',
+            'url' => '/#',
+            'icon' => 'fas fa-fw fa-folder',
+            'submenu' => [
+                [
+                    'text' => 'Kelola Dokumen dan FTA',
+                    'url' => '/artefak',
+                    // 'icon' => 'far fa-fw fa-file',
+                ],
+                // [
+                //     'text' => 'Resume Bimbingan',
+                //     'url' => '/#',
+                //     // 'icon' => 'far fa-fw fa-file',
+                // ],
+            ]
+        ],
         ],
         // [
         //     'text' => 'Pengelolaan dan Penjadwalan Ruangan',
