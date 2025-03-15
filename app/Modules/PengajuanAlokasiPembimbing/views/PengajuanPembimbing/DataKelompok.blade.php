@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'PengajuanAlokasiPembimbing')
+@section('title', 'Formulir Pengajuan Dosen Pembimbing')
 
 @section('content_header')  
     <div class="m-3">
@@ -15,7 +15,8 @@
     <div class="container-fluid row w-100 justify-content-start">
         <div class="card p-4 bg-light">
             <x-pengajuan-alokasi-pembimbing.components.pengajuan-pembimbing.form-stepper step="4" currentStep="1"
-                activeColor="primary" inactiveColor="secondary" :hrefs="['#', '#', '#', '#']" />
+                activeColor="primary" inactiveColor="secondary" 
+                :hrefs="['data-kelompok', 'topik-tugas-akhir', 'prioritas-dosen-pembimbing', 'pratinjau-formulir']" />
         </div>
 
             <!-- Form Pengajuan -->
@@ -25,45 +26,48 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" placeholder="Masukkan nama">
+                        <input type="text" class="form-control" value="{{ $sessionUser['nama'] }}" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Kelas</label>
-                        <input type="text" class="form-control" placeholder="Masukkan kelas">
+                        <input type="text" class="form-control" value="{{ $sessionUser['kelas'] }}" readonly>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <label class="form-label">NIM</label>
-                        <input type="text" class="form-control" placeholder="Masukkan NIM">
+                        <input type="text" class="form-control" value="{{ $sessionUser['nim'] }}" readonly>
                     </div>
                 </div>
 
                 <h5 class="mb-3">Data Kelompok</h5>
+                @php
+                    $anggota1 = $dataAnggota[0] ?? (object)['nama' => '-', 'nim' => '-'];
+                    $anggota2 = $dataAnggota[1] ?? (object)['nama' => '-', 'nim' => '-'];
+                @endphp
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Nama Anggota 1</label>
-                        <input type="text" class="form-control" placeholder="Masukkan nama">
+                        <input type="text" class="form-control" value="{{ $anggota1->nama }}" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">NIM</label>
-                        <input type="text" class="form-control" placeholder="Masukkan NIM">
+                        <input type="text" class="form-control" value="{{ $anggota1->nim }}" readonly>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Nama Anggota 2</label>
-                        <input type="text" class="form-control" placeholder="Masukkan nama">
+                        <input type="text" class="form-control" value="{{ $anggota2->nama }}" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">NIM</label>
-                        <input type="text" class="form-control" placeholder="Masukkan NIM">
+                        <input type="text" class="form-control" value="{{ $anggota2->nim }}" readonly>
                     </div>
                 </div>
 
                 <!-- Tombol Simpan & Selanjutnya -->
                 <div class="d-flex justify-content-end mt-3">
-                    <button type="submit" class="btn btn-sm btn-primary" style="font-size: 15px">Simpan Draft</button>
                     <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.topik-tugas-akhir') }} class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
@@ -80,5 +84,12 @@
     <link href=" https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet" />
 @stop
 
-{{-- @section('js')
-@stop --}}
+@section('js')
+    @include('pengajuanalokasipembimbing.Helper.JS.SweetAlert')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            SweetAlert('info', 'Periksa kembali data anggota kelompok', 'Jika ingin melakukan perubahan, harap lakukan pada pengaturan pengguna sebelum mengajukan dosen pembimbing', 'OK', '', '#3085d6', '', false, true);
+        });
+    </script>
+@stop
