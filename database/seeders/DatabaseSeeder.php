@@ -13,8 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         // First batch: Base tables with no dependencies
         $this->call(UserSeeder::class);
-        $this->call(GedungSeeder::class);
-        $this->call(FasilitasSeeder::class);
         $this->call(KbkSeeder::class);
         $this->call(BidangSeeder::class);
         $this->call(ProdiSeeder::class);
