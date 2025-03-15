@@ -35,7 +35,19 @@ class AlokasiPembimbingController extends Controller
             ];
         }
 
-        return view('PengajuanAlokasiPembimbing.views.AlokasiPembimbing.AlokasiPembimbing', compact('data'));
+        // Tambahkan List Dosen Pembimbing
+        $dosenList = [
+            ['id_dosen' => 'KO001N', 'nama' => 'Ade Chandra Nugraha, S.Si., M.T.', 'kbk' => 'SI & DB'],
+            ['id_dosen' => 'KO002N', 'nama' => 'Ani Rahtani, S.Si., M.T.', 'kbk' => 'RPL'],
+            ['id_dosen' => 'KO003N', 'nama' => 'Bambang Wisnuadhi, S.Si., M.T.', 'kbk' => 'RPL'],
+            ['id_dosen' => 'KO005N', 'nama' => 'Didik Suwito Pribadi, BSCS.', 'kbk' => 'SI & DB'],
+            ['id_dosen' => 'KO016N', 'nama' => 'Eddy B. Soewono, DRS., M.Kom.', 'kbk' => 'Multimedia'],
+            ['id_dosen' => 'KO057N', 'nama' => 'Fitri Diani, S.Si., M.T.', 'kbk' => 'SI & DB'],
+            ['id_dosen' => 'KO059N', 'nama' => 'Ghifari Munawar, S.T., M.T.', 'kbk' => 'RPL'],
+            ['id_dosen' => 'KO060N', 'nama' => 'Ade Hodijah, S.T., M.T.', 'kbk' => 'SI & DB']
+        ];
+
+        return view('PengajuanAlokasiPembimbing.views.AlokasiPembimbing.AlokasiPembimbing', compact('data', 'dosenList'));
     }
 
     public function getDetailDosen($nama): JsonResponse

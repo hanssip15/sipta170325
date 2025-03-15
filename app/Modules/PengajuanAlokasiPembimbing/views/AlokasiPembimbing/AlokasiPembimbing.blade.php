@@ -143,6 +143,32 @@
             <button type="button" class="btn btn-primary" id="openConfirmModal">Submit</button>
         </div>
     </div>
+
+    <div class="p-4 mt-5">
+        <h3>List Dosen Pembimbing</h3>
+        <div class="table-container">
+            <table id="dosenTable" class="table text-center" style="min-width: 600px;">
+                <thead class="sticky-header">
+                    <tr class="bg-dark text-white">
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 15%;">ID Dosen</th>
+                        <th style="width: 40%;">Nama</th>
+                        <th style="width: 40%;">KBK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dosenList as $index => $dosen)
+                        <tr class="bg-light">
+                            <td class="align-middle">{{ $index + 1 }}</td>
+                            <td class="align-middle">{{ $dosen['id_dosen'] }}</td>
+                            <td class="align-middle">{{ $dosen['nama'] }}</td>
+                            <td class="align-middle">{{ $dosen['kbk'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @stop
 
 @section('css')
@@ -207,7 +233,7 @@
         }
 
         th:first-child {
-            white-space: nowrap; /* Mencegah tulisan terpotong */
+            white-space: nowrap;
             text-align: center;
         }
 
@@ -219,6 +245,7 @@
             background-color: #e2e6ea;
         }
 
+        /* Menghilangkan icon sorting untuk kolom yang tidak boleh diurutkan */
         table.dataTable thead th.no-sort.sorting::before,
         table.dataTable thead th.no-sort.sorting::after,
         table.dataTable thead th.no-sort.sorting_asc::before,
@@ -232,14 +259,18 @@
         table.dataTable thead th.no-sort {
             background-image: none !important;
         }
-        .status-cell[data-status="fix"] {
+
+        /* Perbaikan Warna Status */
+        .status-cell.fix {
             background-color: green !important;
-            color: white;
+            color: white !important;
         }
-        .status-cell[data-status="belum_fix"] {
+
+        .status-cell.belum_fix {
             background-color: yellow !important;
-            color: white;
+            color: black !important;
         }
+
         .status-cell {
             min-width: 120px;
             padding: 5px;
@@ -256,136 +287,138 @@
 @stop
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        var table = $('#alokasiTable').DataTable({
-            responsive: true,
-            paging: true,
-            lengthMenu: [10, 25, 50, 100],
-            pageLength: 10,
-            searching: true,
-            ordering: true,
-            info: true,
-            autoWidth: false,
-            columnDefs: [
-                { orderable: false, targets: [0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] }
-            ]
-        });
-
-        $('#dataTableControls').html($('.dataTables_length'));
-        $('#searchBox').html($('.dataTables_filter'));
-
-        $('#openConfirmModal').click(function () {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Konfirmasi Submit',
-                text: 'Finalisasi Alokasi Pembimbing?',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Submit',
-                cancelButtonText: 'Batal',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Sukses',
-                        text: 'Alokasi pembimbing berhasil diajukan!',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                }
-            });
-        });
-
-        $('#saveDraftBtn').click(function () {
-            $.ajax({
-                url: "{{ route('pengajuanalokasipembimbing.alokasi-pembimbing.simpan') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function () {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil',
-                        text: 'Data tersimpan sebagai draft!',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal',
-                        text: 'Terjadi kesalahan saat menyimpan data!',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                }
-            });
-        });
-
-        $('.pembimbing').on('input', function () {
-            var index = $(this).data('index');
-            var idDosen = $(this).val();
-            if (idDosen) {
-                var dosenData = {
-                    nama: "Nama Dosen " + idDosen,
-                    kuota: 10,
-                    jumlahMahasiswa: Math.floor(Math.random() * 20),
-                    warning: false
-                };
-                if (dosenData.jumlahMahasiswa > dosenData.kuota) {
-                    dosenData.warning = true;
-                }
-                var detailHTML = `<div>
-                    <strong>Nama Dosen:</strong> ${dosenData.nama}<br>
-                    <strong>Kuota:</strong> ${dosenData.kuota}<br>
-                    ${dosenData.warning ? '<span style="color: red;">⚠️ Kuota sudah penuh!</span>' : ''}
-                </div>`;
-                if ($(this).attr('name') === 'pembimbing1') {
-                    $('#detail-pembimbing1-' + index).html(detailHTML);
-                } else {
-                    $('#detail-pembimbing2-' + index).html(detailHTML);
-                }
+    <script>
+        $(document).ready(function () {
+            // Inisialisasi DataTable dengan menghancurkan instance lama untuk mencegah duplikasi
+            if ($.fn.DataTable.isDataTable('#alokasiTable')) {
+                $('#alokasiTable').DataTable().destroy();
             }
-        });
-        $('.penguji').on('input', function () {
-            var index = $(this).data('index');
-            var idPenguji = $(this).val();
-            if (idPenguji) {
-                var pengujiData = {
-                    nama: "Nama Penguji " + idPenguji,
-                    kuota: 15,
-                    jumlahMahasiswa: Math.floor(Math.random() * 30),
-                    warning: false
-                };
-                if (pengujiData.jumlahMahasiswa > pengujiData.kuota) {
-                    pengujiData.warning = true;
-                }
-                var detailHTML = `<div>
-                    <strong>Nama Penguji:</strong> ${pengujiData.nama}<br>
-                    <strong>Kuota:</strong> ${pengujiData.kuota}<br>
-                    ${pengujiData.warning ? '<span style="color: red;">⚠️ Kuota sudah penuh!</span>' : ''}
-                </div>`;
-                $('#detail-penguji-' + index).html(detailHTML);
-            }
-        });
-    });
+            $('#alokasiTable').DataTable({
+                responsive: true,
+                paging: true,
+                lengthMenu: [10, 25, 50, 100],
+                pageLength: 10,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false
+            });
 
-    function updateStatus(selectElement) {
-        let cell = selectElement.closest('.status-cell');
-        cell.setAttribute('data-status', selectElement.value);
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.auto-expand').forEach(function (textarea) {
-            textarea.addEventListener('input', function () {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px'; // Sesuaikan tinggi textarea secara otomatis
+            if ($.fn.DataTable.isDataTable('#dosenTable')) {
+                $('#dosenTable').DataTable().destroy();
+            }
+            $('#dosenTable').DataTable({
+                responsive: true,
+                paging: true,
+                lengthMenu: [10, 25, 50, 100],
+                pageLength: 10,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false
+            });
+
+            // Filter hanya menampilkan dosen yang belum mendapat alokasi KoTA menggunakan DataTable API
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    if (settings.nTable.id !== 'dosenTable') return true;
+                    var jumlahKoTA = parseInt(data[3]) || 0; // Kolom ke-4 (jumlah KoTA)
+                    return jumlahKoTA === 0;
+                }
+            );
+            $('#dosenTable').DataTable().draw(); // Terapkan filter
+
+            // Update status dengan mengganti atribut data-status dan menyesuaikan warna
+            $('.status-dropdown').on('change', function () {
+                let cell = $(this).closest('.status-cell');
+                let status = $(this).val();
+                cell.attr('data-status', status);
+                cell.removeClass("belum_fix fix").addClass(status);
+            });
+
+            // Auto-save Draft ketika ada perubahan pada input atau dropdown
+            $('.pembimbing, .penguji, .status-dropdown, .auto-expand').on('change input', function () {
+                let formData = $('#alokasiTable').find('input, select, textarea').serialize();
+
+                $.ajax({
+                    url: "{{ route('pengajuanalokasipembimbing.alokasi-pembimbing.simpan') }}",
+                    type: "POST",
+                    data: formData,
+                    success: function () {
+                        console.log("Draft tersimpan otomatis");
+                    }
+                });
+            });
+
+            // Tombol Submit dengan indikator loading
+            $('#openConfirmModal').click(function () {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Konfirmasi Submit',
+                    text: 'Finalisasi Alokasi Pembimbing?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Submit',
+                    cancelButtonText: 'Batal',
+                    showLoaderOnConfirm: true,
+                    preConfirm: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(resolve, 2000);
+                        });
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Sukses',
+                            text: 'Alokasi pembimbing berhasil diajukan!',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    }
+                });
+            });
+
+            // Tombol Simpan Draft
+            $('#saveDraftBtn').click(function () {
+                $.ajax({
+                    url: "{{ route('pengajuanalokasipembimbing.alokasi-pembimbing.simpan') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Data tersimpan sebagai draft!',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Terjadi kesalahan saat menyimpan data!',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    }
+                });
+            });
+
+            // Auto-expand textarea
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.auto-expand').forEach(function (textarea) {
+                    textarea.addEventListener('input', function () {
+                        this.style.height = 'auto';
+                        this.style.height = (this.scrollHeight) + 'px';
+                    });
+                });
             });
         });
-    });
-</script>
+    </script>
 @stop
