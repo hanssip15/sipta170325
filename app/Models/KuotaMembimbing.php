@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kaprodi extends Model
+class KuotaMembimbing extends Model
 {
-    protected $table = 'kaprodi';
-    public $timestamps = false;
-    
+    protected $table = 'kuota_membimbing'; 
+
+    public $timestamps = false; 
+
     protected $fillable = [
         'nip',
-        'id_prodi'
+        'id_prodi',
+        'jumlah',
     ];
 
     public function dosen()

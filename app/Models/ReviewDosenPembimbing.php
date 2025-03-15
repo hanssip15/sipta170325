@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AmbangBatas extends Model
-{    
-    protected $table = 'ambang_batas';
-    protected $primaryKey = 'id_ambang_batas';
-        
+class ReviewDosenPembimbing extends Model
+{
+    protected $table = 'review_dosen_pembimbing';
+    protected $primaryKey = 'id_review';
+
     protected $fillable = [
-        'ambang_batas',
-        'status_ambang_batas',
+        'review',
+        'id_dokumen',
         'nip',
         'created_at',
         'updated_at'
@@ -19,7 +19,8 @@ class AmbangBatas extends Model
 
     public function dokumen()
     {
-        return $this->hasMany(Dokumen::class, 'id_ambang_batas', 'id_ambang_batas');
+        return $this->belongsTo(Dokumen::class, 'id
+        _dokumen', 'id_dokumen');
     }
 
     public function dosen()

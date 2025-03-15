@@ -4,17 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MahasiswaDosenDokumen extends Model
+class NilaiKategori extends Model
 {
-    protected $table = 'mahasiswa_dosen_dokumen';
+    protected $table = 'nilai_kategori';
 
     public $timestamps = false;
 
     protected $fillable = [
-        'nip',
         'nim',
-        'id_dokumen'
+        'nip',
+        'id_kategori',
+        'nilai',
     ];
+
+    public function kategoriPenilaian()
+    {
+        return $this->belongsTo(KategoriPenilaian::class, 'id_kategori', 'id_kategori');
+    }
 
     public function dosen()
     {
@@ -24,11 +30,5 @@ class MahasiswaDosenDokumen extends Model
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
-    }
-
-    public function dokumen()
-    {
-        return $this->belongsTo(Dokumen::class, 'id
-        _dokumen', 'id_dokumen');
     }
 }

@@ -4,21 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JadwalDosenPembimbing extends Model
+class PreferensiKota extends Model
 {
-    protected $table = 'jadwal_dosen_pembimbing';
-    protected $primaryKey = 'id_jadwal_dosbim';
+    protected $table = 'preferensi_kota';
+
     public $timestamps = false;
 
     protected $fillable = [
-        'nip', 
-        'hari', 
-        'jam_mulai', 
-        'jam_selesai'
+        'nip',
+        'id_kota'
     ];
 
     public function dosen()
     {
         return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
+
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class, 'id_kota', 'id_kota');
     }
 }
