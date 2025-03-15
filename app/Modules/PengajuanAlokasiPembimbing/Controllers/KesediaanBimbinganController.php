@@ -7,7 +7,9 @@ use App\Models\Dosen;
 use App\Models\JadwalDosenPembimbing;
 use App\Models\KetertarikanBidang;
 use App\Models\Kota;
+use App\Models\KuotaMembimbing;
 use App\Models\PeriodePengajuan;
+use App\Models\Prodi;
 use App\Modules\Controller;
 use DB;
 use Illuminate\View\View;
@@ -15,18 +17,27 @@ use Validator;
 
 class KesediaanBimbinganController extends Controller
 {
-    private $USER_ID = '196810141993032002';
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    private $USER_ID = '197312271999031003';
 
     public function get_info(): array
     {
         $currentdate = date('Y-m-d');
+        $MaxBimbingan = Prodi::leftJoin('kuota_membimbing', function ($join) {
+            $join->on('prodi.id_prodi', '=', 'kuota_membimbing.id_prodi')
+                ->where('kuota_membimbing.nip', $this->USER_ID);
+        })
+            ->select('prodi.nama_prodi', 'prodi.id_prodi', DB::raw('COALESCE(kuota_membimbing.jumlah, 0) as jumlah'))
+            ->pluck('jumlah', 'id_prodi')
+            ->toArray();
 
         return [
             'BidangInterestTotal' => KetertarikanBidang::where('nip', $this->USER_ID)->count() ?: 0,
-            'MaxBimbingan' => [
-                'MaxD3' => Dosen::where('nip', $this->USER_ID)->first()->maks_bimbingan_d3 ?? 0,
-                'MaxD4' => Dosen::where('nip', $this->USER_ID)->first()->maks_bimbingan_d4 ?? 0,
-            ],
+            'MaxBimbingan' => $MaxBimbingan,
             'JadwalTotal' => [
                 'Day' => JadwalDosenPembimbing::where('nip', $this->USER_ID)->distinct('hari')->count() ?: 0,
                 'Session' => JadwalDosenPembimbing::where('nip', $this->USER_ID)->count() ?: 0,
@@ -130,7 +141,8 @@ class KesediaanBimbinganController extends Controller
     public function view_kuotaMahasiswa(): View
     {
         $data = [
-            'savedInformation' => $this->get_info()
+            'savedInformation' => $this->get_info(),
+            'batas_bimbingan' => Prodi::all(),
         ];
         return view('PengajuanAlokasiPembimbing.views.KesediaanBimbingan.JumlahMahasiswa', $data);
     }
@@ -147,23 +159,38 @@ class KesediaanBimbinganController extends Controller
         $data = request()->all();
         $data['nip'] = $this->USER_ID;
 
-        $validator = Validator::make($data, [
-            'valD3' => 'required|integer|min:0',
-            'valD4' => 'required|integer|min:0'
-        ], [
-            'valD3.integer' => 'Kuota mahasiswa D3 harus berupa angka. Input ID: valD3',
-            'valD4.integer' => 'Kuota mahasiswa D4 harus berupa angka. Input ID: valD4',
-            'valD3.min' => 'Kuota mahasiswa D3 tidak boleh kurang dari 0. Input ID: valD3',
-            'valD4.min' => 'Kuota mahasiswa D4 tidak boleh kurang dari 0. Input ID: valD4'
-        ]);
+        $listProdi = Prodi::select('id_prodi')->get();
+        $rules = [];
+        $messages = [];
+        foreach ($listProdi as $prodi) {
+            $rules['val'.$prodi->id_prodi] = 'required|integer|min:0';
+            $messages['val'.$prodi->id_prodi.'.integer'] = 'Kuota mahasiswa '.$prodi->nama_prodi.' harus berupa angka. Input ID: val'.$prodi->id_prodi;
+        }
+        $validator = Validator::make($data, $rules, $messages);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        Dosen::where('nip', $data['nip'])->update([
-            'maks_bimbingan_d3' => $data['valD3'],
-            'maks_bimbingan_d4' => $data['valD4']
-        ]);
+        DB::beginTransaction();
+        try{
+            KuotaMembimbing::where('nip', $data['nip'])->delete();
+
+            foreach ($listProdi as $prodi) {
+                KuotaMembimbing::create([
+                    'nip' => $data['nip'],
+                    'id_prodi' => $prodi->id_prodi,
+                    'jumlah' => $data['val'.$prodi->id_prodi]
+                ]);
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('error', 'Terjadi kesalahan saat menyimpan data kuota mahasiswa');
+            return redirect()->back();
+        }
 
         session()->flash('success', 'Data kuota mahasiswa berhasil disimpan');
 
