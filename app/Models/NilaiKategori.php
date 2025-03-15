@@ -16,4 +16,19 @@ class NilaiKategori extends Model
         'id_kategori',
         'nilai',
     ];
+
+    public function kategoriPenilaian()
+    {
+        return $this->belongsTo(KategoriPenilaian::class, 'id_kategori', 'id_kategori');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
+    }
 }

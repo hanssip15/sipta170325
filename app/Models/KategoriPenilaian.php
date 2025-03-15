@@ -15,4 +15,20 @@ class KategoriPenilaian extends Model
         'kode_fta',
         'nama_kategori',
     ];
+
+    public function sumberNilai()
+    {
+        return $this->hasMany(SumberNilai::class, 'sumber', 'id_kategori');
+    }
+
+    public function kategoriPenilaian()
+    {
+        return $this->belongsTo(KategoriPenilaian::class, 'kode_fta', 'kode_fta');
+    }
+
+    public function nilaiKategori()
+    {
+        return $this->hasMany(NilaiKategori::class, 'id_kategori', 'id_kategori');
+    }
 }
+

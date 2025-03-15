@@ -17,4 +17,9 @@ class Notifikasi extends Model
         'isi_notifikasi',
         'sumber_notifikasi'
     ];
+
+    public function notifikasiKirim()
+    {
+        return $this->hasMany(NotifikasiKirim::class, 'id_notifikasi', 'id_notifikasi');
+    }
 }

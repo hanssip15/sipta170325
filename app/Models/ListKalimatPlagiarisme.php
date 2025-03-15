@@ -16,4 +16,14 @@ class ListKalimatPlagiarisme extends Model
         'id_jurnal',
         'kalimat_plagiat'
     ];
+
+    public function dokumen()
+    {
+        return $this->belongsTo(Dokumen::class, 'id_dokumen', 'id_dokumen');
+    }
+
+    public function listJurnalPlagiarisme()
+    {
+        return $this->belongsTo(ListJurnalPlagiarisme::class, 'id_jurnal', 'id_jurnal');
+    }
 }

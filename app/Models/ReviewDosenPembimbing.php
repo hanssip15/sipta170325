@@ -16,4 +16,15 @@ class ReviewDosenPembimbing extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function dokumen()
+    {
+        return $this->belongsTo(Dokumen::class, 'id
+        _dokumen', 'id_dokumen');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
 }

@@ -21,4 +21,39 @@ class Mahasiswa extends Model
         'status_ta',
         'id_kota'
     ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
+    }
+
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class, 'id_kota', 'id_kota');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nim', 'username');
+    }
+
+    public function pengajuanPisahKota()
+    {
+        return $this->hasMany(PengajuanPisahKota::class, 'nim', 'nim');
+    }
+
+    public function nilaiKategori()
+    {
+        return $this->hasMany(NilaiKategori::class, 'nim', 'nim');
+    }
+
+    public function nilaiKriteria()
+    {
+        return $this->hasMany(NilaiKriteria::class, 'nim', 'nim');
+    }
+
+    public function mahasiswaDosenDokumen()
+    {
+        return $this->hasMany(MahasiswaDosenDokumen::class, 'nim', 'nim');
+    }
 }

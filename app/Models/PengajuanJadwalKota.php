@@ -21,4 +21,19 @@ class PengajuanJadwalKota extends Model
         'id_kota',
         'nip'
     ];
+
+    public function penjadwalan()
+    {
+        return $this->belongsTo(Penjadwalan::class, 'id_penjadwalan', 'id_penjadwalan');
+    }
+
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class, 'id_kota', 'id_kota');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
 }

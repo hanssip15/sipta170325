@@ -15,4 +15,8 @@ class Kbk extends Model
         'kbk'
     ];
 
+    public function dosen()
+    {
+        return $this->hasMany(Dosen::class, 'id_kbk', 'id_kbk');
+    }
 }

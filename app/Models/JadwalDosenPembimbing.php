@@ -16,4 +16,9 @@ class JadwalDosenPembimbing extends Model
         'jam_mulai', 
         'jam_selesai'
     ];
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
 }

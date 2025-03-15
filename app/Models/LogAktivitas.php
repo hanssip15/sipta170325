@@ -18,4 +18,20 @@ class LogAktivitas extends Model
         'action',
         'waktu_aktivitas'
     ];
+
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class, 'id_kota', 'id_kota');
+    }
+
+    public function dokumen()
+    {
+        return $this->belongsTo(Dokumen::class, 'id
+        _dokumen', 'id_dokumen');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'username', 'username');
+    }
 }

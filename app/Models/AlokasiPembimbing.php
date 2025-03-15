@@ -18,4 +18,14 @@ class AlokasiPembimbing extends Model
         'status_alokasi',
         'catatan'
     ];
+
+    public function pengajuanPembimbing()
+    {
+        return $this->belongsTo(PengajuanPembimbing::class, 'id_pengajuan_pembimbing', 'id_pengajuan_pembimbing');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
 }

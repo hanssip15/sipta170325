@@ -19,4 +19,9 @@ class VerifikasiBerkasPengajuan extends Model
         'tanggal_verifikasi',
         'jenis_pangajuan'
     ];
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
 }

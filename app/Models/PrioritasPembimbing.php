@@ -16,4 +16,14 @@ class PrioritasPembimbing extends Model
         'nip',
         'urutan_prioritas'
     ];
+
+    public function pengajuanPembimbing()
+    {
+        return $this->belongsTo(PengajuanPembimbing::class, 'id_pengajuan', 'id_pengajuan_pembimbing');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
 }

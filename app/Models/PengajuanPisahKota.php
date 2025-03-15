@@ -15,4 +15,14 @@ class PengajuanPisahKota extends Model
         'nim',
         'id_kota'
     ];
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
+    }
+
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class, 'id_kota', 'id_kota');
+    }
 }

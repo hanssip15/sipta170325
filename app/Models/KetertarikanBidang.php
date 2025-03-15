@@ -15,4 +15,14 @@ class KetertarikanBidang extends Model
         'nip',
         'id_bidang'
     ];
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
+
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class, 'id_bidang', 'id_bidang');
+    }
 }

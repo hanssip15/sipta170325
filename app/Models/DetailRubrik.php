@@ -16,4 +16,14 @@ class DetailRubrik extends Model
         'detail_rubrik_penilaian',
         'id_nilai',
     ];
+
+    public function rubrik()
+    {
+        return $this->belongsTo(Rubrik::class, 'id_rubrik', 'id_rubrik');
+    }
+
+    public function nilai()
+    {
+        return $this->belongsTo(RentangNilai::class, 'id_nilai', 'id_nilai');
+    }
 }

@@ -15,4 +15,9 @@ class KomponenNilaiAkhir extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function sumberNilai()
+    {
+        return $this->hasMany(SumberNilai::class, 'id_komponen', 'id_komponen');
+    }
 }

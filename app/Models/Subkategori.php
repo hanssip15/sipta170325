@@ -14,4 +14,9 @@ class Subkategori extends Model
     protected $fillable = [
         'nama_subkategori'
     ];
+
+    public function dokumen()
+    {
+        return $this->hasMany(Dokumen::class, 'id_subkategori', 'id_subkategori');
+    }
 }

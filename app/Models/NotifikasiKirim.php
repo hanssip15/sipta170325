@@ -19,4 +19,14 @@ class NotifikasiKirim extends Model
         'waktu_kirim',
         'respon_log'
     ];
+
+    public function notifikasi()
+    {
+        return $this->belongsTo(Notifikasi::class, 'id_notifikasi', 'id_notifikasi');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'username', 'username');
+    }
 }

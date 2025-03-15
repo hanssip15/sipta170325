@@ -16,4 +16,14 @@ class AspekFeedback extends Model
         'kode_fta',
         'nama_aspek_feedback',
     ];
+
+    public function formPenilaian()
+    {
+        return $this->belongsTo(FormPenilaian::class, 'kode_fta', 'kode_fta');
+    }
+
+    public function detailFeedback()
+    {
+        return $this->hasMany(DetailFeedback::class, 'id_feedback', 'id_feedback');
+    }
 }

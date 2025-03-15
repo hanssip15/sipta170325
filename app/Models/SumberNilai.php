@@ -14,4 +14,14 @@ class SumberNilai extends Model
     protected $fillable = [
         'sumber'
     ];
+
+    public function komponenNilaiAkhir()
+    {
+        return $this->belongsTo(KomponenNilaiAkhir::class, 'id_komponen', 'id_komponen');
+    }
+
+    public function kategoriPenilaian()
+    {
+        return $this->belongsTo(KategoriPenilaian::class, 'sumber', 'id_kategori');
+    }
 }

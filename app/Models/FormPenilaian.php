@@ -17,4 +17,24 @@ class FormPenilaian extends Model
         'created_at', 
         'updated_at'
     ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
+    }
+
+    public function kategoriPenilaian()
+    {
+        return $this->hasMany(KategoriPenilaian::class, 'kode_fta', 'kode_fta');
+    }
+
+    public function kriteriaPenilaian()
+    {
+        return $this->hasMany(KriteriaPenilaian::class, 'kode_fta', 'kode_fta');
+    }
+
+    public function aspekFeedback()
+    {
+        return $this->hasMany(AspekFeedback::class, 'kode_fta', 'kode_fta');
+    }
 }

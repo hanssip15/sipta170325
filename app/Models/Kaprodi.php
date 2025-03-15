@@ -13,4 +13,14 @@ class Kaprodi extends Model
         'nip',
         'id_prodi'
     ];
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'nip', 'nip');
+    }
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
+    }
 }

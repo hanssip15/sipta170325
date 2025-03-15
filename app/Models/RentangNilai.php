@@ -17,4 +17,9 @@ class RentangNilai extends Model
         'batas_bawah',
         'batas_atas'
     ];
+
+    public function detailRubrik()
+    {
+        return $this->hasMany(DetailRubrik::class, 'id_nilai', 'id_nilai');
+    }
 }

@@ -18,4 +18,9 @@ class PreferensiNotifikasi extends Model
         'in_app',
         'email'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'username', 'username');
+    }
 }

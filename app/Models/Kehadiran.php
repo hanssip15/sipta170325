@@ -15,4 +15,14 @@ class Kehadiran extends Model
             'username',
             'status_hadir'
         ];
+
+        public function penjadwalan()
+        {
+            return $this->belongsTo(Penjadwalan::class, 'id_penjadwalan', 'id_penjadwalan');
+        }
+
+        public function user()
+        {
+            return $this->belongsTo(User::class, 'username', 'username');
+        }
 }

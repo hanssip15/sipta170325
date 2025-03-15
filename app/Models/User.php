@@ -29,4 +29,39 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'nip', 'username');
+    }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'nim', 'username');
+    }
+
+    public function kehadiran()
+    {
+        return $this->hasMany(Kehadiran::class, 'username', 'username');
+    }
+
+    public function notifikasiKirim()
+    {
+        return $this->hasMany(NotifikasiKirim::class, 'username', 'username');
+    }
+
+    public function preferensiNotifikasi()
+    {
+        return $this->hasMany(PreferensiNotifikasi::class, 'username', 'username');
+    }
+
+    public function dokumen()
+    {
+        return $this->hasMany(Dokumen::class, 'username', 'username');
+    }
+
+    public function logAktivitas()
+    {
+        return $this->hasMany(LogAktivitas::class, 'username', 'username');
+    }
 }
