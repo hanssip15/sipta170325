@@ -140,7 +140,7 @@
         <div class="d-flex justify-content-end mt-3">
             <button type="button" class="btn btn-dark mr-2">Cek Rekap</button>
             <button type="button" class="btn btn-secondary mr-2" id="saveDraftBtn">Simpan</button>
-            <button type="button" class="btn btn-primary" id="openConfirmModal">Submit</button>
+            <button type="button" class="btn btn-primary" id="openConfirmModal">Finalisasi</button>
         </div>
     </div>
 
@@ -353,14 +353,14 @@
                 });
             });
 
-            // Tombol Submit dengan indikator loading
+            // Tombol Finalisasi dengan indikator loading
             $('#openConfirmModal').click(function () {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Konfirmasi Submit',
+                    title: 'Konfirmasi Finalisasi',
                     text: 'Finalisasi Alokasi Pembimbing?',
                     showCancelButton: true,
-                    confirmButtonText: 'Ya, Submit',
+                    confirmButtonText: 'Ya, Finalisasi',
                     cancelButtonText: 'Batal',
                     showLoaderOnConfirm: true,
                     preConfirm: () => {
