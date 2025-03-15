@@ -284,7 +284,7 @@
 
         /* Dropdown Status */
         .status-dropdown {
-            width: 100% !important;
+            width: 100%;
             text-align: center;
             padding: 5px;
             font-weight: bold;
@@ -296,8 +296,9 @@
         .auto-expand {
             width: 100%;
             min-height: 35px;
-            resize: none; /* Nonaktifkan resize manual */
-            overflow: hidden; /* Hilangkan scroll bar */
+            max-height: 150px;
+            resize: none;
+            overflow-y: hidden;
             border: 1px solid #ccc;
             padding: 5px;
             font-size: 14px;
@@ -381,17 +382,18 @@
                 cell.removeClass("belum_fix fix").addClass(status);
             });
 
-            // Auto-save Draft ketika ada perubahan pada input atau dropdown
-            $('.pembimbing, .penguji, .status-dropdown, .auto-expand').on('change input', function () {
-                let formData = $('#alokasiTable').find('input, select, textarea').serialize();
+            $('.auto-expand').on('input', function () {
+                this.style.height = "auto";
+                this.style.height = (this.scrollHeight) + "px";
+            });
 
-                $.ajax({
-                    url: "{{ route('pengajuanalokasipembimbing.alokasi-pembimbing.simpan') }}",
-                    type: "POST",
-                    data: formData,
-                    success: function () {
-                        console.log("Draft tersimpan otomatis");
-                    }
+            $('#saveDraftBtn').click(function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Data tersimpan sebagai draft!',
+                    timer: 2000,
+                    showConfirmButton: false
                 });
             });
 
