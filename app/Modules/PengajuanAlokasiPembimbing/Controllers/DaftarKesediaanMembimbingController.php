@@ -61,10 +61,11 @@ class DaftarKesediaanMembimbingController extends Controller
         $result = DB::select($query);
 
         $formattedResult = json_decode(json_encode($result), true);
-
-        dd($formattedResult);
     
-        return view('PengajuanAlokasiPembimbing.views.DaftarKesediaanMembimbing.DaftarKesediaanMembimbing', ['data' => $formattedResult]);
+        return view('PengajuanAlokasiPembimbing.views.DaftarKesediaanMembimbing.DaftarKesediaanMembimbing', [
+            'data' => $formattedResult,
+            'prodiList' => $prodiList
+        ]);
     }
     
 }
