@@ -10,7 +10,7 @@
         @php
             $totalMahasiswa = 0;
             foreach ($savedInformation['MaxBimbingan'] as $key => $value) {
-                $totalMahasiswa += $value;
+                $totalMahasiswa += $value['jumlah'];
             }
         @endphp
         <div class="col-md-3 col-12 ml-2 mr-2">

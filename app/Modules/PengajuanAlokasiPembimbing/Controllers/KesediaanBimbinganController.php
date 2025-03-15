@@ -32,7 +32,8 @@ class KesediaanBimbinganController extends Controller
                 ->where('kuota_membimbing.nip', $this->USER_ID);
         })
             ->select('prodi.nama_prodi', 'prodi.id_prodi', DB::raw('COALESCE(kuota_membimbing.jumlah, 0) as jumlah'))
-            ->pluck('jumlah', 'id_prodi')
+            // ->pluck('jumlah', 'id_prodi')
+            -> get()
             ->toArray();
 
         return [

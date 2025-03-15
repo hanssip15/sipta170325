@@ -47,12 +47,12 @@
                                 ];
 
                                 $prefix = '';
-                                if (preg_match('/D1|D2|D3|D4|S1|S2|S3/', $key)) {
-                                    $prefix = preg_replace('/[^D1D2D3D4S1S2S3]/', '', $key);
+                                if (preg_match('/D1|D2|D3|D4|S1|S2|S3/', $value['nama_prodi'])) {
+                                    $prefix = preg_replace('/[^D1D2D3D4S1S2S3]/', '', $value['nama_prodi']);
                                     $prefix .= ' ';
                                 }
 
-                                $words = explode(' ', $key);
+                                $words = explode(' ', $value['nama_prodi']);
                                 foreach ($words as $index => $word) {
                                     if ($index === 0 && $prefix !== '') {
                                         continue;
@@ -67,10 +67,10 @@
                                             <div class="form-group m-0">
                                                 <input type="number"
                                                     class="form-control bg-transparent border-0 text-light p-0 fs-1"
-                                                    min="0" id="val{!! str_replace(' ', '', $key) !!}"
-                                                    name="val{!! str_replace(' ', '', $key) !!}"
+                                                    min="0" id="val{!! str_replace(' ', '', $value['id_prodi']) !!}"
+                                                    name="val{!! str_replace(' ', '', $value['id_prodi']) !!}"
                                                     {{ $savedInformation['Periode'] ? '' : 'disabled' }}
-                                                    value="{{ old('valD3') ? old('valD3') : $value }}">
+                                                    value="{{ old('val' . $value['id_prodi']) ? old('val' . $value['id_prodi']) : $value['jumlah'] }}">
                                             </div>
                                             <hr class="text-light m-0 border-light">
                                             <small>Mahasiswa {{ $key }}</small>
