@@ -7,54 +7,32 @@
 @stop
 
 @section('content')
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div class="search-box">
-            <input type="text" class="form-control" id="searchInput" placeholder="Search here...">
+<section class="content">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="search-box">
+                <input type="text" class="form-control" id="searchInput" placeholder="Search here...">
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addAmbangBatasModal">
+                    <i class="fas fa-plus mr-2"></i>
+                    TAMBAH AMBANG BATAS
+                </button>
+            </div>
         </div>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addAmbangBatasModal">
-            + TAMBAH AMBANG BATAS
-        </button>
+
+        <div class="card-body">
+            <div id="jsGrid1"></div>
+        </div>
     </div>
+</section>
 
-    <table class="table table-bordered text-center">
-        <thead class="table-light">
-            <tr>
-                <th>No</th>
-                <th>Ambang Batas</th>
-                <th>Tanggal</th>
-                <th>Nama Koordinator TA</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-            $data = [
-            ['no' => 1, 'ambang_batas' => '20', 'tanggal' => '03-03-2025', 'koordinator' => 'Maman Sumaman', 'status' => true],
-            ['no' => 2, 'ambang_batas' => '30', 'tanggal' => '28-02-2025', 'koordinator' => 'Maman Sumaman', 'status' => false],
-            ['no' => 3, 'ambang_batas' => '50', 'tanggal' => '25-02-2025', 'koordinator' => 'Maman Sumaman', 'status' => false],
-            ];
-            @endphp
-
-            @foreach ($data as $row)
-            <tr>
-                <td>{{ $row['no'] }}</td>
-                <td>{{ $row['ambang_batas'] }}%</td>
-                <td>{{ $row['tanggal'] }}</td>
-                <td>{{ $row['koordinator'] }}</td>
-                <td>{{ $row['status'] ? 'Sedang Digunakan' : 'Tidak Digunakan' }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
-
-<!-- Modal Tambah Dokumen -->
+<!-- Modal Tambah Ambang Batas -->
 <div class="modal fade" id="addAmbangBatasModal" tabindex="-1" aria-labelledby="addAmbangBatasModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addAmbangBatasModal">Tambah Ambang Batas</h5>
+                <h5 class="modal-title">Tambah Ambang Batas</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -65,9 +43,8 @@
                         <label for="deskripsi" class="form-label">Presentase Ambang Batas:</label>
                         <input type="number" class="form-control" id="deskripsi" required min="1" max="100" step="1">
                     </div>
-
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal" id="closeModalBtn">Batal</button>
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
@@ -75,41 +52,100 @@
         </div>
     </div>
 </div>
-
-@stop
-
-@section('css')
-<style>
-    .table th,
-    .table td {
-        vertical-align: middle;
-    }
-
-    .search-box input {
-        width: 250px;
-    }
-
-    .modal-content {
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .modal-header h5 {
-        font-weight: bold;
-    }
-
-    hr {
-        margin: 0;
-        border-top: 2px solid #ddd;
-    }
-</style>
 @stop
 
 @section('js')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <script>
     $(document).ready(function() {
-        $('#addAmbangBatasModal').on('hidden.bs.modal', function () {
+        $('#addAmbangBatasModal').on('hidden.bs.modal', function() {
             $('#deskripsi').val('');
+        });
+    });
+
+    $(document).ready(function() {
+        console.log("DOM siap, inisialisasi jsGrid..."); // Debugging
+
+        var data = [{
+                No: 1,
+                AmbangBatas: "20",
+                Tanggal: "03-03-2025",
+                Koordinator: "Maman Sumaman",
+                Status: true
+            },
+            {
+                No: 2,
+                AmbangBatas: "30",
+                Tanggal: "28-02-2025",
+                Koordinator: "Maman Sumaman",
+                Status: false
+            },
+            {
+                No: 3,
+                AmbangBatas: "50",
+                Tanggal: "25-02-2025",
+                Koordinator: "Mimin Sumimin",
+                Status: false
+            }
+        ];
+
+        $("#jsGrid1").jsGrid({
+            width: "100%",
+            height: "400px",
+            data: data,
+            fields: [{
+                    name: "No",
+                    type: "number",
+                    width: 50,
+                    align: "center"
+                },
+                {
+                    name: "AmbangBatas",
+                    type: "text",
+                    title: "Ambang Batas (%)",
+                    width: 100,
+                    align: "center"
+                },
+                {
+                    name: "Tanggal",
+                    type: "text",
+                    width: 150,
+                    align: "center"
+                },
+                {
+                    name: "Koordinator",
+                    type: "text",
+                    title: "Nama Koordinator TA",
+                    width: 200,
+                    align: "center"
+                },
+                {
+                    name: "Status",
+                    type: "text",
+                    title: "Status",
+                    width: 150,
+                    align: "center",
+                    itemTemplate: function(value) {
+                        return value ? "Sedang Digunakan" : "Tidak Digunakan";
+                    }
+                }
+            ]
+        });
+
+        // Fungsi Pencarian
+        $("#searchInput").on("keyup", function() {
+            var searchValue = $(this).val().toLowerCase();
+            var filteredData = data.filter(function(item) {
+                var statusText = item.Status ? "Sedang Digunakan" : "Tidak Digunakan";
+                return Object.values(item).some(value =>
+                    String(value).toLowerCase().includes(searchValue) || statusText.toLowerCase().includes(searchValue)
+                );
+            });
+            $("#jsGrid1").jsGrid("option", "data", filteredData);
         });
     });
 </script>
