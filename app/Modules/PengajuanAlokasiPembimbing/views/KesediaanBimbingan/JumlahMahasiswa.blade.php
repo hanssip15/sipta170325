@@ -13,7 +13,7 @@
         Bimbingan > <a href="{{ route('pengajuanalokasipembimbing.kesediaan-membimbing.jadwal.index') }}">Jadwal
             Kesediaan</a></p>
 
-    @include('PengajuanAlokasiPembimbing.views.KesediaanBimbingan.CardBar')
+    @include('PengajuanAlokasiPembimbing.views.KesediaanBimbingan.C_CardBar')
 
 
     <x-pengajuan-alokasi-pembimbing.components.kesediaan-membimbing.horizontal-progres number="3" active="2"
@@ -24,6 +24,7 @@
         ]" />
 
     <div class="container-fluid m-0 p-0">
+        @include('PengajuanAlokasiPembimbing.views.KesediaanBimbingan.C_ErrorPeriode')
 
         {{-- ================== --}}
         <form action="{{ route('pengajuanalokasipembimbing.kesediaan-membimbing.jumlah-mahasiswa.store') }}" method="post"
@@ -40,6 +41,7 @@
                                             <input type="number"
                                                 class="form-control bg-transparent border-0 text-light p-0 fs-1"
                                                 min="0" id="valD3" name="valD3"
+                                                {{ $savedInformation['Periode'] ? '' : 'disabled' }}
                                                 value="{{ old('valD3') ? old('valD3') : $savedInformation['MaxBimbingan']['MaxD3'] }}">
                                         </div>
                                         <hr class="text-light m-0 border-light">
@@ -63,6 +65,7 @@
                                             <input type="number"
                                                 class="form-control bg-transparent border-0 text-light p-0 fs-1"
                                                 min="0" id="valD4" name="valD4"
+                                                {{ $savedInformation['Periode'] ? '' : 'disabled' }}
                                                 value="{{ old('valD4') ? old('valD4') : $savedInformation['MaxBimbingan']['MaxD4'] }}">
                                         </div>
                                         <hr class="text-light m-0 border-light">
@@ -95,11 +98,12 @@
                 </center>
             </div>
             {{-- ================== --}}
-            <div class="container-fluid d-flex justify-content-end p-3 p-md-0 d-none mt-2">
-                <button type="button" onclick="previousPage()" class="btn btn-info ml-3">Sebelumnya <i
+            <div class="container-fluid d-flex justify-content-center justify-content-md-end p-3 p-md-0 mt-2">
+                <button type="button" onclick="previousPage()" class="btn btn-info ml-3"><i
                         class="fas fa-chevron-left pl-1"></i></button>
-                <button type="submit" class="btn btn-primary ml-3">Simpan <i class="fas fa-save pl-1"></i></button>
-                <button type="button" onclick="nextPage()" class="btn btn-info ml-3">Berikutnya <i
+                <button type="submit" class="btn btn-primary ml-3" {{ $savedInformation['Periode'] ? '' : 'disabled' }}><i
+                        class="fas fa-save pl-1"></i></button>
+                <button type="button" onclick="nextPage()" class="btn btn-info ml-3"><i
                         class="fas fa-chevron-right pl-1"></i></button>
             </div>
         </form>
@@ -144,12 +148,14 @@
                 $('#warning').removeClass('d-none');
                 $('#warning').find('div').first().removeClass('d-none');
                 $('#warning').find('div').last().addClass('d-none');
-                if (!toastShowed) {
-                    toast('warning', 'Peringatan',
-                        'Dengan mengisi kuota 0, anda menyatakan bahwa tidak bersedia membimbing!',
-                        5000);
-                    toastShowed = true;
-                }
+                @if ($savedInformation['Periode'])
+                    if (!toastShowed) {
+                        toast('warning', 'Peringatan',
+                            'Dengan mengisi kuota 0, anda menyatakan bahwa tidak bersedia membimbing!',
+                            5000);
+                        toastShowed = true;
+                    }
+                @endif
             } else if (D3 > 10 || D4 > 8) {
                 $('#warning').removeClass('d-none');
                 $('#warning').find('div').first().addClass('d-none');

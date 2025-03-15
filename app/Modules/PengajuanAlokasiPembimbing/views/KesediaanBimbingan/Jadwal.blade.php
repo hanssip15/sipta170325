@@ -13,7 +13,7 @@
         Jadwal Kesediaan
     </p>
 
-    @include('PengajuanAlokasiPembimbing.views.KesediaanBimbingan.CardBar')
+    @include('PengajuanAlokasiPembimbing.views.KesediaanBimbingan.C_CardBar')
 
     <x-pengajuan-alokasi-pembimbing.components.kesediaan-membimbing.horizontal-progres number="3" active="3"
         activeColor="primary" inactiveColor="secondary" :hrefs="[
