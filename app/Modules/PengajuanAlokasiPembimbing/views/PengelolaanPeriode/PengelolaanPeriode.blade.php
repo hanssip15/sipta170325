@@ -3,7 +3,7 @@
 @section('title', 'PengelolaanPeriode')
 
 @section('content_header')
-    <h1>Pengelolaan Periode</h1>
+    <h1>Pengelolaan Periode Pengisian FTA01 dan FTA02</h1>
     <br>
 
     <div class="container-fluid d-flex justify-content-end mb-2 p-0">

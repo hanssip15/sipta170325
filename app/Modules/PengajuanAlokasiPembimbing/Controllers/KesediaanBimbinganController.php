@@ -33,7 +33,7 @@ class KesediaanBimbinganController extends Controller
         })
             ->select('prodi.nama_prodi', 'prodi.id_prodi', DB::raw('COALESCE(kuota_membimbing.jumlah, 0) as jumlah'))
             // ->pluck('jumlah', 'id_prodi')
-            -> get()
+            ->get()
             ->toArray();
 
         return [
@@ -43,8 +43,35 @@ class KesediaanBimbinganController extends Controller
                 'Day' => JadwalDosenPembimbing::where('nip', $this->USER_ID)->distinct('hari')->count() ?: 0,
                 'Session' => JadwalDosenPembimbing::where('nip', $this->USER_ID)->count() ?: 0,
             ],
+            'StatusBersediaMembimbing' => Dosen::where('nip', $this->USER_ID)->value('bersedia_membimbing') ?: 'tidak_bersedia',
             'Periode' => PeriodePengajuan::where('periode_mulai', '<=', $currentdate)->where('periode_akhir', '>=', $currentdate)->exists()
         ];
+    }
+
+    public function konfirmasi_kesediaan($value)
+    {
+        $data = [
+            'nip' => $this->USER_ID,
+            'bersedia_membimbing' => $value
+        ];
+
+        $validator = Validator::make($data, [
+            'bersedia_membimbing' => 'required|in:bersedia,tidak_bersedia,belum_konfirmasi'
+        ], [
+            'bersedia_membimbing.in' => 'Status kesediaan membimbing tidak valid'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        Dosen::where('nip', $data['nip'])->update([
+            'bersedia_membimbing' => $data['bersedia_membimbing']
+        ]);
+
+        session()->flash('success', 'Status kesediaan membimbing berhasil diubah');
+
+        return redirect()->back();
     }
 
     public function view_minatTopik(): View
@@ -72,24 +99,35 @@ class KesediaanBimbinganController extends Controller
 
         $data = request()->all();
         $data['nip'] = $this->USER_ID;
-        $data['bidang'] = $data['bidang'] ?? [];
+        $data['bidang'] = $data['bidang'] ?? null;
 
         $validator = Validator::make($data, [
-            'bidang.*' => 'nullable|exists:bidang,id_bidang'
+            'bidang.*' => 'required|exists:bidang,id_bidang'
         ], [
-            'bidang.*.exists' => 'Bidang yang dipilih tidak valid atau tidak tersedia. Input ID: ' . implode(', ', array_map(fn($id) => "bidang$id", $data['bidang']))
+            'bidang.*.exists' => 'Bidang yang dipilih tidak valid atau tidak tersedia. Input ID: ' . implode(', ', array_map(fn($id) => "bidang$id", $data['bidang'] ?? []))
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails() || !$data['bidang']) {
+            if (!$data['bidang']) {
+                $validator->errors()->add('bidang', 'Bidang minat tidak boleh kosong');
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        KetertarikanBidang::where('nip', $data['nip'])->delete();
-        foreach ($data['bidang'] as $bidang) {
-            KetertarikanBidang::create([
-                'nip' => $data['nip'],
-                'id_bidang' => $bidang
-            ]);
+        DB::beginTransaction();
+        try {
+            KetertarikanBidang::where('nip', $data['nip'])->delete();
+            foreach ($data['bidang'] as $bidang) {
+                KetertarikanBidang::create([
+                    'nip' => $data['nip'],
+                    'id_bidang' => $bidang
+                ]);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('error', 'Terjadi kesalahan saat menyimpan data ketertarikan bidang');
+            return redirect()->back();
         }
 
         session()->flash('success', 'Data ketertarikan bidang berhasil disimpan');
@@ -164,8 +202,8 @@ class KesediaanBimbinganController extends Controller
         $rules = [];
         $messages = [];
         foreach ($listProdi as $prodi) {
-            $rules['val'.$prodi->id_prodi] = 'required|integer|min:0';
-            $messages['val'.$prodi->id_prodi.'.integer'] = 'Kuota mahasiswa '.$prodi->nama_prodi.' harus berupa angka. Input ID: val'.$prodi->id_prodi;
+            $rules['val' . $prodi->id_prodi] = 'required|integer|min:0';
+            $messages['val' . $prodi->id_prodi . '.integer'] = 'Kuota mahasiswa ' . $prodi->nama_prodi . ' harus berupa angka. Input ID: val' . $prodi->id_prodi;
         }
         $validator = Validator::make($data, $rules, $messages);
 
@@ -174,20 +212,19 @@ class KesediaanBimbinganController extends Controller
         }
 
         DB::beginTransaction();
-        try{
+        try {
             KuotaMembimbing::where('nip', $data['nip'])->delete();
 
             foreach ($listProdi as $prodi) {
                 KuotaMembimbing::create([
                     'nip' => $data['nip'],
                     'id_prodi' => $prodi->id_prodi,
-                    'jumlah' => $data['val'.$prodi->id_prodi]
+                    'jumlah' => $data['val' . $prodi->id_prodi]
                 ]);
             }
 
             DB::commit();
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Terjadi kesalahan saat menyimpan data kuota mahasiswa');
             return redirect()->back();
@@ -260,14 +297,22 @@ class KesediaanBimbinganController extends Controller
             return redirect()->back();
         }
 
-        JadwalDosenPembimbing::where('nip', $data['nip'])->delete();
-        foreach ($data['jadwals'] as $jadwal) {
-            JadwalDosenPembimbing::create([
-                'nip' => $data['nip'],
-                'hari' => strtolower($jadwal['day']),
-                'jam_mulai' => $jadwal['time'][0],
-                'jam_selesai' => $jadwal['time'][1]
-            ]);
+        DB::beginTransaction();
+        try {
+            JadwalDosenPembimbing::where('nip', $data['nip'])->delete();
+            foreach ($data['jadwals'] as $jadwal) {
+                JadwalDosenPembimbing::create([
+                    'nip' => $data['nip'],
+                    'hari' => strtolower($jadwal['day']),
+                    'jam_mulai' => $jadwal['time'][0],
+                    'jam_selesai' => $jadwal['time'][1]
+                ]);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('error', 'Terjadi kesalahan saat menyimpan data jadwal');
+            return redirect()->back();
         }
 
         session()->flash('success', 'Data jadwal berhasil disimpan');

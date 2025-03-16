@@ -17,6 +17,9 @@ use App\Modules\PengajuanAlokasiPembimbing\Controllers\RekapFTA02Controller;
 Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokasipembimbing.'], function () {
 
     Route::group(['prefix' => 'kesediaan-membimbing', 'as' => 'kesediaan-membimbing.'], function () {
+
+        Route::post('/konfirmasi-kesediaab/{value}', [KesediaanBimbinganController::class, 'konfirmasi_kesediaan'])->name('konfirmasi-kesediaan');
+
         Route::post('/next/{previous}/{target}', [KesediaanBimbinganController::class, 'next_page'])->name('next');
 
         Route::group(['prefix' => 'minat-bidang', 'as' => 'minat-bidang.'], function () {
