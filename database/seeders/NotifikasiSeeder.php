@@ -19,15 +19,17 @@ class NotifikasiSeeder extends Seeder
             'judul' => 'Pembaruan Sistem',
             'isi_notifikasi' => 'Sistem akan diperbarui pada pukul 23:00 WIB.',
             'sumber_notifikasi' => 'Admin',
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
         Notifikasi::create([
             'tipe_notifikasi' => 'peringatan',
-            'judul' => 'Batas Pembayaran',
-            'isi_notifikasi' => 'Jangan lupa untuk membayar tagihan sebelum 10 Maret!',
-            'sumber_notifikasi' => 'Finance',
-            'created_at' => Carbon::now()
+            'judul' => 'Reminder Pengumpulan Progres',
+            'isi_notifikasi' => 'Jangan lupa untuk menyelesaikan progres kemarin',
+            'sumber_notifikasi' => 'Pembimbing TA',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
     }
 }
