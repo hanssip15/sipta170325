@@ -1,43 +1,8 @@
-@section('css')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet" />
-<style>
-    .btn-action {
-        padding: 5px 10px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        display: block;
-        width: 100%;
-    }
-
-    .btn-accept {
-        background-color: #28a745 !important;
-        color: white;
-    }
-
-    .btn-accept:hover {
-        background-color: #218838;
-    }
-
-    .btn-reject {
-        background-color: #dc3545 !important;
-        color: white;
-        margin-top: 5px;
-    }
-
-    .btn-reject:hover {
-        background-color: #c82333;
-    }
-
-</style>
-@stop
-
 @section('content')
 <div class="container">
     @if(isset($kelompokData) && count($kelompokData) > 0)
     <table id="kesediaanTable" class="table table-bordered table-striped">
-        <thead class="text-center">
+        <thead class="text-center bg-dark text-white">
             <tr>
                 <th>No</th>
                 <th>Kelompok</th>
@@ -85,10 +50,48 @@
 </div>
 @stop
 
+@section('css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet" />
+<style>
+    .btn-action {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+    }
+
+    .btn-accept {
+        background-color: #28a745 !important;
+        color: white;
+    }
+
+    .btn-accept:hover {
+        background-color: #218838;
+    }
+
+    .btn-reject {
+        background-color: #dc3545 !important;
+        color: white;
+        margin-top: 5px;
+    }
+
+    .btn-reject:hover {
+        background-color: #c82333;
+    }
+
+</style>
+@stop
+
 @section('js')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @include('pengajuanalokasipembimbing.Helper.JS.SweetAlert')
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
