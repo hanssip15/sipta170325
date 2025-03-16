@@ -43,22 +43,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $index => $row)
+                    @foreach ($list_pengajuan as $index => $row)
                         <tr class="bg-light">
                             <td class="align-middle sticky-column" style="position: sticky; left: 0; background: white;">{{ $index + 1 }}</td>
-                            <td class="align-middle sticky-column" style="position: sticky; left: 5%; background: white;">{{ $row['kota'] }}</td>
+                            <td class="align-middle sticky-column" style="position: sticky; left: 5%; background: white;">{{ $row['nama_kota'] }}</td>
                             <td class="align-middle">
                                 <ul class="m-0 p-0" style="list-style-type: none;">
-                                    @foreach ($row['anggota'] as $anggota)
-                                        <li>{{ $anggota }}</li>
+                                    @foreach ($row['mahasiswa'] as $anggota)
+                                        <li>{{ $anggota['nama'] }}</li>
                                     @endforeach
                                 </ul>
                             </td>
                             <td class="align-middle">{{ $row['bidang'] }}</td>
-                            <td class="align-middle">{{ $row['judul'] }}</td>
-                            @foreach ($row['usulanDosen'] as $dosen)
-                                <td class="align-middle">{{ $dosen }}</td>
-                            @endforeach
+                            <td class="align-middle">{{ $row['judul_ta'] }}</td>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <td class="align-middle">
+                                    @php
+                                        $found = false
+                                    @endphp
+                                    @foreach ($row['usulan_dosen'] as $dosen)
+                                        @if ($dosen['urutan_prioritas'] == $i)
+                                            @php
+                                                $found = true;
+                                            @endphp
+                                            {{ $dosen['id_dosen'] }}
+                                        @endif
+
+                                    @endforeach
+                                    @if (!$found)
+                                        -
+                                    @endif
+                                </td>
+                            @endfor
+
                             <td class="align-middle status-cell" data-status="belum_fix">
                                 <input type="text" class="form-control text-center pembimbing mb-2" data-index="{{ $index }}" name="pembimbing1">
                                 <label>Status:</label>
@@ -69,7 +86,7 @@
                             </td>
                             <td class="align-middle text-left">
                                 <div class="detail-content">
-                                    <div><strong>Nama:</strong> {{ $row['detailPembimbing']['nama'] ?? '-' }}</div>
+                                    {{-- <div><strong>Nama:</strong> {{ $row['detailPembimbing']['nama'] ?? '-' }}</div>
                                     <div><strong>KoTA:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_KoTA'] ?? '0' }} |
                                         P2: {{ $row['detailPembimbing']['pembimbing2_KoTA'] ?? '0' }} |
                                         Total: {{ $row['detailPembimbing']['jumlah_KoTA'] ?? '0' }}</div>
@@ -85,7 +102,7 @@
                                         @else
                                             <span style="color: green;">Aman</span>
                                         @endif
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </td>
                             <td class="align-middle status-cell" data-status="belum_fix">
@@ -162,7 +179,12 @@
                             <td class="align-middle">{{ $index + 1 }}</td>
                             <td class="align-middle">{{ $dosen['id_dosen'] }}</td>
                             <td class="align-middle">{{ $dosen['nama'] }}</td>
-                            <td class="align-middle">{{ $dosen['kbk'] }}</td>
+                            <td class="align-middle">
+                            @foreach ($dosen['ketertarikan_bidang'] as $kbk)
+                                {{ $kbk['bidang'] }}
+                                <br>
+                            @endforeach
+                        </td>
                         </tr>
                     @endforeach
                 </tbody>
