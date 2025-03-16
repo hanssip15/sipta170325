@@ -376,6 +376,35 @@ return [
             // 'label_color' => 'success',
         ],
         [
+            'text' => 'Perencanaan dan Pelaksanaan Seminar dan Sidang',
+            // 'url' => 'admin/pages',
+            'icon' => 'fas fa-fw fa-file',
+            'submenu' => [
+                [
+                    'text' => 'Jadwal Seminar 3',
+                    'url' => 'jadwal-seminar',
+                    // 'icon' => 'far fa-fw fa-file',
+                ],
+                [
+                    'text' => 'Jadwal Sidang',
+                    'url' => 'jadwal-sidang',
+                    // 'icon' => 'far fa-fw fa-file',
+                ],
+                [
+                    'text' => 'Pembatalan Seminar 3',
+                    'url' => 'persetujuan-pembatalan-jadwal-seminar',
+                    // 'icon' => 'far fa-fw fa-file',
+                ],
+                [
+                    'text' => 'Pembatalan Sidang',
+                    'url' => 'persetujuan-pembatalan-jadwal-sidang',
+                    // 'icon' => 'far fa-fw fa-file',
+                ],
+            ]
+            // 'label' => 4,
+            // 'label_color' => 'success',
+        ],
+        [
             'text' => 'Kelola Penilaian Tugas Akhir',
             // 'url' => '/KelolaPenilaianTA',
             'icon' => 'fas fa-fw fa-file',
@@ -425,38 +454,6 @@ return [
             'icon' => 'fas fa-fw fa-calendar',
             // 'label' => 4,
             // 'label_color' => 'success',
-        ],
-        [
-            'text' => 'Pembatalan Jadwal Seminar 3 dan Sidang',
-            'icon' => 'fas fa-eraser',
-            'submenu' => [
-                [
-                    'text' => 'Pembatalan Seminar 3',
-                    'url' => 'persetujuan-pembatalan-jadwal-seminar',
-                    // 'icon' => 'far fa-fw fa-file',
-                ],
-                [
-                    'text' => 'Pembatalan Sidang',
-                    'url' => 'persetujuan-pembatalan-jadwal-sidang',
-                    // 'icon' => 'far fa-fw fa-file',
-                ],
-            ]
-        ],
-        [
-            'text' => 'Jadwal Semiinar 3 dan Sidang',
-            'icon' => 'fas fa-calendar',
-            'submenu' => [
-                [
-                    'text' => 'Jadwal Seminar 3',
-                    'url' => 'jadwal-seminar',
-                    // 'icon' => 'far fa-fw fa-file',
-                ],
-                [
-                    'text' => 'Jadwal Sidang',
-                    'url' => 'jadwal-sidang',
-                    // 'icon' => 'far fa-fw fa-file',
-                ],
-            ]
         ],
         [
             'text' => 'Timeline',

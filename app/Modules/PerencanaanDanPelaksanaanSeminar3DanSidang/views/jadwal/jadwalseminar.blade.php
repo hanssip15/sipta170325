@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', 'PembatalanJadwalSeminarSidang')
+@section('title', 'Jadwal Seminar')
 
 @section('content_header')
-    <h1>JadwalSeminar</h1>
+    <h1>Jadwal Seminar</h1>
 @stop
 
 @section('content')
-    <p>Welcome to JadwalSeminarSidang Page.</p>
     <table id="seminarTable" class="table table-striped" width="100%">
-        <thead>
+    <thead class="sticky-header">
+    <tr class="bg-dark text-white">
             <th>Kota No</th>
             <th>Judul</th>
             <th>Tanggal Seminar</th>
@@ -18,6 +18,7 @@
             <th>Penguji 1</th>
             <th>Penguji 2</th>
             <th>Action</th>
+        </tr>
         </thead>
         <tbody>
             @foreach($jadwal as $s)
@@ -40,9 +41,9 @@
     <x-adminlte-modal id="modalMin" title="Alasan Pembatalan">
         <x-adminlte-textarea name="Alasan" placeholder="Masukkan alasan..."/>
         <x-slot name="footerSlot">
-            <x-adminlte-button class="d-flex ml-auto" theme="primary" label="submit"
+            <x-adminlte-button class="d-flex ml-auto" theme="primary" label="Kirimkan"
                 icon="fas fa-sign-in"/>
-            <x-adminlte-button theme="danger" label="Dismiss" data-dismiss="modal"/>
+            <x-adminlte-button theme="danger" label="Batalkan" data-dismiss="modal"/>
         </x-slot>
     </x-adminlte-modal>
 

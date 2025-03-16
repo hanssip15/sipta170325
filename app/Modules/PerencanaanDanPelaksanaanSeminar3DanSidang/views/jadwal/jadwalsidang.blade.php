@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', 'PembatalanJadwalSeminarSidang')
+@section('title', 'Jadwal Sidang')
 
 @section('content_header')
-    <h1>JadwalSidang</h1>
+<h1>Jadwal Sidang</h1>
 @stop
 
 @section('content')
-    <p>Welcome to JadwalSeminarSidang Page.</p>
-    <table id="seminarTable" class="table table-striped" width="100%">
-        <thead>
+<table id="seminarTable" class="table table-striped" width="100%">
+    <thead class="sticky-header">
+        <tr class="bg-dark text-white">
             <th>Kota No</th>
             <th>Judul</th>
             <th>Tanggal Seminar</th>
@@ -18,9 +18,10 @@
             <th>Penguji 1</th>
             <th>Penguji 2</th>
             <th>Action</th>
-        </thead>
-        <tbody>
-            @foreach($jadwal as $s)
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($jadwal as $s)
             <tr>
                 <td>{{ $s->kota_no }}</td>
                 <td>{{ $s->judul_ta }}</td>
@@ -30,36 +31,36 @@
                 <td>{{ $s->penguji1 }}</td>
                 <td>{{ $s->penguji2 }}</td>
                 <td>
-                    <x-adminlte-button theme="danger" label="Batalkan" data-toggle="modal" data-target="#modalMin"/>
+                    <x-adminlte-button theme="danger" label="Batalkan" data-toggle="modal" data-target="#modalMin" />
                 </td>
             </tr>
-            @endforeach
-        </tbody>
-    </table>
+        @endforeach
+    </tbody>
+</table>
 
-    <x-adminlte-modal id="modalMin" title="Alasan Pembatalan">
-        <x-adminlte-textarea name="Alasan" placeholder="Masukkan alasan..."/>
-        <x-slot name="footerSlot">
-            <x-adminlte-button class="d-flex ml-auto" theme="primary" label="submit"
-                icon="fas fa-sign-in"/>
-            <x-adminlte-button theme="danger" label="Dismiss" data-dismiss="modal"/>
-        </x-slot>
-    </x-adminlte-modal>
+<x-adminlte-modal id="modalMin" title="Alasan Pembatalan">
+    <x-adminlte-textarea name="Alasan" placeholder="Masukkan alasan..." />
+    <x-slot name="footerSlot">
+        <x-adminlte-button class="d-flex ml-auto" theme="primary" label="Kirimkan" icon="fas fa-sign-in" />
+        <x-adminlte-button theme="danger" label="Batalkan" data-dismiss="modal" />
+    </x-slot>
+</x-adminlte-modal>
 @stop
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+{{-- Add here extra stylesheets --}}
+{{--
+<link rel="stylesheet" href="/css/admin_custom.css"> --}}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 @stop
 
 @section('js')
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#seminarTable').DataTable();
-        });
-    </script>
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#seminarTable').DataTable();
+    });
+</script>
+<script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
 @stop

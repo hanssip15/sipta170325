@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', 'PembatalanJadwalSeminarSidang')
+@section('title', 'Pembatalan Jadwal Seminar')
 
 @section('content_header')
-    <h1>PembatalanJadwalSeminar</h1>
+<h1>Pembatalan Jadwal Seminar</h1>
 @stop
 
 @section('content')
-    <p>Welcome to PembatalanJadwalSeminarSidang Page.</p>
-    <table id="seminarTable" class="table table-striped" width="100%">
-        <thead>
+<table id="seminarTable" class="table table-striped" width="100%">
+    <thead class="sticky-header">
+        <tr class="bg-dark text-white">
             <th>Kota No</th>
             <th>Judul</th>
             <th>Tanggal Seminar</th>
@@ -20,9 +20,10 @@
             <th>Penguji 2</th>
             <th>Alasan</th>
             <th>Action</th>
-        </thead>
-        <tbody>
-            @foreach($jadwal as $s)
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($jadwal as $s)
             <tr>
                 <td>{{ $s->kota_no }}</td>
                 <td>{{ $s->judul_ta }}</td>
@@ -38,24 +39,25 @@
                     <a href="" class="btn btn-danger">Tolak</a>
                 </td>
             </tr>
-            @endforeach
-        </tbody>
-    </table>
+        @endforeach
+    </tbody>
+</table>
 @stop
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+{{-- Add here extra stylesheets --}}
+{{--
+<link rel="stylesheet" href="/css/admin_custom.css"> --}}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 @stop
 
 @section('js')
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#seminarTable').DataTable();
-        });
-    </script>
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#seminarTable').DataTable();
+    });
+</script>
+<script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
 @stop

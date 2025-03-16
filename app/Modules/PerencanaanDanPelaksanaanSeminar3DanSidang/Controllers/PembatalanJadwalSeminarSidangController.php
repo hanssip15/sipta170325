@@ -22,9 +22,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 1,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
             (object) [
@@ -34,9 +34,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 2,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
             (object) [
@@ -46,9 +46,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 3,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
         ]);
@@ -64,9 +64,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 1,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
             (object) [
@@ -75,9 +75,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 2,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
             (object) [
@@ -86,9 +86,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 3,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
         ]);
@@ -105,9 +105,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 1,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
             (object) [
@@ -117,9 +117,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 2,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
             (object) [
@@ -129,9 +129,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 3,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
         ]);
@@ -148,9 +148,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 1,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
             (object) [
@@ -160,9 +160,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 2,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
             (object) [
@@ -172,9 +172,9 @@ class PembatalanJadwalSeminarSidangController extends Controller
                 'tanggal' => '2023-01-01',
                 'sesi' => 3,
                 'ruangan' => 'D221',
-                'pembimbing' => 'Dr. John Doe',
-                'penguji1' => 'Dr. Jane Doe',
-                'penguji2' => 'Dr. Foo Bar',
+                'pembimbing' => 'Joe Lian Min',
+                'penguji1' => 'Lukmanul Hakim Firdaus',
+                'penguji2' => 'Sri Ratna Wulan',
                 'alasan_pembatalan' => 'Tanggal tidak sesuai kesepakatan'
             ],
         ]);
