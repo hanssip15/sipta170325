@@ -13,51 +13,43 @@ use App\Models\PrioritasPembimbing;
 use App\Models\AlokasiPembimbing;
 use App\Models\Dosen;
 use App\Models\Bidang;
+use App\Models\Mahasiswa;
+use App\Models\KetertarikanBidang;
 use Illuminate\Support\Facades\DB;
 
 class AlokasiPembimbingController extends Controller
 {
     public function index(): View
     {
-        $data = [];
+        $data_pengajuan = PengajuanPembimbing::join('kota', 'pengajuan_pembimbing.id_kota', '=', 'kota.id_kota')
+        ->join('bidang', 'kota.id_bidang', '=', 'bidang.id_bidang')
+        ->get();
 
-        for ($i = 1; $i <= 100; $i++) {
-            $usulanDosen = ["RA", "HJ", "SN", "FI", "RA"];
-            $pembimbing1 = $usulanDosen[array_rand($usulanDosen)];
-            $pembimbing2 = $usulanDosen[array_rand($usulanDosen)];
-
-            $detailPembimbing = $this->generateDummyDosenDetail($pembimbing1);
-
-            $data[] = [
-                'kota' => "KoTA " . str_pad($i, 3, '0', STR_PAD_LEFT),
-                'anggota' => [
-                    "Mahasiswa " . ($i * 3 - 2),
-                    "Mahasiswa " . ($i * 3 - 1),
-                    "Mahasiswa " . ($i * 3),
-                ],
-                'bidang' => "Bidang " . rand(1, 5),
-                'judul' => "Judul Penelitian " . rand(1, 50),
-                'usulanDosen' => $usulanDosen,
-                'pembimbing1' => $pembimbing1,
-                'pembimbing2' => $pembimbing2,
-                'detailPembimbing' => $detailPembimbing
-            ];
+        foreach ($data_pengajuan as $key => $value) {
+            $listMahasiswaOnKelompok = Mahasiswa::join('user', 'mahasiswa.nim', '=', 'user.username')->where('id_kota', $value->id_kota)->get();
+            $listUsulanDosen = PrioritasPembimbing::join('dosen', 'prioritas_pembimbing.nip', '=', 'dosen.nip')->where('id_pengajuan', $value->id_pengajuan_pembimbing)->get();
+            $data_pengajuan[$key]['mahasiswa'] = $listMahasiswaOnKelompok;
+            $data_pengajuan[$key]['usulan_dosen'] =$listUsulanDosen;
         }
 
-        // Tambahkan List Dosen Pembimbing
-        $dosenList = [
-            ['id_dosen' => 'KO001N', 'nama' => 'Ade Chandra Nugraha, S.Si., M.T.', 'kbk' => 'SI & DB'],
-            ['id_dosen' => 'KO002N', 'nama' => 'Ani Rahtani, S.Si., M.T.', 'kbk' => 'RPL'],
-            ['id_dosen' => 'KO003N', 'nama' => 'Bambang Wisnuadhi, S.Si., M.T.', 'kbk' => 'RPL'],
-            ['id_dosen' => 'KO005N', 'nama' => 'Didik Suwito Pribadi, BSCS.', 'kbk' => 'SI & DB'],
-            ['id_dosen' => 'KO016N', 'nama' => 'Eddy B. Soewono, DRS., M.Kom.', 'kbk' => 'Multimedia'],
-            ['id_dosen' => 'KO057N', 'nama' => 'Fitri Diani, S.Si., M.T.', 'kbk' => 'SI & DB'],
-            ['id_dosen' => 'KO059N', 'nama' => 'Ghifari Munawar, S.T., M.T.', 'kbk' => 'RPL'],
-            ['id_dosen' => 'KO060N', 'nama' => 'Ade Hodijah, S.T., M.T.', 'kbk' => 'SI & DB']
+
+        $dosenList = Dosen::join('user', 'dosen.nip', '=', 'user.username')
+        ->get();
+
+        foreach ($dosenList as $key => $value) {
+            $dosenBidang = KetertarikanBidang::join('bidang', 'ketertarikan_bidang.id_ketertarikan_bidang', '=', 'bidang.id_bidang')->where('nip', $value->nip)->get();
+            $dosenList[$key]['ketertarikan_bidang'] = $dosenBidang;
+        }
+
+        $data=[
+            "list_pengajuan" => $data_pengajuan,
+            "dosenList" => $dosenList
         ];
 
-        return view('PengajuanAlokasiPembimbing.views.AlokasiPembimbing.AlokasiPembimbing', compact('data', 'dosenList'));
-    }
+        // dd($data);
+
+        return view('PengajuanAlokasiPembimbing.views.AlokasiPembimbing.AlokasiPembimbing', $data);
+}
 
     public function getDetailDosen($nama): JsonResponse
     {

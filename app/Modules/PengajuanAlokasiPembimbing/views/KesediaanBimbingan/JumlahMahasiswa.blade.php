@@ -55,7 +55,8 @@
 
                                     $prefix = '';
                                     if (preg_match('/D1|D2|D3|D4|S1|S2|S3/', $value['nama_prodi'])) {
-                                        $prefix = preg_replace('/[^D1D2D3D4S1S2S3]/', '', $value['nama_prodi']);
+                                        preg_match('/^(D[1-4]|S[1-3])/', $value['nama_prodi'], $matches);
+                                        $prefix = $matches[0];
                                         $prefix .= ' ';
                                     }
 

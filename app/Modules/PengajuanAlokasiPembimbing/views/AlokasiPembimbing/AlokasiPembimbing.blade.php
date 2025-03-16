@@ -13,51 +13,143 @@
         <div id="searchBox"></div>
     </div>
 
-    <div class="table-container">
-        <table id="alokasiTable" class="table text-center" style="min-width: 1400px;">
-            <thead class="sticky-header">
-                <tr class="bg-dark text-white">
-                    <th rowspan="2" class="sticky-column no-sort" style="width: 5%; position: sticky; left: 0; background: rgba(0, 0, 0, 0.9);">No</th>
-                    <th rowspan="2" class="sticky-column no-sort" style="width: 15%; position: sticky; left: 5%; background: rgba(0, 0, 0, 0.9);">Kelompok</th>
-                    <th rowspan="2" class="no-sort" style="width: 20%;">Anggota</th>
-                    <th rowspan="2" class="no-sort" style="width: 15%;">Bidang</th>
-                    <th rowspan="2" class="no-sort" style="width: 20%;">Judul/Topik</th>
-                    <th colspan="5" class="no-sort" style="width: 20%">Usulan Pembimbing</th>
-                    <th colspan="4" class="no-sort" style="width: 30%">Pembimbing</th>
-                    <th colspan="3" class="no-sort" style="width: 20%">Penguji</th>
-                    <th rowspan="2" class="no-sort" style="width: 15%;">Catatan</th>
-                </tr>
-                <tr class="bg-secondary text-white">
-                    <th class="no-sort" style="width: 4%">1</th>
-                    <th class="no-sort" style="width: 4%">2</th>
-                    <th class="no-sort" style="width: 4%">3</th>
-                    <th class="no-sort" style="width: 4%">4</th>
-                    <th class="no-sort" style="width: 4%">5</th>
-                    <th class="no-sort" style="width: 10%">1</th>
-                    <th class="no-sort" style="width: 15%">Detail</th>
-                    <th class="no-sort" style="width: 10%">2</th>
-                    <th class="no-sort" style="width: 15%">Detail</th>
-                    <th class="no-sort" style="width: 10%">1</th>
-                    <th class="no-sort" style="width: 10%">2</th>
-                    <th class="no-sort" style="width: 10%">3</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $index => $row)
-                <tr class="bg-light">
-                    <td class="align-middle sticky-column" style="position: sticky; left: 0; background: white;">{{ $index + 1 }}</td>
-                    <td class="align-middle sticky-column" style="position: sticky; left: 5%; background: white;">{{ $row['kota'] }}</td>
-                    <td class="align-middle">
-                        <ul class="m-0 p-0" style="list-style-type: none;">
-                            @foreach ($row['anggota'] as $anggota)
-                            <li>{{ $anggota }}</li>
-                            @endforeach
-                        </ul>
-                    </td>
-                    <td class="align-middle">{{ $row['bidang'] }}</td>
-                    <td class="align-middle">{{ $row['judul'] }}</td>
-                    @foreach ($row['usulanDosen'] as $dosen)
-                    <td class="align-middle">{{ $dosen }}</td>
+        <div class="table-container">
+            <table id="alokasiTable" class="table text-center" style="min-width: 1400px;">
+                <thead class="sticky-header">
+                    <tr class="bg-dark text-white">
+                        <th rowspan="2" class="sticky-column no-sort" style="width: 5%; position: sticky; left: 0; background: rgba(0, 0, 0, 0.9);">No</th>
+                        <th rowspan="2" class="sticky-column no-sort" style="width: 15%; position: sticky; left: 5%; background: rgba(0, 0, 0, 0.9);">Kelompok</th>
+                        <th rowspan="2" class="no-sort" style="width: 20%;">Anggota</th>
+                        <th rowspan="2" class="no-sort" style="width: 15%;">Bidang</th>
+                        <th rowspan="2" class="no-sort" style="width: 20%;">Judul/Topik</th>
+                        <th colspan="5" class="no-sort" style="width: 20%">Usulan Pembimbing</th>
+                        <th colspan="4" class="no-sort" style="width: 30%">Pembimbing</th>
+                        <th colspan="3" class="no-sort" style="width: 20%">Penguji</th>
+                        <th rowspan="2" class="no-sort" style="width: 15%;">Catatan</th>
+                    </tr>
+                    <tr class="bg-secondary text-white">
+                        <th class="no-sort" style="width: 4%">1</th>
+                        <th class="no-sort" style="width: 4%">2</th>
+                        <th class="no-sort" style="width: 4%">3</th>
+                        <th class="no-sort" style="width: 4%">4</th>
+                        <th class="no-sort" style="width: 4%">5</th>
+                        <th class="no-sort" style="width: 10%">1</th>
+                        <th class="no-sort" style="width: 15%">Detail</th>
+                        <th class="no-sort" style="width: 10%">2</th>
+                        <th class="no-sort" style="width: 15%">Detail</th>
+                        <th class="no-sort" style="width: 10%">1</th>
+                        <th class="no-sort" style="width: 10%">2</th>
+                        <th class="no-sort" style="width: 10%">3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($list_pengajuan as $index => $row)
+                        <tr class="bg-light">
+                            <td class="align-middle sticky-column" style="position: sticky; left: 0; background: white;">{{ $index + 1 }}</td>
+                            <td class="align-middle sticky-column" style="position: sticky; left: 5%; background: white;">{{ $row['nama_kota'] }}</td>
+                            <td class="align-middle">
+                                <ul class="m-0 p-0" style="list-style-type: none;">
+                                    @foreach ($row['mahasiswa'] as $anggota)
+                                        <li>{{ $anggota['nama'] }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td class="align-middle">{{ $row['bidang'] }}</td>
+                            <td class="align-middle">{{ $row['judul_ta'] }}</td>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <td class="align-middle">
+                                    @php
+                                        $found = false
+                                    @endphp
+                                    @foreach ($row['usulan_dosen'] as $dosen)
+                                        @if ($dosen['urutan_prioritas'] == $i)
+                                            @php
+                                                $found = true;
+                                            @endphp
+                                            {{ $dosen['id_dosen'] }}
+                                        @endif
+
+                                    @endforeach
+                                    @if (!$found)
+                                        -
+                                    @endif
+                                </td>
+                            @endfor
+
+                            <td class="align-middle status-cell" data-status="belum_fix">
+                                <input type="text" class="form-control text-center pembimbing mb-2" data-index="{{ $index }}" name="pembimbing1">
+                                <label>Status:</label>
+                                <select class="form-control status-dropdown w-100" onchange="updateStatus(this)">
+                                    <option value="belum_fix" selected>Belum Fix</option>
+                                    <option value="fix">Fix</option>
+                                </select>
+                            </td>
+                            <td class="align-middle text-left">
+                                <div class="detail-content">
+                                    {{-- <div><strong>Nama:</strong> {{ $row['detailPembimbing']['nama'] ?? '-' }}</div>
+                                    <div><strong>KoTA:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_KoTA'] ?? '0' }} |
+                                        P2: {{ $row['detailPembimbing']['pembimbing2_KoTA'] ?? '0' }} |
+                                        Total: {{ $row['detailPembimbing']['jumlah_KoTA'] ?? '0' }}</div>
+                                    <div><strong>Mhs:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_Mhs'] ?? '0' }} |
+                                        P2: {{ $row['detailPembimbing']['pembimbing2_Mhs'] ?? '0' }} |
+                                        Total: {{ $row['detailPembimbing']['jumlahMahasiswa'] ?? '0' }}</div>
+                                    <div><strong>Kuota:</strong> {{ $row['detailPembimbing']['kuota'] ?? '0' }}</div>
+                                    <div><strong>Kelebihan:</strong>
+                                        @if (($row['detailPembimbing']['jumlahMahasiswa'] ?? 0) > ($row['detailPembimbing']['kuota'] ?? 0))
+                                            <span style="color: red;">
+                                                {{ ($row['detailPembimbing']['jumlahMahasiswa'] ?? 0) - ($row['detailPembimbing']['kuota'] ?? 0) }} (Overload)
+                                            </span>
+                                        @else
+                                            <span style="color: green;">Aman</span>
+                                        @endif
+                                    </div> --}}
+                                </div>
+                            </td>
+                            <td class="align-middle status-cell" data-status="belum_fix">
+                                <input type="text" class="form-control text-center pembimbing mb-2" data-index="{{ $index }}" name="pembimbing2">
+                                <label>Status:</label>
+                                <select class="form-control status-dropdown w-100" onchange="updateStatus(this)">
+                                    <option value="belum_fix" selected>Belum Fix</option>
+                                    <option value="fix">Fix</option>
+                                </select>
+                            </td>
+                            <td class="align-middle text-left">
+                                <div class="detail-content">
+                                    <div><strong>Nama:</strong> {{ $row['detailPembimbing']['nama'] ?? '-' }}</div>
+                                    <div><strong>KoTA:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_KoTA'] ?? '0' }} |
+                                        P2: {{ $row['detailPembimbing']['pembimbing2_KoTA'] ?? '0' }} |
+                                        Total: {{ $row['detailPembimbing']['jumlah_KoTA'] ?? '0' }}</div>
+                                    <div><strong>Mhs:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_Mhs'] ?? '0' }} |
+                                        P2: {{ $row['detailPembimbing']['pembimbing2_Mhs'] ?? '0' }} |
+                                        Total: {{ $row['detailPembimbing']['jumlahMahasiswa'] ?? '0' }}</div>
+                                    <div><strong>Kuota:</strong> {{ $row['detailPembimbing']['kuota'] ?? '0' }}</div>
+                                    <div><strong>Kelebihan:</strong>
+                                        @if (($row['detailPembimbing']['jumlahMahasiswa'] ?? 0) > ($row['detailPembimbing']['kuota'] ?? 0))
+                                            <span style="color: red;">
+                                                {{ ($row['detailPembimbing']['jumlahMahasiswa'] ?? 0) - ($row['detailPembimbing']['kuota'] ?? 0) }} (Overload)
+                                            </span>
+                                        @else
+                                            <span style="color: green;">Aman</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <input type="text" class="form-control text-center penguji" data-index="{{ $index }}" name="penguji1">
+                            </td>
+                            <td class="align-middle">
+                                <input type="text" class="form-control text-center penguji" data-index="{{ $index }}" name="penguji2">
+                            </td>
+                            <td class="align-middle">
+                                <input type="text" class="form-control text-center penguji" data-index="{{ $index }}" name="penguji3">
+                            </td>
+                            <td class="align-middle" style="min-width: 150px;">
+                                <textarea class="form-control text-left auto-expand"
+                                          name="catatan_{{ $index }}"
+                                          rows="1"
+                                          style="overflow: hidden; resize: none;"></textarea>
+                            </td>
+                        </tr>
                     @endforeach
                     <td class="align-middle status-cell" data-status="belum_fix">
                         <input type="text" class="form-control text-center pembimbing mb-2" data-index="{{ $index }}" name="pembimbing1">
@@ -141,6 +233,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <div class="p-4 mt-5">
     <h3>List Dosen Pembimbing</h3>
     <div class="table-container">
@@ -164,6 +257,37 @@
                 @endforeach
             </tbody>
         </table>
+=======
+    <div class="p-4 mt-5">
+        <h3>List Dosen Pembimbing</h3>
+        <div class="table-container">
+            <table id="dosenTable" class="table text-center" style="min-width: 600px;">
+                <thead class="sticky-header">
+                    <tr class="bg-dark text-white">
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 15%;">ID Dosen</th>
+                        <th style="width: 40%;">Nama</th>
+                        <th style="width: 40%;">KBK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dosenList as $index => $dosen)
+                        <tr class="bg-light">
+                            <td class="align-middle">{{ $index + 1 }}</td>
+                            <td class="align-middle">{{ $dosen['id_dosen'] }}</td>
+                            <td class="align-middle">{{ $dosen['nama'] }}</td>
+                            <td class="align-middle">
+                            @foreach ($dosen['ketertarikan_bidang'] as $kbk)
+                                {{ $kbk['bidang'] }}
+                                <br>
+                            @endforeach
+                        </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+>>>>>>> 3846a69c60006d02f8be13982eb37380b3b70482
     </div>
 </div>
 @stop
