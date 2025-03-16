@@ -446,6 +446,11 @@ return [
             ]
         ],
         [
+            'text' => 'Cek Plagiarisme',
+            'url' => '/cek-plagiarisme',
+            'icon' => 'fas fa-fw fa-file',
+        ],
+        [
             'text' => 'Penentuan Ambang Batas Plagiarisme',
             'url' => '/penentuan-ambang-batas',
             'icon' => 'fas fa-scroll',
@@ -461,11 +466,6 @@ return [
         //     'url' => 'admin/settings',
         //     'icon' => 'fas fa-fw fa-lock',
         // ],
-        [
-            'text' => 'Penentuan Ambang Batas Plagiarisme',
-            'url' => '/penentuan-ambang-batas',
-            'icon' => 'fas fa-scroll',
-        ],
         [
             'text' => 'User Management',
             'icon' => 'fas fa-user',
