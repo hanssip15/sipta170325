@@ -215,6 +215,8 @@
                     $(this).removeClass('bg-secondary');
                     $(this).removeClass('rounded-top');
                     $(this).removeClass('rounded-bottom');
+                    $(this).removeClass('border-top');
+                    $(this).removeClass('border-bottom');
                     $(this).empty();
                 });
             }
