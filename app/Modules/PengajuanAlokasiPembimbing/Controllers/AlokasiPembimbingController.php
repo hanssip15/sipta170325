@@ -5,6 +5,15 @@ namespace App\Modules\PengajuanAlokasiPembimbing\Controllers;
 use App\Modules\Controller;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use App\Models\Kota;
+use App\Models\User;
+use App\Models\PengajuanPembimbing;
+use App\Models\PrioritasPembimbing;
+use App\Models\AlokasiPembimbing;
+use App\Models\Dosen;
+use App\Models\Bidang;
+use Illuminate\Support\Facades\DB;
 
 class AlokasiPembimbingController extends Controller
 {
