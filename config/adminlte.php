@@ -445,6 +445,11 @@ return [
                 // ],
             ]
         ],
+        [
+            'text' => 'Penentuan Ambang Batas Plagiarisme',
+            'url' => '/penentuan-ambang-batas',
+            'icon' => 'fas fa-scroll',
+        ],
         ['header' => 'Pengaturan Pengguna'],
         // [
         //     'text' => 'profile',
