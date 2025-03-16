@@ -151,7 +151,6 @@
                             </td>
                         </tr>
                     @endforeach
-                    
             </tbody>
         </table>
     </div>
@@ -180,7 +179,7 @@
                             <td class="align-middle">{{ $index + 1 }}</td>
                             <td class="align-middle">{{ $dosen['id_dosen'] }}</td>
                             <td class="align-middle">{{ $dosen['nama'] }}</td>
-                            <td class="align-middle">
+                            <td class="align-middle text-left">
                             @foreach ($dosen['ketertarikan_bidang'] as $kbk)
                                 {{ $kbk['bidang'] }}
                                 <br>
@@ -352,6 +351,10 @@
         border-color: #343a40;
     }
 
+    th:nth-child(15), th:nth-child(16), th:nth-child(17),
+    td:nth-child(15), td:nth-child(16), td:nth-child(17) {
+        min-width: 70px !important;
+    }
 </style>
 @stop
 
