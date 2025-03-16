@@ -445,36 +445,11 @@ return [
                 // ],
             ]
         ],
-        ],
-        // [
-        //     'text' => 'Pengelolaan dan Penjadwalan Ruangan',
-        //     // 'url' => 'admin/pages',
-        //     'icon' => 'fas fa-home',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Pengelolaan Ruangan',
-        //             'url' => 'admin/pages',
-        //             // 'icon' => 'far fa-fw fa-file',
-        //         ],
-        //         [
-        //             'text' => 'Penjadwalan Ruangan',
-        //             'url' => 'admin/pages',
-        //             // 'icon' => 'far fa-fw fa-file',
-        //         ],
-        //     ]
-        //     // 'label' => 4,
-        //     // 'label_color' => 'success',
-        // ],
         [
             'text' => 'Penentuan Ambang Batas Plagiarisme',
             'url' => '/penentuan-ambang-batas',
             'icon' => 'fas fa-scroll',
         ],
-        // [
-        //     'text' => 'Repository Tugas Akhir',
-        //     'url' => '#',
-        //     'icon' => 'fas fa-book',
-        // ],
         ['header' => 'Pengaturan Pengguna'],
         // [
         //     'text' => 'profile',

@@ -38,10 +38,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="ambangBatasForm">
                     <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Presentase Ambang Batas:</label>
-                        <input type="number" class="form-control" id="deskripsi" required min="1" max="100" step="1">
+                        <label for="ambang_batas" class="form-label">Presentase Ambang Batas (%):</label>
+                        <input type="number" class="form-control" id="ambang_batas" name="ambang_batas" required min="1" max="100">
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Batal</button>
@@ -59,93 +59,117 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
     $(document).ready(function() {
-        $('#addAmbangBatasModal').on('hidden.bs.modal', function() {
-            $('#deskripsi').val('');
+        console.log("DOM siap, inisialisasi jsGrid..."); // Debugging
+
+
+        $.ajax({
+            type: "GET",
+            url: "/api/ambang-batas",
+            dataType: "json",
+            success: function(response) {
+                console.log("Data dari API:", response);
+                // Sorting berdasarkan tanggal terbaru (descending)
+                response.sort(function(a, b) {
+                    return new Date(b.tanggal) - new Date(a.tanggal);
+                });
+
+                console.log("Data setelah sorting:", response);
+                // Menambahkan nomor urut secara dinamis berdasarkan index setelah sorting
+                response = response.map((item, index) => ({
+                    nomor: index + 1, // Menggunakan nomor urut mulai dari 1
+                    ambang_batas: item.ambang_batas,
+                    tanggal: item.tanggal,
+                    koordinator: item.koordinator,
+                    status: item.status
+                }));
+
+                $("#jsGrid1").jsGrid({
+                    width: "100%",
+                    height: "450px",
+                    data: response,
+                    fields: [{
+                            name: "nomor",
+                            type: "number",
+                            title: "Nomor",
+                            width: 50,
+                            align: "center"
+                        },
+                        {
+                            name: "ambang_batas",
+                            type: "text",
+                            title: "Ambang Batas (%)",
+                            width: 100,
+                            align: "center"
+                        },
+                        {
+                            name: "tanggal",
+                            type: "text",
+                            width: 150,
+                            align: "center"
+                        },
+                        {
+                            name: "koordinator",
+                            type: "text",
+                            title: "Nama Koordinator TA",
+                            width: 200,
+                            align: "center"
+                        },
+                        {
+                            name: "status",
+                            type: "text",
+                            title: "Status",
+                            width: 150,
+                            align: "center",
+                        }
+                    ]
+                });
+
+                // Fungsi Pencarian
+                $("#searchInput").on("keyup", function() {
+                    var searchValue = $(this).val().toLowerCase();
+                    var filteredData = response.filter(function(item) {
+                        var statusText = item.Status ? "Sedang Digunakan" : "Tidak Digunakan";
+                        return Object.values(item).some(value =>
+                            String(value).toLowerCase().includes(searchValue) || statusText.toLowerCase().includes(searchValue)
+                        );
+                    }); 
+                    $("#jsGrid1").jsGrid("option", "data", filteredData);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Gagal mengambil data dari API:", status, error);
+            }
         });
     });
 
     $(document).ready(function() {
-        console.log("DOM siap, inisialisasi jsGrid..."); // Debugging
+        $("#ambangBatasForm").submit(function(e) {
+            e.preventDefault();
 
-        var data = [{
-                No: 1,
-                AmbangBatas: "20",
-                Tanggal: "03-03-2025",
-                Koordinator: "Maman Sumaman",
-                Status: true
-            },
-            {
-                No: 2,
-                AmbangBatas: "30",
-                Tanggal: "28-02-2025",
-                Koordinator: "Maman Sumaman",
-                Status: false
-            },
-            {
-                No: 3,
-                AmbangBatas: "50",
-                Tanggal: "25-02-2025",
-                Koordinator: "Mimin Sumimin",
-                Status: false
-            }
-        ];
+            var formData = {
+                ambang_batas: $("#ambang_batas").val()
+            };
 
-        $("#jsGrid1").jsGrid({
-            width: "100%",
-            height: "400px",
-            data: data,
-            fields: [{
-                    name: "No",
-                    type: "number",
-                    width: 50,
-                    align: "center"
+            $.ajax({
+                type: "POST",
+                url: "/api/ambang-batas",
+                data: formData,
+                dataType: "json",
+                success: function(response) {
+                    alert(response.message); // Tampilkan pesan sukses
+                    $("#addAmbangBatasModal").modal('hide'); // Tutup modal
+                    $("#ambangBatasForm")[0].reset(); // Reset form
+                    $("#jsGrid1").jsGrid("loadData"); // Refresh tabel
                 },
-                {
-                    name: "AmbangBatas",
-                    type: "text",
-                    title: "Ambang Batas (%)",
-                    width: 100,
-                    align: "center"
-                },
-                {
-                    name: "Tanggal",
-                    type: "text",
-                    width: 150,
-                    align: "center"
-                },
-                {
-                    name: "Koordinator",
-                    type: "text",
-                    title: "Nama Koordinator TA",
-                    width: 200,
-                    align: "center"
-                },
-                {
-                    name: "Status",
-                    type: "text",
-                    title: "Status",
-                    width: 150,
-                    align: "center",
-                    itemTemplate: function(value) {
-                        return value ? "Sedang Digunakan" : "Tidak Digunakan";
-                    }
+                error: function(xhr) {
+                    console.error("Error response:", xhr.responseText);
+                    alert("Terjadi kesalahan! Cek console untuk detail.");
                 }
-            ]
-        });
-
-        // Fungsi Pencarian
-        $("#searchInput").on("keyup", function() {
-            var searchValue = $(this).val().toLowerCase();
-            var filteredData = data.filter(function(item) {
-                var statusText = item.Status ? "Sedang Digunakan" : "Tidak Digunakan";
-                return Object.values(item).some(value =>
-                    String(value).toLowerCase().includes(searchValue) || statusText.toLowerCase().includes(searchValue)
-                );
             });
-            $("#jsGrid1").jsGrid("option", "data", filteredData);
         });
     });
 </script>
