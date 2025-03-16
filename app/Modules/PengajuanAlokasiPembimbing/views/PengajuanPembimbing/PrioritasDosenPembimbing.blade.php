@@ -58,7 +58,7 @@
                 <div class="d-flex justify-content-between mt-3">
                     <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.topik-tugas-akhir') }} class="btn btn-info ml-3">Sebelumnya</a>
                     <button type="submit" class="btn btn-sm btn-primary" style="font-size: 15px">Simpan Draft</button>
-                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.pratinjau-formulir') }} class="btn btn-info ml-3">Selanjutnya</a>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.pratinjau-formulir.index') }} class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
     </div>
@@ -133,16 +133,51 @@
             });
         });
 
-        // // Mengaktifkan fitur drag-and-drop untuk mengurutkan dosen tanpa mengubah nomor urut
-        // $("#prioritasList").sortable({
-        //     axis: "y",
-        //     opacity: 0.8,
-        //     cursor: "move",
-        //     items: "> li",
-        //     update: function () {
-        //         console.log("Urutan dosen diperbarui");
-        //     }
-        // }).disableSelection();
+        // Menyimpan Draft
+        $(".btn-primary[type='submit']").click(function () {
+            let prioritasDosen = [];
+            
+            $("#prioritasList .priority-name").each(function () {
+                let name = $(this).text();
+                if (name !== "-") {
+                    let priority = $(this).siblings(".priority-number").text();
+                    prioritasDosen.push({ name: name, priority: priority });
+                }
+            });
+
+            // Simpan data prioritas dosen ke localStorage
+            localStorage.setItem("prioritasDosen", JSON.stringify(prioritasDosen));
+            alert("Draft berhasil disimpan!");
+        });
+
+        // Menampilkan prioritas dosen yang sudah disimpan di localStorage
+        let prioritasDosen = JSON.parse(localStorage.getItem("prioritasDosen"));
+        if (prioritasDosen) {
+            // Menampilkan nama dosen dan urutan prioritas yang sudah disimpan
+            prioritasDosen.forEach(function (dosen, index) {
+                if (index < 5) {  // Hanya tampilkan maksimal 5 prioritas dosen
+                    let priorityNumber = index + 1;
+                    let listItem = $("#prioritasList li").eq(index);
+                    listItem.find(".priority-name").text(dosen.name);
+                    listItem.find(".removeDosen").show(); // Tampilkan tombol hapus
+                }
+            });
+        }
+
+        // Menonaktifkan tombol "Tambah Dosen" untuk dosen yang sudah ada di prioritas
+        let existingPrioritas = JSON.parse(localStorage.getItem("prioritasDosen")) || [];
+        $(".addDosen").each(function () {
+            let dosenName = $(this).data("name");
+
+            // Jika dosen sudah ada di prioritas, nonaktifkan tombol "Tambah Dosen"
+            let isAlreadyAdded = existingPrioritas.some(function (prioritas) {
+                return prioritas.name === dosenName;
+            });
+
+            if (isAlreadyAdded) {
+                $(this).prop("disabled", true); // Nonaktifkan tombol
+            }
+        });
 
         // Fungsi untuk menampilkan riwayat topik dosen pembimbing
         $(".viewHistory").click(function (event) {

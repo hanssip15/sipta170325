@@ -51,7 +51,10 @@ Route::group(['prefix' => 'PengajuanAlokasiPembimbing', 'as' => 'pengajuanalokas
             Route::get('/dosen/history/{nip}', [PengajuanPembimbingController::class, 'getDosenHistory'])->name('dosen-history');
         });
 
-        Route::get('/pratinjau-formulir', [PengajuanPembimbingController::class, 'view_pratinjauFormulir']) -> name('pratinjau-formulir');
+        Route::group(['prefix' => 'pratinjau-formulir', 'as' => 'pratinjau-formulir.'], function () {
+            Route::get('/', [PengajuanPembimbingController::class, 'view_pratinjauFormulir'])->name('index');
+            Route::post('/finalisasi', [PengajuanPembimbingController::class, 'finalisasiData'])->name('finalisasi');
+        });
     });
 
     Route::group(['prefix' => 'DaftarPengajuanDosbing'], function () {

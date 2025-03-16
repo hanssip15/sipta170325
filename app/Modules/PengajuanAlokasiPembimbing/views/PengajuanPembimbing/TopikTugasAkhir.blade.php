@@ -47,7 +47,7 @@
                                     @foreach ($namaBidang as $bidang)
                                         <div class="col-md-6 d-flex align-items-center mb-2">
                                             <input type="checkbox" id="bidang-{{$loop->index}}" class="form-check-input" style="accent-color: #17a2b8;">
-                                            <label for="bidang-{{$loop->index}}" class="m-0 flex-grow-1" style="word-break: break-word; white-space: normal;">
+                                            <label for="bidang-{{$loop->index}}" class="m-0 flex-grow-1" style="word-break: break-word; white-space: normal; font-weight: normal;">
                                                 {{$bidang->bidang}}
                                             </label>
                                         </div>
@@ -104,7 +104,7 @@
 
             // Simpan checkbox yang dicentang
             $("input[type='checkbox']:checked").each(function () {
-                draftData.bidang.push($(this).next("div").text().trim());
+                draftData.bidang.push($(this).next("label").text().trim());
             });
 
             localStorage.setItem("pengajuanTopikDraft", JSON.stringify(draftData));
@@ -118,7 +118,7 @@
                 $("textarea[name='topik']").val(savedData.topik);
 
                 $("input[type='checkbox']").each(function () {
-                    let label = $(this).next("div").text().trim();
+                    let label = $(this).next("label").text().trim();
                     if (savedData.bidang.includes(label)) {
                         $(this).prop("checked", true);
                     }

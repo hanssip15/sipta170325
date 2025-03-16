@@ -89,7 +89,25 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            SweetAlert('info', 'Periksa kembali data anggota kelompok', 'Jika ingin melakukan perubahan, harap lakukan pada pengaturan pengguna sebelum mengajukan dosen pembimbing', 'OK', '', '#3085d6', '', false, true);
+            Swal.fire({
+                icon: 'info',
+                title: 'Periksa kembali data anggota kelompok',
+                text: 'Jika ingin melakukan perubahan, harap lakukan pada pengaturan pengguna sebelum mengajukan dosen pembimbing',
+                cancelButtonText: 'Ubah Data',
+                confirmButtonText: 'OK',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#3085d6',
+                
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Handle OK Button Click (optional)
+                    console.log('User clicked OK');
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // Redirect user when clicking "Ubah Data"
+                    window.location.href = 'topik-tugas-akhir';  // Ganti dengan URL yang sesuai
+                }
+            });
         });
     </script>
 @stop
