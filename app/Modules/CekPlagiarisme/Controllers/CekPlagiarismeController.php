@@ -2,9 +2,12 @@
 
 namespace App\Modules\CekPlagiarisme\Controllers;
 
+set_time_limit(300);
+
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use App\Modules\CekPlagiarisme\Services\PlagiarismChecker;
 use App\Models\Dokumen;
 
 class CekPlagiarismeController extends Controller
@@ -43,18 +46,24 @@ class CekPlagiarismeController extends Controller
     }
     public function show($id): View
     {
-        // Data dummy untuk detail dokumen
-        $dokumen = (object) [
-            'id' => $id,
-            'judul' => 'Implementasi Algoritma Naive',
-            'waktu' => '28-02-2025 14:20:14',
-            'penulis' => 'Mumun Sumumun',
-            'file' => null, // Jika ingin menampilkan file, gunakan 'contoh.pdf'
-            'isi' => 'Ini adalah contoh isi dokumen.',
-            'presentase' => 50,
-            'komentar' => 'Gunakan sumber referensi yang sahih, minimal Sinta 3',
-        ];
+        return view('CekPlagiarisme.views.view');
+    }
 
-        return view('CekPlagiarisme.views.detail', compact('dokumen'));
-    }   
+    public function process(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:pdf,doc,docx|max:15360',
+        ]);
+
+        $filePath = $request->file('file')->store('uploads');
+        $checker = new PlagiarismChecker();
+        
+        // Ekstrak teks dari file
+        $result = $checker->checkPlagiarism(storage_path('app/' . $filePath));
+
+        return view('CekPlagiarisme.views.view', [
+            'results' => $result['results'],
+            'percentage' => $result['percentage']
+        ]);
+    }
 }
