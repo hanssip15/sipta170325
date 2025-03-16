@@ -151,78 +151,7 @@
                             </td>
                         </tr>
                     @endforeach
-                    <td class="align-middle status-cell" data-status="belum_fix">
-                        <input type="text" class="form-control text-center pembimbing mb-2" data-index="{{ $index }}" name="pembimbing1">
-                        <label>Status:</label>
-                        <select class="form-control status-dropdown w-100" onchange="updateStatus(this)">
-                            <option value="belum_fix" selected>Belum Fix</option>
-                            <option value="fix">Fix</option>
-                        </select>
-                    </td>
-                    <td class="align-middle text-left">
-                        <div class="detail-content">
-                            <div><strong>Nama:</strong> {{ $row['detailPembimbing']['nama'] ?? '-' }}</div>
-                            <div><strong>KoTA:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_KoTA'] ?? '0' }} |
-                                P2: {{ $row['detailPembimbing']['pembimbing2_KoTA'] ?? '0' }} |
-                                Total: {{ $row['detailPembimbing']['jumlah_KoTA'] ?? '0' }}</div>
-                            <div><strong>Mhs:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_Mhs'] ?? '0' }} |
-                                P2: {{ $row['detailPembimbing']['pembimbing2_Mhs'] ?? '0' }} |
-                                Total: {{ $row['detailPembimbing']['jumlahMahasiswa'] ?? '0' }}</div>
-                            <div><strong>Kuota:</strong> {{ $row['detailPembimbing']['kuota'] ?? '0' }}</div>
-                            <div><strong>Kelebihan:</strong>
-                                @if (($row['detailPembimbing']['jumlahMahasiswa'] ?? 0) > ($row['detailPembimbing']['kuota'] ?? 0))
-                                <span style="color: red;">
-                                    {{ ($row['detailPembimbing']['jumlahMahasiswa'] ?? 0) - ($row['detailPembimbing']['kuota'] ?? 0) }} (Overload)
-                                </span>
-                                @else
-                                <span style="color: green;">Aman</span>
-                                @endif
-                            </div>
-                        </div>
-                    </td>
-                    <td class="align-middle status-cell" data-status="belum_fix">
-                        <input type="text" class="form-control text-center pembimbing mb-2" data-index="{{ $index }}" name="pembimbing2">
-                        <label>Status:</label>
-                        <select class="form-control status-dropdown w-100" onchange="updateStatus(this)">
-                            <option value="belum_fix" selected>Belum Fix</option>
-                            <option value="fix">Fix</option>
-                        </select>
-                    </td>
-                    <td class="align-middle text-left">
-                        <div class="detail-content">
-                            <div><strong>Nama:</strong> {{ $row['detailPembimbing']['nama'] ?? '-' }}</div>
-                            <div><strong>KoTA:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_KoTA'] ?? '0' }} |
-                                P2: {{ $row['detailPembimbing']['pembimbing2_KoTA'] ?? '0' }} |
-                                Total: {{ $row['detailPembimbing']['jumlah_KoTA'] ?? '0' }}</div>
-                            <div><strong>Mhs:</strong> P1: {{ $row['detailPembimbing']['pembimbing1_Mhs'] ?? '0' }} |
-                                P2: {{ $row['detailPembimbing']['pembimbing2_Mhs'] ?? '0' }} |
-                                Total: {{ $row['detailPembimbing']['jumlahMahasiswa'] ?? '0' }}</div>
-                            <div><strong>Kuota:</strong> {{ $row['detailPembimbing']['kuota'] ?? '0' }}</div>
-                            <div><strong>Kelebihan:</strong>
-                                @if (($row['detailPembimbing']['jumlahMahasiswa'] ?? 0) > ($row['detailPembimbing']['kuota'] ?? 0))
-                                <span style="color: red;">
-                                    {{ ($row['detailPembimbing']['jumlahMahasiswa'] ?? 0) - ($row['detailPembimbing']['kuota'] ?? 0) }} (Overload)
-                                </span>
-                                @else
-                                <span style="color: green;">Aman</span>
-                                @endif
-                            </div>
-                        </div>
-                    </td>
-                    <td class="align-middle">
-                        <input type="text" class="form-control text-center penguji" data-index="{{ $index }}" name="penguji1">
-                    </td>
-                    <td class="align-middle">
-                        <input type="text" class="form-control text-center penguji" data-index="{{ $index }}" name="penguji2">
-                    </td>
-                    <td class="align-middle">
-                        <input type="text" class="form-control text-center penguji" data-index="{{ $index }}" name="penguji3">
-                    </td>
-                    <td class="align-middle" style="min-width: 150px;">
-                        <textarea class="form-control text-left auto-expand" name="catatan_{{ $index }}" rows="1" style="overflow: hidden; resize: none;"></textarea>
-                    </td>
-                </tr>
-                @endforeach
+                    
             </tbody>
         </table>
     </div>
@@ -233,31 +162,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-<div class="p-4 mt-5">
-    <h3>List Dosen Pembimbing</h3>
-    <div class="table-container">
-        <table id="dosenTable" class="table text-center" style="min-width: 600px;">
-            <thead class="sticky-header">
-                <tr class="bg-dark text-white">
-                    <th style="width: 5%;">No</th>
-                    <th style="width: 15%;">ID Dosen</th>
-                    <th style="width: 40%;">Nama</th>
-                    <th style="width: 40%;">KBK</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($dosenList as $index => $dosen)
-                <tr class="bg-light">
-                    <td class="align-middle">{{ $index + 1 }}</td>
-                    <td class="align-middle">{{ $dosen['id_dosen'] }}</td>
-                    <td class="align-middle">{{ $dosen['nama'] }}</td>
-                    <td class="align-middle">{{ $dosen['kbk'] }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-=======
     <div class="p-4 mt-5">
         <h3>List Dosen Pembimbing</h3>
         <div class="table-container">
@@ -287,7 +191,6 @@
                 </tbody>
             </table>
         </div>
->>>>>>> 3846a69c60006d02f8be13982eb37380b3b70482
     </div>
 </div>
 @stop
