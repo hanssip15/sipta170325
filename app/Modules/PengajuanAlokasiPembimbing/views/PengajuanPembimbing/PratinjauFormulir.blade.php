@@ -13,46 +13,46 @@
     <div class="container-fluid row w-100 justify-content-start">
         <div class="card p-4 bg-light">
             <x-pengajuan-alokasi-pembimbing.components.pengajuan-pembimbing.form-stepper step="4" currentStep="4"
-                activeColor="primary" inactiveColor="secondary" 
-                :hrefs="['data-kelompok', 'topik-tugas-akhir', 'prioritas-dosen-pembimbing', 'pratinjau-formulir']" />
+                activeColor="primary" inactiveColor="secondary" :hrefs="['data-kelompok', 'topik-tugas-akhir', 'prioritas-dosen-pembimbing', 'pratinjau-formulir']" />
         </div>
 
         <div class="col">
             <div class="card p-4 bg-light">
-                    <h5 class="mb-3 fw-bold">Data Mahasiswa</h5>
-                    <div class="row mb-3">
+                <h5 class="mb-3 fw-bold">Data Mahasiswa</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label" style="font-weight: normal;">Anggota 1</label>
+                        <p style="font-weight: bold;">Nama : {{ $sessionUser['nama'] }}</p>
+                        <p style="font-weight: bold;">NIM : {{ $sessionUser['nim'] }}</p>
+                    </div>
+
+                    @foreach ($dataAnggota as $index => $anggota)
                         <div class="col-md-4">
-                            <label class="form-label" style="font-weight: normal;">Anggota 1</label>
-                            <p style="font-weight: bold;">Nama : {{ $sessionUser['nama'] }}</p>
-                            <p style="font-weight: bold;">NIM : {{ $sessionUser['nim'] }}</p>
+                            <label class="form-label" style="font-weight: normal;">Anggota {{ $index + 2 }}</label>
+                            <p style="font-weight: bold;">Nama : {{ $anggota->nama }}</p>
+                            <p style="font-weight: bold;">NIM : {{ $anggota->nim }}</p>
                         </div>
-                    
-                        @foreach ($dataAnggota as $index => $anggota)
-                            <div class="col-md-4">
-                                <label class="form-label" style="font-weight: normal;">Anggota {{ $index + 2 }}</label>
-                                <p style="font-weight: bold;">Nama : {{ $anggota->nama }}</p>
-                                <p style="font-weight: bold;">NIM : {{ $anggota->nim }}</p>
-                            </div>
-                        @endforeach
-                    </div>
+                    @endforeach
+                </div>
 
-                    <h5 class="mb-3">Topik Tugas Akhir</h5>
-                    <p id="preview-topik" style="font-weight: bold;">Memuat...</p>
+                <h5 class="mb-3">Topik Tugas Akhir</h5>
+                <p id="preview-topik" style="font-weight: bold;">Memuat...</p>
 
-                    <h5 class="mt-3 mb-3">Bidang Tugas Akhir</h5>
-                    <ol id="preview-bidang" style="font-weight: bold;">
-                        <li>Memuat...</li>
-                    </ol>
+                <h5 class="mt-3 mb-3">Bidang Tugas Akhir</h5>
+                <ol id="preview-bidang" style="font-weight: bold;">
+                    <li>Memuat...</li>
+                </ol>
 
-                    <h5 class="mt-3 mb-3">Prioritas Dosen Pembimbing</h5>
-                    <ul id="preview-prioritas" style="font-weight: bold;">
-                        <li>Memuat...</li>
-                    </ul>
+                <h5 class="mt-3 mb-3">Prioritas Dosen Pembimbing</h5>
+                <ul id="preview-prioritas" style="font-weight: bold;">
+                    <li>Memuat...</li>
+                </ul>
 
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="{{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.prioritas-dosen-pembimbing.index') }}" class="btn btn-info">Sebelumnya</a>
-                        <button type="submit" class="btn btn-sm btn-primary" style="font-size: 16px">Finalisasi Data</button>
-                    </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="{{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.prioritas-dosen-pembimbing.index') }}"
+                        class="btn btn-info">Sebelumnya</a>
+                    <button type="submit" class="btn btn-sm btn-primary" style="font-size: 16px">Finalisasi Data</button>
+                </div>
             </div>
         </div>
     </div>
@@ -65,21 +65,22 @@
     <style>
         #preview-bidang {
             list-style-position: inside;
-            padding-left: 0; 
+            padding-left: 0;
         }
+
         #preview-prioritas {
             list-style-type: none;
-            padding-left: 0; 
+            padding-left: 0;
         }
     </style>
-    
+
 @stop
 
 @section('js')
-    @include('pengajuanalokasipembimbing.Helper.JS.SweetAlert')
+    @include('PengajuanAlokasiPembimbing.Helper.JS.SweetAlert')
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // Menampilkan data topik tugas akhir yang sudah disimpan di localStorage
             let savedData = JSON.parse(localStorage.getItem("pengajuanTopikDraft"));
 
@@ -88,9 +89,9 @@
 
                 let bidangList = document.getElementById("preview-bidang");
                 bidangList.innerHTML = ""; // Kosongkan daftar sebelum ditambahkan
-                
+
                 if (savedData.bidang.length > 0) {
-                    savedData.bidang.forEach(function (bidang) {
+                    savedData.bidang.forEach(function(bidang) {
                         let li = document.createElement("li");
                         li.textContent = bidang;
                         bidangList.appendChild(li);
@@ -107,7 +108,7 @@
                 prioritasList.innerHTML = ""; // Kosongkan daftar sebelum ditambahkan
 
                 // Menampilkan prioritas dosen yang disimpan
-                prioritasDosen.forEach(function (dosen, index) {
+                prioritasDosen.forEach(function(dosen, index) {
                     if (index < 5) { // Maksimal 5 prioritas dosen
                         // Memastikan hanya satu angka urutan yang ditambahkan
                         let listItem = `
@@ -120,13 +121,14 @@
                     }
                 });
             } else {
-                document.getElementById("preview-prioritas").innerHTML = "<li>Tidak ada prioritas dosen yang dipilih.</li>";
+                document.getElementById("preview-prioritas").innerHTML =
+                    "<li>Tidak ada prioritas dosen yang dipilih.</li>";
             }
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // Ketika tombol Finalisasi Data diklik
-            document.querySelector(".btn-primary[type='submit']").addEventListener('click', function () {
+            document.querySelector(".btn-primary[type='submit']").addEventListener('click', function() {
                 // Ambil data dari localStorage
                 let savedData = JSON.parse(localStorage.getItem("pengajuanTopikDraft"));
                 let prioritasDosen = JSON.parse(localStorage.getItem("prioritasDosen"));
@@ -141,26 +143,27 @@
 
                     // Kirim data ke backend dengan fetch
                     fetch('{{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.pratinjau-formulir.finalisasi') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify(dataToSend)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message === 'Data berhasil disimpan') {
-                            alert("Data berhasil disimpan!");
-                            // Redirect atau lakukan sesuatu setelah berhasil
-                        } else {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute('content')
+                            },
+                            body: JSON.stringify(dataToSend)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message === 'Data berhasil disimpan') {
+                                alert("Data berhasil disimpan!");
+                                // Redirect atau lakukan sesuatu setelah berhasil
+                            } else {
+                                alert("Terjadi kesalahan saat menyimpan data.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
                             alert("Terjadi kesalahan saat menyimpan data.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert("Terjadi kesalahan saat menyimpan data.");
-                    });
+                        });
                 } else {
                     alert("Data tidak lengkap.");
                 }
@@ -175,7 +178,7 @@
         //     if (savedData) {
         //         // Populate preview for topik
         //         document.getElementById("preview-topik").textContent = savedData.topik || "Tidak ada data";
-                
+
         //         // Populate bidang preview
         //         let bidangList = document.getElementById("preview-bidang");
         //         bidangList.innerHTML = ""; // Clear the list before adding data
@@ -204,10 +207,10 @@
         //         prioritasDosen.forEach(function (dosen, index) {
         //             if (index < 5) { // Only show a maximum of 5 dosen
         //                 let listItem = `
-        //                     <li>
-        //                         ${dosen.priority}. ${dosen.name}
-        //                     </li>
-        //                 `;
+    //                     <li>
+    //                         ${dosen.priority}. ${dosen.name}
+    //                     </li>
+    //                 `;
         //                 prioritasList.innerHTML += listItem;
         //             }
         //         });
@@ -243,7 +246,6 @@
         //         });
         //     });
         // });
-
     </script>
-    
+
 @stop

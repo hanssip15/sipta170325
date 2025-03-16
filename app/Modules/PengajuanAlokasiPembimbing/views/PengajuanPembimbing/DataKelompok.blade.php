@@ -2,7 +2,7 @@
 
 @section('title', 'Formulir Pengajuan Dosen Pembimbing')
 
-@section('content_header')  
+@section('content_header')
     <div class="m-3">
         <h1>Formulir Pengajuan Dosen Pembimbing</h1>
     </div>
@@ -15,11 +15,10 @@
     <div class="container-fluid row w-100 justify-content-start">
         <div class="card p-4 bg-light">
             <x-pengajuan-alokasi-pembimbing.components.pengajuan-pembimbing.form-stepper step="4" currentStep="1"
-                activeColor="primary" inactiveColor="secondary" 
-                :hrefs="['data-kelompok', 'topik-tugas-akhir', 'prioritas-dosen-pembimbing', 'pratinjau-formulir']" />
+                activeColor="primary" inactiveColor="secondary" :hrefs="['data-kelompok', 'topik-tugas-akhir', 'prioritas-dosen-pembimbing', 'pratinjau-formulir']" />
         </div>
 
-            <!-- Form Pengajuan -->
+        <!-- Form Pengajuan -->
         <div class="col">
             <div class="card p-4 bg-light">
                 <h5 class="mb-3">Data Mahasiswa</h5>
@@ -42,8 +41,8 @@
 
                 <h5 class="mb-3">Data Kelompok</h5>
                 @php
-                    $anggota1 = $dataAnggota[0] ?? (object)['nama' => '-', 'nim' => '-'];
-                    $anggota2 = $dataAnggota[1] ?? (object)['nama' => '-', 'nim' => '-'];
+                    $anggota1 = $dataAnggota[0] ?? (object) ['nama' => '-', 'nim' => '-'];
+                    $anggota2 = $dataAnggota[1] ?? (object) ['nama' => '-', 'nim' => '-'];
                 @endphp
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -68,13 +67,14 @@
 
                 <!-- Tombol Simpan & Selanjutnya -->
                 <div class="d-flex justify-content-end mt-3">
-                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.topik-tugas-akhir') }} class="btn btn-info ml-3">Selanjutnya</a>
+                    <a href={{ route('pengajuanalokasipembimbing.pengajuan-pembimbing.topik-tugas-akhir') }}
+                        class="btn btn-info ml-3">Selanjutnya</a>
                 </div>
             </div>
         </div>
     </div>
 
-    
+
 @stop
 
 @section('css')
@@ -85,7 +85,7 @@
 @stop
 
 @section('js')
-    @include('pengajuanalokasipembimbing.Helper.JS.SweetAlert')
+    @include('PengajuanAlokasiPembimbing.Helper.JS.SweetAlert')
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -98,14 +98,14 @@
                 showCancelButton: true,
                 cancelButtonColor: '#3085d6',
                 confirmButtonColor: '#3085d6',
-                
+
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Handle OK Button Click (optional)
                     console.log('User clicked OK');
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     // Redirect user when clicking "Ubah Data"
-                    window.location.href = 'topik-tugas-akhir';  // Ganti dengan URL yang sesuai
+                    window.location.href = 'topik-tugas-akhir'; // Ganti dengan URL yang sesuai
                 }
             });
         });
