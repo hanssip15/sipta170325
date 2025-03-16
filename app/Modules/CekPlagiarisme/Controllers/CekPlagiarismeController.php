@@ -46,7 +46,9 @@ class CekPlagiarismeController extends Controller
     }
     public function show($id): View
     {
-        return view('CekPlagiarisme.views.view');
+        return view('CekPlagiarisme.views.detail', [
+            'id' => $id
+        ]);
     }
 
     public function process(Request $request)
