@@ -25,7 +25,6 @@ class UserSeeder extends Seeder
 
         // Truncate the table
         DB::table('user')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Re-enable foreign key checks
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

@@ -65,8 +65,12 @@
                 <td rowspan="{{ count($kelompok['anggota']) }}">{{ $kelompok['judul'] }}</td>
                 <td rowspan="{{ count($kelompok['anggota']) }}">{{ $kelompok['tanggal'] }}</td>
                 <td rowspan="{{ count($kelompok['anggota']) }}">
-                    <button class="btn-action btn-accept" data-id="{{ $kelompok['id'] }}">Terima</button>
-                    <button class="btn-action btn-reject" data-id="{{ $kelompok['id'] }}">Tolak</button>
+                    <button class="btn-action btn-accept" data-id="{{ $kelompok['id'] }}" data-action="accept">
+                        Terima
+                    </button>
+                    <button class="btn-action btn-reject" data-id="{{ $kelompok['id'] }}" data-action="reject">
+                        Tolak
+                    </button>
                 </td>
                 @endif
             </tr>
@@ -82,6 +86,7 @@
 @stop
 
 @section('js')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @include('pengajuanalokasipembimbing.Helper.JS.SweetAlert')
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -89,59 +94,77 @@
 
 <script>
     $(document).ready(function() {
-
         function handleAction(kelompokId, actionType) {
-            let actionText = actionType === "accept" ? "menerima" : "menolak";
-            let confirmButtonText = actionType === "accept" ? "Ya, Terima" : "Ya, Tolak";
-            let confirmButtonColor = actionType === "accept" ? "#3085d6" : "#d33";
-
             Swal.fire({
                 title: "Konfirmasi"
-                , text: `Apakah Anda yakin ingin ${actionText} pengajuan ini?`
+                , text: actionType === "accept" ? "Apakah Anda yakin ingin menerima pengajuan ini?" : "Apakah Anda yakin ingin menolak pengajuan ini?"
                 , icon: "warning"
                 , showCancelButton: true
-                , confirmButtonColor: confirmButtonColor
+                , confirmButtonColor: "#3085d6"
                 , cancelButtonColor: "#6c757d"
-                , confirmButtonText: confirmButtonText
+                , confirmButtonText: actionType === "accept" ? "Ya, Terima" : "Ya, Tolak"
                 , cancelButtonText: "Batal"
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: `/pengajuan/${kelompokId}/${actionType}`
+                        url: "/PengajuanAlokasiPembimbing/DaftarPengajuanDosbing/pengajuan/" + kelompokId + "/" + actionType
                         , method: "POST"
-                        , data: {
-                            _token: "{{ csrf_token() }}"
+                        , headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                         }
                         , success: function(response) {
-                            Swal.fire({
-                                title: "Berhasil!"
-                                , text: `Kelompok ${kelompokId} telah ${actionText}.`
-                                , icon: "success"
-                            }).then(() => {
-                                location.reload();
-                            });
-                        }
-                        , error: function() {
-                            Swal.fire({
-                                title: "Error!"
-                                , text: "Terjadi kesalahan saat memproses permintaan."
-                                , icon: "error"
-                            });
+                                console.log("Response dari server:", response);
+                                console.log("Memanggil Swal", response.status);
+
+                                // Jika kota sudah dipilih sebelumnya, hanya tampilkan pesan "exists" dan hentikan eksekusi berikutnya
+                                if (response.status === "exists") {
+                                    Swal.fire({
+                                        title: "Kota sudah dipilih!"
+                                        , text: response.message
+                                        , icon: "warning"
+                                    });
+                                    return; // Hentikan eksekusi agar Swal success tidak muncul
+                                }
+
+                                // Jika tidak masuk ke kondisi "exists", jalankan Swal sukses
+                                Swal.fire({
+                                    title: "Berhasil!"
+                                    , text: response.message
+                                    , icon: "success"
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            }
+
+
+                        , error: function(xhr) {
+                            if (xhr.status === 422) {
+                                Swal.fire({
+                                    title: "Kuota Terpenuhi!"
+                                    , text: xhr.responseJSON.message
+                                    , icon: "warning"
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Error!"
+                                    , text: "Terjadi kesalahan saat memperbarui data."
+                                    , icon: "error"
+                                });
+                            }
+                            console.error(xhr.responseText); // Debugging
                         }
                     });
                 }
             });
         }
 
-        $(document).on("click", ".btn-accept", function() {
-            handleAction($(this).data("id"), "accept");
+        $(document).on("click", ".btn-action", function() {
+            let kelompokId = $(this).data("id");
+            let actionType = $(this).data("action");
+            handleAction(kelompokId, actionType);
         });
-
-        $(document).on("click", ".btn-reject", function() {
-            handleAction($(this).data("id"), "reject");
-        });
-
     });
 
 </script>
+
 @stop

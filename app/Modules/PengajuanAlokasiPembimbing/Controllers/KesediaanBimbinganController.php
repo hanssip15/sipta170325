@@ -6,6 +6,8 @@ use App\Models\Bidang;
 use App\Models\Dosen;
 use App\Models\JadwalDosenPembimbing;
 use App\Models\KetertarikanBidang;
+use App\Models\Kota;
+use App\Models\PeriodePengajuan;
 use App\Modules\Controller;
 use DB;
 use Illuminate\View\View;
@@ -13,10 +15,12 @@ use Validator;
 
 class KesediaanBimbinganController extends Controller
 {
-    private $USER_ID = '10001';
+    private $USER_ID = '196810141993032002';
 
     public function get_info(): array
     {
+        $currentdate = date('Y-m-d');
+
         return [
             'BidangInterestTotal' => KetertarikanBidang::where('nip', $this->USER_ID)->count() ?: 0,
             'MaxBimbingan' => [
@@ -26,7 +30,8 @@ class KesediaanBimbinganController extends Controller
             'JadwalTotal' => [
                 'Day' => JadwalDosenPembimbing::where('nip', $this->USER_ID)->distinct('hari')->count() ?: 0,
                 'Session' => JadwalDosenPembimbing::where('nip', $this->USER_ID)->count() ?: 0,
-            ]
+            ],
+            'Periode' => PeriodePengajuan::where('periode_mulai', '<=', $currentdate)->where('periode_akhir', '>=', $currentdate)->exists()
         ];
     }
 
@@ -40,10 +45,19 @@ class KesediaanBimbinganController extends Controller
             'savedBidang' => $savedBidang,
             'savedInformation' => $this->get_info()
         ];
+
         return view('PengajuanAlokasiPembimbing.views.KesediaanBimbingan.Bidang', $data);
     }
     public function save_minatTopik(bool $method = false)
     {
+        if (!$this->get_info()['Periode']) {
+            if (!$method) {
+                session()->flash('error', 'Periode pengajuan belum dibuka');
+                return redirect()->back();
+            }
+            return;
+        }
+
         $data = request()->all();
         $data['nip'] = $this->USER_ID;
         $data['bidang'] = $data['bidang'] ?? [];
@@ -80,6 +94,11 @@ class KesediaanBimbinganController extends Controller
 
     public function create_bidang()
     {
+        if (!$this->get_info()['Periode']) {
+            session()->flash('error', 'Periode pengajuan belum dibuka');
+            return redirect()->back();
+        }
+
         $data = request()->all();
         $data['nip'] = $this->USER_ID;
         $validator = Validator::make($data, [
@@ -123,6 +142,14 @@ class KesediaanBimbinganController extends Controller
     }
     public function save_kuotaMahasiswa(bool $method = false)
     {
+        if (!$this->get_info()['Periode']) {
+            if (!$method) {
+                session()->flash('error', 'Periode pengajuan belum dibuka');
+                return redirect()->back();
+            }
+            return;
+        }
+
         $data = request()->all();
         $data['nip'] = $this->USER_ID;
 
