@@ -102,6 +102,15 @@ class UserSeeder extends Seeder
                 'no_whatsapp' => '081234567893',
                 'photo' => 'default.png'
             ],
+            [
+                'username' => '221524035',
+                'nama' => 'Mahasiswa Tiga',
+                'email' => 'mahasiswa3@example.com',
+                'password' => Hash::make('mahasiswa123'),
+                'role_user' => 'mahasiswa',
+                'no_whatsapp' => '081234567893',
+                'photo' => 'default.png'
+            ],
         ];
 
         foreach ($data as $item) {
