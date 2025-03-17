@@ -18,7 +18,7 @@ Route::group(['prefix' => 'KelolaPenilaianTA'], function () {
     // Route::put('formulir-penilaian/{id}', [FormulirPenilaianController::class, 'update'])->name('formulir-penilaian.update');
     Route::get('/monitoring-mahasiswa', [KelolaPenilaianTAController::class, 'indexMonitoringMahasiswa']);
     Route::get('/monitoring-feedback', [KelolaPenilaianTAController::class, 'indexMonitoringFeedback']);
-    Route::get('/monitoring-rubrik', [KelolaPenilaianTAController::class, 'indexMonitoringRubrik']);
+    Route::get('/monitoring-rubrik', [KelolaPenilaianTAController::class, 'indexMonitoringRubrik'])
     Route::get('/pengelolaan-nilai', [KelolaPenilaianTAController::class, 'kelola_nilai']);
     Route::get('/detail/{kategori}', [KelolaPenilaianTAController::class, 'detail_nilai_mahasiswa']);
     Route::get('/rekapitulasi-nilai', [KelolaPenilaianTAController::class, 'getRekapNilai']);
