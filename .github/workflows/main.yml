@@ -37,6 +37,10 @@ jobs:
       - name: Copy .env
         run: cp .env.example .env
 
+      - name: Update .env for CI
+        run: |
+          sed -i 's/DB_HOST=.*/DB_HOST=0.0.0.0/' .env
+
       - name: Generate Application Key
         run: php artisan key:generate
 
