@@ -40,8 +40,11 @@ jobs:
       - name: Generate Application Key
         run: php artisan key:generate
 
+      - name: Wipe Database
+        run: php artisan db:wipe --force
+
       - name: Run Migrations
-        run: php artisan migrate --force
+        run: php artisan artisan:migrate --seed --force
 
       - name: Run PHP Linter (PHPCS)
         run: |
