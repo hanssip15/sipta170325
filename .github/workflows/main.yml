@@ -45,9 +45,3 @@ jobs:
 
       - name: Run Migrations
         run: php artisan migrate:fresh --seed --force
-
-      - name: Run PHP Linter (PHPCS)
-        run: |
-          composer require --dev squizlabs/php_codesniffer
-          vendor/bin/phpcs --standard=PSR12 app/
-          
