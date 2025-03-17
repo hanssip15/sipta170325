@@ -31,6 +31,14 @@ class FormPenilaianSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'nama_fta' => 'Form Penilaian 3',
+                'id_prodi' => 1,
+                'jenis_form' => 'feedback',
+                'tanggal_tenggat_pengisian' => '2024-08-01',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ];
 
         foreach ($data as $item) {
